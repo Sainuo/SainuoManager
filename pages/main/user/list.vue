@@ -20,25 +20,45 @@
                   @sort-change="handleSortChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column prop="name"
+            <el-table-column prop="userName"
                              label="用户名"
                              sortable
                              width="180">
             </el-table-column>
-            <el-table-column prop="address"
-                             label="角色">
+            <el-table-column prop="name"
+                             label="姓名"
+                             sortable
+                             width="180">
             </el-table-column>
-            <el-table-column prop="address"
-                             label="姓名">
+            <el-table-column prop="roles"
+                             label="角色"
+                             sortable
+                             width="180">
+                    <template slot-scope="scope">
+                    <span>{{scope.row.roles.join(",")}}</span>
+                    </template>
+            </el-table-column>
+            <el-table-column prop="surname"
+                             label="姓名"
+                             sortable
+                             width="180">
+            </el-table-column>
+            <el-table-column prop="fullName"
+                             label="全名"
+                             sortable
+                             width="180">
+            </el-table-column>
+            <el-table-column prop="emailAddress"
+                             label="邮箱">
             </el-table-column>
             <el-table-column prop="address"
                              label="手机号码">
             </el-table-column>
-            <el-table-column prop="date"
+            <el-table-column prop="lastLoginTime"
                              label="上次登录时间"
                              width="180">
             </el-table-column>
-            <el-table-column prop="date"
+            <el-table-column prop="creationTime"
                              label="创建时间"
                              width="180">
             </el-table-column>
