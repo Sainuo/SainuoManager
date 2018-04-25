@@ -13,11 +13,11 @@
     </ul>
     <p>原型</p>
     <ul>
-        <li><a href="http://220.165.143.68:8888/sainuo/" target="_blank">Git</a></li>
+        <li><a href="http://220.165.143.68:8888/sainuo/" target="_blank">原型</a></li>
     </ul>
     <p>Git</p>
     <ul>
-        <li><a href="https://github.com/jackie319/MMY?files=1" target="_blank">Git</a></li>
+        <li><a href="https://github.com/" target="_blank">Git</a></li>
     </ul>
     <p>VUE</p>
     <ul>

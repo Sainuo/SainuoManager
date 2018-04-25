@@ -3,36 +3,36 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _2cd52ddf = () => import('..\\pages\\main.vue' /* webpackChunkName: "pages_main" */).then(m => m.default || m)
-const _5ae2a269 = () => import('..\\pages\\main\\users\\index.vue' /* webpackChunkName: "pages_main_users_index" */).then(m => m.default || m)
-const _58314e52 = () => import('..\\pages\\main\\orgnization\\index.vue' /* webpackChunkName: "pages_main_orgnization_index" */).then(m => m.default || m)
-const _704461c0 = () => import('..\\pages\\main\\demo\\index.vue' /* webpackChunkName: "pages_main_demo_index" */).then(m => m.default || m)
-const _62798974 = () => import('..\\pages\\main\\demo\\form.vue' /* webpackChunkName: "pages_main_demo_form" */).then(m => m.default || m)
-const _c1ea5d58 = () => import('..\\pages\\main\\home\\welcome.vue' /* webpackChunkName: "pages_main_home_welcome" */).then(m => m.default || m)
-const _e27be3f0 = () => import('..\\pages\\main\\user\\list.vue' /* webpackChunkName: "pages_main_user_list" */).then(m => m.default || m)
-const _5549ee1a = () => import('..\\pages\\main\\role\\list.vue' /* webpackChunkName: "pages_main_role_list" */).then(m => m.default || m)
-const _0165a692 = () => import('..\\pages\\main\\custom\\loadcomponent.vue' /* webpackChunkName: "pages_main_custom_loadcomponent" */).then(m => m.default || m)
-const _2d2c9553 = () => import('..\\pages\\main\\custom\\windowloader.vue' /* webpackChunkName: "pages_main_custom_windowloader" */).then(m => m.default || m)
-const _7cd09ab4 = () => import('..\\pages\\main\\custom\\nuxtloader.vue' /* webpackChunkName: "pages_main_custom_nuxtloader" */).then(m => m.default || m)
-const _fa022046 = () => import('..\\pages\\main\\custom\\component.vue' /* webpackChunkName: "pages_main_custom_component" */).then(m => m.default || m)
-const _c3eb9518 = () => import('..\\pages\\main\\user\\edit.vue' /* webpackChunkName: "pages_main_user_edit" */).then(m => m.default || m)
-const _ff6d4576 = () => import('..\\pages\\main\\integration\\ECharts.vue' /* webpackChunkName: "pages_main_integration_ECharts" */).then(m => m.default || m)
-const _fcb4b0ca = () => import('..\\pages\\main\\demo\\urlQuery.vue' /* webpackChunkName: "pages_main_demo_urlQuery" */).then(m => m.default || m)
-const _59784ca0 = () => import('..\\pages\\main\\integration\\AMap.vue' /* webpackChunkName: "pages_main_integration_AMap" */).then(m => m.default || m)
-const _1c3fb81e = () => import('..\\pages\\main\\demo\\listdetail.vue' /* webpackChunkName: "pages_main_demo_listdetail" */).then(m => m.default || m)
-const _5108ed56 = () => import('..\\pages\\main\\demo\\tableexpand.vue' /* webpackChunkName: "pages_main_demo_tableexpand" */).then(m => m.default || m)
-const _73567ed6 = () => import('..\\pages\\main\\demo\\importPage.vue' /* webpackChunkName: "pages_main_demo_importPage" */).then(m => m.default || m)
-const _c12caee6 = () => import('..\\pages\\main\\demo\\router.push.vue' /* webpackChunkName: "pages_main_demo_router.push" */).then(m => m.default || m)
-const _02bc6220 = () => import('..\\pages\\main\\demo\\list.vue' /* webpackChunkName: "pages_main_demo_list" */).then(m => m.default || m)
-const _601b4f6f = () => import('..\\pages\\main\\orgnization\\userinorgnization.vue' /* webpackChunkName: "pages_main_orgnization_userinorgnization" */).then(m => m.default || m)
-const _783aa7ae = () => import('..\\pages\\main\\orgnization\\list.vue' /* webpackChunkName: "pages_main_orgnization_list" */).then(m => m.default || m)
-const _59aa58d6 = () => import('..\\pages\\main\\orgnization\\edit.vue' /* webpackChunkName: "pages_main_orgnization_edit" */).then(m => m.default || m)
-const _34868586 = () => import('..\\pages\\main\\demo\\docs.vue' /* webpackChunkName: "pages_main_demo_docs" */).then(m => m.default || m)
-const _6572008c = () => import('..\\pages\\main\\integration\\CKEditor.vue' /* webpackChunkName: "pages_main_integration_CKEditor" */).then(m => m.default || m)
-const _5059e5d3 = () => import('..\\pages\\main\\orgnization\\editTree.vue' /* webpackChunkName: "pages_main_orgnization_editTree" */).then(m => m.default || m)
-const _2dbf7df2 = () => import('..\\pages\\main\\demo\\urlParams\\_id.vue' /* webpackChunkName: "pages_main_demo_urlParams__id" */).then(m => m.default || m)
-const _3f4fa9de = () => import('..\\pages\\main\\users\\_id.vue' /* webpackChunkName: "pages_main_users__id" */).then(m => m.default || m)
-const _4f456a1c = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
+const _65ded10a = () => import('..\\pages\\main.vue' /* webpackChunkName: "pages_main" */).then(m => m.default || m)
+const _38270b05 = () => import('..\\pages\\main\\users\\index.vue' /* webpackChunkName: "pages_main_users_index" */).then(m => m.default || m)
+const _7289dc73 = () => import('..\\pages\\main\\orgnization\\index.vue' /* webpackChunkName: "pages_main_orgnization_index" */).then(m => m.default || m)
+const _3a7b14b8 = () => import('..\\pages\\main\\demo\\index.vue' /* webpackChunkName: "pages_main_demo_index" */).then(m => m.default || m)
+const _04011ae2 = () => import('..\\pages\\main\\demo\\form.vue' /* webpackChunkName: "pages_main_demo_form" */).then(m => m.default || m)
+const _6a537c38 = () => import('..\\pages\\main\\home\\welcome.vue' /* webpackChunkName: "pages_main_home_welcome" */).then(m => m.default || m)
+const _780024b8 = () => import('..\\pages\\main\\user\\list.vue' /* webpackChunkName: "pages_main_user_list" */).then(m => m.default || m)
+const _0a98e88f = () => import('..\\pages\\main\\role\\list.vue' /* webpackChunkName: "pages_main_role_list" */).then(m => m.default || m)
+const _fd8298ca = () => import('..\\pages\\main\\custom\\loadcomponent.vue' /* webpackChunkName: "pages_main_custom_loadcomponent" */).then(m => m.default || m)
+const _a586bc22 = () => import('..\\pages\\main\\custom\\windowloader.vue' /* webpackChunkName: "pages_main_custom_windowloader" */).then(m => m.default || m)
+const _603a3642 = () => import('..\\pages\\main\\custom\\nuxtloader.vue' /* webpackChunkName: "pages_main_custom_nuxtloader" */).then(m => m.default || m)
+const _5b20ee7e = () => import('..\\pages\\main\\custom\\component.vue' /* webpackChunkName: "pages_main_custom_component" */).then(m => m.default || m)
+const _596fd5e0 = () => import('..\\pages\\main\\user\\edit.vue' /* webpackChunkName: "pages_main_user_edit" */).then(m => m.default || m)
+const _005969e1 = () => import('..\\pages\\main\\integration\\ECharts.vue' /* webpackChunkName: "pages_main_integration_ECharts" */).then(m => m.default || m)
+const _1f725937 = () => import('..\\pages\\main\\demo\\urlQuery.vue' /* webpackChunkName: "pages_main_demo_urlQuery" */).then(m => m.default || m)
+const _ae2e34f8 = () => import('..\\pages\\main\\integration\\AMap.vue' /* webpackChunkName: "pages_main_integration_AMap" */).then(m => m.default || m)
+const _4f46de8d = () => import('..\\pages\\main\\demo\\listdetail.vue' /* webpackChunkName: "pages_main_demo_listdetail" */).then(m => m.default || m)
+const _bf0cf38c = () => import('..\\pages\\main\\demo\\tableexpand.vue' /* webpackChunkName: "pages_main_demo_tableexpand" */).then(m => m.default || m)
+const _5e858d1c = () => import('..\\pages\\main\\demo\\importPage.vue' /* webpackChunkName: "pages_main_demo_importPage" */).then(m => m.default || m)
+const _224b7d1e = () => import('..\\pages\\main\\demo\\router.push.vue' /* webpackChunkName: "pages_main_demo_router.push" */).then(m => m.default || m)
+const _37fa41bc = () => import('..\\pages\\main\\demo\\list.vue' /* webpackChunkName: "pages_main_demo_list" */).then(m => m.default || m)
+const _7fe9490b = () => import('..\\pages\\main\\orgnization\\userinorgnization.vue' /* webpackChunkName: "pages_main_orgnization_userinorgnization" */).then(m => m.default || m)
+const _1353450d = () => import('..\\pages\\main\\orgnization\\list.vue' /* webpackChunkName: "pages_main_orgnization_list" */).then(m => m.default || m)
+const _229b6c79 = () => import('..\\pages\\main\\orgnization\\edit.vue' /* webpackChunkName: "pages_main_orgnization_edit" */).then(m => m.default || m)
+const _1afa9cd9 = () => import('..\\pages\\main\\demo\\docs.vue' /* webpackChunkName: "pages_main_demo_docs" */).then(m => m.default || m)
+const _4f38869e = () => import('..\\pages\\main\\integration\\CKEditor.vue' /* webpackChunkName: "pages_main_integration_CKEditor" */).then(m => m.default || m)
+const _5b692692 = () => import('..\\pages\\main\\orgnization\\editTree.vue' /* webpackChunkName: "pages_main_orgnization_editTree" */).then(m => m.default || m)
+const _69304da3 = () => import('..\\pages\\main\\demo\\urlParams\\_id.vue' /* webpackChunkName: "pages_main_demo_urlParams__id" */).then(m => m.default || m)
+const _15960aad = () => import('..\\pages\\main\\users\\_id.vue' /* webpackChunkName: "pages_main_users__id" */).then(m => m.default || m)
+const _93119800 = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
 
 
 
@@ -94,154 +94,154 @@ export function createRouter () {
     routes: [
 		{
 			path: "/main",
-			component: _2cd52ddf,
+			component: _65ded10a,
 			name: "main",
 			children: [
 				{
 					path: "users",
-					component: _5ae2a269,
+					component: _38270b05,
 					name: "main-users"
 				},
 				{
 					path: "orgnization",
-					component: _58314e52,
+					component: _7289dc73,
 					name: "main-orgnization"
 				},
 				{
 					path: "demo",
-					component: _704461c0,
+					component: _3a7b14b8,
 					name: "main-demo"
 				},
 				{
 					path: "demo/form",
-					component: _62798974,
+					component: _04011ae2,
 					name: "main-demo-form"
 				},
 				{
 					path: "home/welcome",
-					component: _c1ea5d58,
+					component: _6a537c38,
 					name: "main-home-welcome"
 				},
 				{
 					path: "user/list",
-					component: _e27be3f0,
+					component: _780024b8,
 					name: "main-user-list"
 				},
 				{
 					path: "role/list",
-					component: _5549ee1a,
+					component: _0a98e88f,
 					name: "main-role-list"
 				},
 				{
 					path: "custom/loadcomponent",
-					component: _0165a692,
+					component: _fd8298ca,
 					name: "main-custom-loadcomponent"
 				},
 				{
 					path: "custom/windowloader",
-					component: _2d2c9553,
+					component: _a586bc22,
 					name: "main-custom-windowloader"
 				},
 				{
 					path: "custom/nuxtloader",
-					component: _7cd09ab4,
+					component: _603a3642,
 					name: "main-custom-nuxtloader"
 				},
 				{
 					path: "custom/component",
-					component: _fa022046,
+					component: _5b20ee7e,
 					name: "main-custom-component"
 				},
 				{
 					path: "user/edit",
-					component: _c3eb9518,
+					component: _596fd5e0,
 					name: "main-user-edit"
 				},
 				{
 					path: "integration/ECharts",
-					component: _ff6d4576,
+					component: _005969e1,
 					name: "main-integration-ECharts"
 				},
 				{
 					path: "demo/urlQuery",
-					component: _fcb4b0ca,
+					component: _1f725937,
 					name: "main-demo-urlQuery"
 				},
 				{
 					path: "integration/AMap",
-					component: _59784ca0,
+					component: _ae2e34f8,
 					name: "main-integration-AMap"
 				},
 				{
 					path: "demo/listdetail",
-					component: _1c3fb81e,
+					component: _4f46de8d,
 					name: "main-demo-listdetail"
 				},
 				{
 					path: "demo/tableexpand",
-					component: _5108ed56,
+					component: _bf0cf38c,
 					name: "main-demo-tableexpand"
 				},
 				{
 					path: "demo/importPage",
-					component: _73567ed6,
+					component: _5e858d1c,
 					name: "main-demo-importPage"
 				},
 				{
 					path: "demo/router.push",
-					component: _c12caee6,
+					component: _224b7d1e,
 					name: "main-demo-router.push"
 				},
 				{
 					path: "demo/list",
-					component: _02bc6220,
+					component: _37fa41bc,
 					name: "main-demo-list"
 				},
 				{
 					path: "orgnization/userinorgnization",
-					component: _601b4f6f,
+					component: _7fe9490b,
 					name: "main-orgnization-userinorgnization"
 				},
 				{
 					path: "orgnization/list",
-					component: _783aa7ae,
+					component: _1353450d,
 					name: "main-orgnization-list"
 				},
 				{
 					path: "orgnization/edit",
-					component: _59aa58d6,
+					component: _229b6c79,
 					name: "main-orgnization-edit"
 				},
 				{
 					path: "demo/docs",
-					component: _34868586,
+					component: _1afa9cd9,
 					name: "main-demo-docs"
 				},
 				{
 					path: "integration/CKEditor",
-					component: _6572008c,
+					component: _4f38869e,
 					name: "main-integration-CKEditor"
 				},
 				{
 					path: "orgnization/editTree",
-					component: _5059e5d3,
+					component: _5b692692,
 					name: "main-orgnization-editTree"
 				},
 				{
 					path: "demo/urlParams/:id?",
-					component: _2dbf7df2,
+					component: _69304da3,
 					name: "main-demo-urlParams-id"
 				},
 				{
 					path: "users/:id?",
-					component: _3f4fa9de,
+					component: _15960aad,
 					name: "main-users-id"
 				}
 			]
 		},
 		{
 			path: "/",
-			component: _4f456a1c,
+			component: _93119800,
 			name: "index"
 		}
     ],
