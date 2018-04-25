@@ -4,7 +4,7 @@
     <el-tab-pane label="用户管理" name="basic">
       <el-form ref="userForm" :model="ruleForm" label-width="80px">
         <el-form-item label="用户名">
-          <el-input v-model="ruleForm.name" clearable :max="50" placeholder="输入50字以内"></el-input>
+          <el-input v-model="ruleForm.userName" clearable :max="50" placeholder="输入50字以内"></el-input>
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="ruleForm.name" clearable :max="50" placeholder="输入50字以内"></el-input>
@@ -67,7 +67,7 @@ export default {
     rules: {
       userName: [
         { required: true, message: "请输入活动名称", trigger: "blur" },
-        { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
+        { min: 3, max: 50, message: "长度在 3 到 5 个字符", trigger: "blur" }
       ],
       name: [
         { required: true, message: "请选择活动区域", trigger: "change" }
