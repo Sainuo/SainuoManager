@@ -51,7 +51,8 @@ module.exports = {
         // };
         //config.mode = "spa";
         config.devtool = "inline-source-map";
-        config.entry.polyfill="eventsource-polyfill";
+        config.entry.babelpolyfill="babel-polyfill";
+        config.entry.eventsourcepolyfill="eventsource-polyfill";
         /*         config.optimization = {
                   minimize: true,
                   //https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693?utm_source=aotu_io&utm_medium=liteo2_web

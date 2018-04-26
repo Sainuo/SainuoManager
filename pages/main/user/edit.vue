@@ -6,7 +6,10 @@
         <el-form-item label="用户名" props="userName">
           <el-input v-model="ruleForm.userName" clearable :max="50" placeholder="输入50字以内"></el-input>
         </el-form-item>
-        <el-form-item label="姓名" props="name">
+        <el-form-item label="姓氏" props="surname">
+          <el-input v-model="ruleForm.surname" clearable :max="50" placeholder="输入50字以内"></el-input>
+        </el-form-item>
+        <el-form-item label="名字" props="name">
           <el-input v-model="ruleForm.name" clearable :max="50" placeholder="输入50字以内"></el-input>
         </el-form-item>
         <el-form-item label="电子邮箱" props="emailAddress">
@@ -14,6 +17,9 @@
         </el-form-item>
         <el-form-item label="手机号码" props="phoneNumber">
           <el-input v-model="ruleForm.phoneNumber" clearable :max="11" placeholder="输入11位手机号码"></el-input>
+        </el-form-item>
+        <el-form-item label="初始密码" props="password">
+          <el-input v-model="ruleForm.password" clearable placeholder="不输入默认gl123456"></el-input>
         </el-form-item>
         <el-form-item label="" props="isActive">
           <el-checkbox v-model="ruleForm.isActive">启用</el-checkbox>
@@ -25,13 +31,13 @@
     </el-tab-pane>
     <el-tab-pane label="角色" name="role">
         <el-form :model="ruleForm" label-width="80px">
-            <el-checkbox-group v-model="ruleForm.roles">
-                <el-checkbox v-for="role in rolescheck" :key="role.id" :label="role.id" :checked="ruleForm.roles.includes(role.id)" >{{role.name}}</el-checkbox>
+            <el-checkbox-group v-model="ruleForm.roleNames">
+                <el-checkbox v-for="role in rolescheck" :key="role.name" :label="role.name" :checked="ruleForm.roleNames.includes(role.id)" >{{role.name}}</el-checkbox>
             </el-checkbox-group>
         </el-form>
     </el-tab-pane>
     <el-tab-pane label="组织机构" name="orgnization">
-          <el-select v-model="ruleForm.organizationId" filterable placeholder="Select">
+          <el-select v-model="ruleForm.organizationId" filterable placeholder="请选择所属组织">
             <el-option v-for="orgnization in orgnizationList" :key="orgnization.id" :label="orgnization.displayName" :value="orgnization.id"></el-option>
           </el-select>
     </el-tab-pane>
@@ -58,12 +64,13 @@ export default {
     },
     ruleForm: {
       userName: "",
-      name: "",
       surname: "",
+      name: "",
+      password:"",
       emailAddress: "",
       isActive: true,
       fullName: "",
-      roles: [],
+      roleNames: [],
       organizationId: null,
       id: 0
     },
