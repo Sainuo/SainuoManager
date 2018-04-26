@@ -17,9 +17,6 @@
                       <el-form-item>
                           <el-checkbox v-model="form.isRemember">记住密码</el-checkbox>
                       </el-form-item>
-                      <el-form-item>
-                          <el-button type="primary" @keydown.13="login" @click="login" class="col-12" :loading="loading">登录</el-button>
-                      </el-form-item>
                     </el-tab-pane>
                     <el-tab-pane label="手机号登录" name="phone">
                        <el-form-item label="手机号" prop="username">
@@ -28,12 +25,11 @@
                       <el-form-item label="验证码" prop="passwords">
                           <el-input type="password" v-model="form.passwords" auto-complete="off"></el-input>
                       </el-form-item>
-                      <el-form-item>
-                          <el-button type="primary" @keydown.13="login" @click="login" class="col-12" :loading="loading">登录</el-button>
-                      </el-form-item>
                     </el-tab-pane>
                   </el-tabs>
-
+                </div>
+                <div>
+                  <el-button type="primary" @keydown.13="login" @click="login" class="col-12" :loading="loading">登录</el-button>
                 </div>
             </el-form>
         </div>
@@ -88,7 +84,9 @@ export default {
           "usernameOrEmailAddress": me.form.username,
           "password": me.form.passwords
       };
+      me.loading=true;
       axios.post(apiConfig.user_login,postData).then(response => {
+        me.loading=false;
         axios.defaults.headers.common['authorization'] =`Bearer ${response.data.result}`;
         me.$router.push("/main");
       });

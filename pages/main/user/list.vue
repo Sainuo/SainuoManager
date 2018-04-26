@@ -140,7 +140,7 @@
             },
             onAdd() {
                 var me = this;
-                me.$loaderwindow("/Account/Detail?id=0", "创建用户")
+                me.$loaderwindow("/main/user/edit?id=0", "创建用户")
                     .then( model => {
                         me.$message({ type: "success", message: "创建用户成功！" });
                         me.loadData();
@@ -148,7 +148,7 @@
             },
             onEdit(model) {
                 var me = this;
-                me.$loaderwindow("/Account/Detail", { Guid: model.Uid }, "编辑用户：{RealName}".format(model))
+                me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
                     .then(model => {
                         me.$message({ type: "success", message: "编辑用户成功！" });
                         me.loadData();
@@ -169,6 +169,11 @@
                 } else {
                     me.$alert("请勾中要删除的项");
                 }
+            },
+            deleteSelect(model){
+                axios.delete(apiConfig.user_delete,{params:{id:model.id}}).then(response=>{
+                    me.$message({ type: "success", message: "删除用户成功！" });
+                });
             },
             onResetPassword (model) {
                 var me = this;

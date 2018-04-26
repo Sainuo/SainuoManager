@@ -1,21 +1,21 @@
 <template>
   <div>
-      <!--<nuext-loader path="/main/demo/list"></nuext-loader>-->
-      <el-input v-model="name"></el-input>
-      
+    <el-select v-model="path">
+        <el-option value="/main/demo/list?id=123">list</el-option>
+        <el-option value="/main/demo/form?id=456">form</el-option>
+    </el-select>
+    <nuxt-loader :path="path"></nuxt-loader>
   </div>
 </template>
 <script>
-import nuextLoader from '~/components/nuxt-loader'
-import list from "../demo/list.vue"
+import nuxtLoader from '~/components/nuxt-loader'
 
 export default {
   data:()=>({
-    name:list
+    path:"/main/demo/list?id=123"
   }),
   components:{
-      nuextLoader
+      nuxtLoader
   }
 }
 </script>
-
