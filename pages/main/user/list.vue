@@ -200,8 +200,6 @@
         },
         mounted () {
             var me = this;
-            window.vm = me;
-            window.axios = axios;
             me.loadData();
         }
     };
