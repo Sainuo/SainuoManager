@@ -7,9 +7,9 @@
         <el-form-item label="确认密码" prop="checkPassword">
             <el-input type="password" v-model="ruleForm.checkPassword" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item>
+        <div class="text-align-right">
             <el-button type="primary" @click="submitForm">提交</el-button>
-        </el-form-item>
+        </div>
     </el-form>
 </div>
 </template>

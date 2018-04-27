@@ -18,7 +18,7 @@
         <el-form-item label="手机号码" props="phoneNumber">
           <el-input v-model="ruleForm.phoneNumber" clearable :max="11" placeholder="输入11位手机号码"></el-input>
         </el-form-item>
-        <el-form-item label="初始密码" props="password">
+        <el-form-item label="初始密码" props="password" v-if="id===0">
           <el-input v-model="ruleForm.password" clearable placeholder="不输入默认gl123456"></el-input>
         </el-form-item>
         <el-form-item label="" props="isActive">
@@ -30,9 +30,9 @@
       </el-form>
     </el-tab-pane>
     <el-tab-pane label="角色" name="role">
-        <el-form :model="ruleForm" label-width="80px">
-            <el-checkbox-group v-model="ruleForm.roleNames">
-                <el-checkbox v-for="role in rolescheck" :key="role.name" :label="role.name" :checked="ruleForm.roleNames.includes(role.id)" >{{role.name}}</el-checkbox>
+        <el-form label-width="80px">
+            <el-checkbox-group v-model="ruleForm.roles">
+                <el-checkbox v-for="role in rolescheck" :key="role.name" :label="role.name" :checked="ruleForm.roles.includes(role.id)" >{{role.name}}</el-checkbox>
             </el-checkbox-group>
         </el-form>
     </el-tab-pane>
@@ -42,8 +42,8 @@
           </el-select>
     </el-tab-pane>
     <div class="text-align-right">
-      <el-button @click="onConfirm" type="primary">保存</el-button>
       <el-button @click="onCancel">取消</el-button>
+      <el-button @click="onConfirm" type="primary">保存</el-button>
     </div> 
   </el-tabs>
   </div>
@@ -70,7 +70,7 @@ export default {
       emailAddress: "",
       isActive: true,
       fullName: "",
-      roleNames: [],
+      roles: [],
       organizationId: null,
       id: 0
     },
@@ -118,7 +118,7 @@ export default {
       loadData(){
         var me=this;
         axios.post(apiConfig.user_get,{ id:me.id}).then(response=>{
-            me.ruleForm = response.data;
+            me.ruleForm = response.data.result;
         });
       },
       loadOrgnizationtree(){
@@ -141,8 +141,8 @@ export default {
   },
   mounted(){
     var me = this;
-    if(typeof me.$route.query.id > 0){
-      me.id = me.$route.query.id;
+    if(typeof me.$route.query.id === "string" && me.$route.query.id!=="0"){
+      me.id = parseInt(me.$route.query.id);
       me.loadData();
     }
     me.loadOrgnizationtree();

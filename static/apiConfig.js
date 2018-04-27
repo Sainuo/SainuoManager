@@ -3,7 +3,7 @@ let settings = {
     user_login: "/api/Account",
     user_info: "/data/userInfo.json",
     user_role_get: "/api/services/app/user/GetRoles",
-    user_get: "/api/services/app/user/Ge",
+    user_get: "/api/services/app/user/Get",
     user_all_get: "/api/services/app/user/GetAll",
     user_create: "/api/services/app/user/Create",
     user_update: "/api/services/app/user/Update",

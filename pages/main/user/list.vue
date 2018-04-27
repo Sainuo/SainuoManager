@@ -23,62 +23,63 @@
             <el-table-column prop="userName"
                              label="用户名"
                              sortable
-                             width="180">
-            </el-table-column>
-            <el-table-column prop="name"
-                             label="姓名"
-                             sortable
-                             width="180">
-            </el-table-column>
-            <el-table-column prop="roles"
-                             label="角色"
-                             sortable
-                             width="180">
-                    <template slot-scope="scope">
-                    <span>{{scope.row.roles.join(",")}}</span>
-                    </template>
-            </el-table-column>
-            <el-table-column prop="surname"
-                             label="姓名"
-                             sortable
-                             width="180">
+                             width="120">
             </el-table-column>
             <el-table-column prop="fullName"
                              label="全名"
                              sortable
-                             width="180">
+                             width="120">
+            </el-table-column>
+            <el-table-column prop="roles"
+                             label="角色"
+                             sortable
+                             width="120">
+                    <template slot-scope="scope">
+                    <span>{{scope.row.roles.join(",")}}</span>
+                    </template>
             </el-table-column>
             <el-table-column prop="emailAddress"
+                             width="200"
                              label="邮箱">
             </el-table-column>
             <el-table-column prop="address"
+                             width="120"
                              label="手机号码">
             </el-table-column>
             <el-table-column prop="lastLoginTime"
                              label="上次登录时间"
-                             width="180">
+                             width="200">
             </el-table-column>
             <el-table-column prop="creationTime"
                              label="创建时间"
-                             width="180">
+                             width="200">
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
                              width="400">
                 <template slot-scope="scope">
-                    <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-switch @change="onToggle(scope.row)"
+                               v-model="scope.row.isActive"
+                               active-text=""
+                               inactive-text=""
+                               on-color="#13ce66"
+                               off-color="#ff4949"
+                               v-show="currentUserId!==scope.row.id">
+                    </el-switch>
+                    <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
+                    <el-button size="small" icon="el-icon-edit" @click="onResetPassword(scope.row)">重置密码</el-button>
+                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination class="clear"
-                    v-on:size-change="handleSizeChange"
-                    v-on:current-change="handleCurrentChange"
-                    v-bind:current-page="list.currentPage"
-                    v-bind:page-sizes="[10, 20, 50, 100]"
-                    v-bind:page-size="list.pageSize"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="list.currentPage"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="list.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    v-bind:total="list.total">
+                    :total="list.total">
         </el-pagination>
     </div>
 </template>
@@ -97,9 +98,9 @@
                 currentPage: 1,
                 pageSize: 20,
                 total: 0,
-                sort: {},
-                toggle:""
-            }
+                sort: {}
+            },
+            currentUserId:0
         }),
         methods: {
             handleSortChange(sort) {
@@ -148,6 +149,7 @@
             },
             onEdit(model) {
                 var me = this;
+                console.log(model);
                 me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
                     .then(model => {
                         me.$message({ type: "success", message: "编辑用户成功！" });
@@ -157,7 +159,7 @@
             onDelete(model) {
                 var me = this;
                 if (model) {
-                    me.$confirm('是否永久删除[' + model.UserName + ']?', '询问', {
+                    me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
                         confirmButtonText: '删除',
                         cancelButtonText: '取消',
                         type: 'warning'
@@ -171,15 +173,17 @@
                 }
             },
             deleteSelect(model){
-                axios.delete(apiConfig.user_delete,{params:{id:model.id}}).then(response=>{
+                var me=this;
+                axios.post(apiConfig.user_delete,{id:model.id}).then(response=>{
                     me.$message({ type: "success", message: "删除用户成功！" });
+                    me.loadData();
                 });
             },
             onResetPassword (model) {
                 var me = this;
-                me.$loaderwindow("/Account/ResetUserPassword", { Guid: model.Uid }, "重置密码：{RealName}".format(model), "tiny")
+                me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
                     .then((model) => {
-                        me.loadData();
+                        me.$message({ type: "success", message: "重置密码成功！" });
                     });
             },
             loadData () {
