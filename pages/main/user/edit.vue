@@ -2,7 +2,7 @@
   <div>
     <el-tabs v-model="activeName">
     <el-tab-pane label="用户管理" name="basic">
-      <el-form ref="userForm" status-icon :model="ruleForm" :rules="rules" label-width="80px">
+      <el-form ref="userForm" status-icon :model="ruleForm" :rules="rules" label-width="120px">
         <el-form-item label="用户名" props="userName">
           <el-input v-model="ruleForm.userName" clearable :max="50" placeholder="输入50字以内"></el-input>
         </el-form-item>
@@ -147,7 +147,6 @@ export default {
     }
     me.loadOrgnizationtree();
     me.loadRoles();
-    window.vm=me;
   }
 };
 </script>
