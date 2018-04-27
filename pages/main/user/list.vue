@@ -58,12 +58,12 @@
                              fixed="right"
                              width="400">
                 <template slot-scope="scope">
-                    <el-switch @change="onToggle(scope.row)"
+                    <el-switch class="margin-xl" @change="onToggle(scope.row)"
                                v-model="scope.row.isActive"
                                active-text=""
                                inactive-text=""
-                               on-color="#13ce66"
-                               off-color="#ff4949"
+                               active-color="#13ce66"
+                               inactive-color="#ff4949"
                                v-show="currentUserId!==scope.row.id">
                     </el-switch>
                     <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
