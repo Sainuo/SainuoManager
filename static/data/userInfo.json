@@ -25,7 +25,7 @@
             "FunctionName": "组织机构",
             "DisplayName": "组织机构",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/orgnization/index",
+            "ActionUrl": "/main/orgnization/",
             "FunctionType": "",
             "ChildrenModels": []
           },
