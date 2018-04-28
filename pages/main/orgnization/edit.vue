@@ -17,7 +17,7 @@ export default {
     id: 0,
     ruleForm: {
       parentId: 0,
-      displayName: "string"
+      displayName: ""
     }
   }),
   methods: {
@@ -27,7 +27,7 @@ export default {
         me.id === 0
           ? apiConfig.organization_create
           : apiConfig.organization_update;
-          
+
       axios.post(url, me.ruleForm).then(response => {
         me.$emit("confirm", me.ruleForm);
       });
