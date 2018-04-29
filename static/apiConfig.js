@@ -13,6 +13,7 @@ let settings = {
     organization_update: "/api/services/app/organizationUnit/UpdateOrganization",
     organization_get: "/api/services/app/organizationUnit/GetOrganization",
     organization_get_by_name:"/api/services/app/organizationUnit/GetOrganizationByName",
+    organization_get_by_id:"/api/services/app/organizationUnit/GetOrganizationById",
     organization_delete: "/api/services/app/organizationUnit/DeleteOrganization",
     organization_user_get: "/api/services/app/organizationUnit/GetOrganizationUnitUsers",
     organization_user_create: "/api/services/app/organizationUnit/AddUserToOrganization",

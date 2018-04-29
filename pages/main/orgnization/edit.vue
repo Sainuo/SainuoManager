@@ -1,7 +1,7 @@
 <template>
-    <el-form ref="form" :model="form" label-width="80px">
+    <el-form ref="form" :model="ruleForm" label-width="80px">
         <el-form-item label="组织名称">
-            <el-input v-model="displayName" placeholder="输入栏目名称200字以内" :max=200></el-input>
+            <el-input v-model="ruleForm.displayName" placeholder="输入组织名称200字以内" :max=200></el-input>
         </el-form-item>
         <div class="text-align-right">
         <el-button @click="$emit('cancel')">取消</el-button>
@@ -11,7 +11,7 @@
 </template>
 <script>
 import axios from "axios";
-import apiConifg from "~/static/apiConfig";
+import apiConfig from "~/static/apiConfig";
 export default {
   data: () => ({
     id: 0,
@@ -23,25 +23,27 @@ export default {
   methods: {
     onConfirm() {
       var me = this;
-      var url =
-        me.id === 0
-          ? apiConfig.organization_create
-          : apiConfig.organization_update;
-
-      axios.post(url, me.ruleForm).then(response => {
-        me.$emit("confirm", me.ruleForm);
-      });
+      if(me.id === 0){
+        axios.post(apiConfig.organization_create, me.ruleForm).then(response => {
+          me.$emit("confirm", response.data.result);
+        });
+      }else{
+        axios.put(apiConfig.organization_update, me.ruleForm).then(response => {
+          me.$emit("confirm", response.data.result);
+        });
+      }
     },
     loadData() {
       var me = this;
-      axios.post(apiConfig.user_get, { id: me.id }).then(response => {
-        me.ruleForm = response.data.result;
+      axios.get(apiConfig.organization_get_by_id, { params:{ organizationId: me.id }}).then(response => {
+        me.ruleForm = response.data.result.items[0];
       });
     }
   },
   mounted() {
     var me = this;
     let q = me.$route.query;
+    console.log(q);
     if (typeof q.id === "string" && q.id !== "0") {
       me.id = parseInt(q.id);
       me.loadData();

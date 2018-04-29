@@ -2,115 +2,182 @@
 <div class="padding-l">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder">列表</span>
-            </el-col>
-            <el-col :span="12">
-                <el-breadcrumb separator="/" class="float-right">
-                    <el-breadcrumb-item to="{ path: '/' }">首页</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                    <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-                </el-breadcrumb>
+                <span class="font-weight-blder">添加成员</span>
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
             <el-form-item prop="name">
                 <el-input placeholder="输入关键字搜索" v-model="search.name"></el-input>
             </el-form-item>
-            <el-form-item prop="area">
-                <el-select placeholder="活动区域" v-model="search.area">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-            </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="getData">查询</el-button>
-                <el-button type="primary" icon="el-icon-plus">新增</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="onAdd">新增</el-button>
             </el-form-item>
         </el-form>
         <el-table :data="list.tableData"
                   border highlight-current-row
+                  v-loading="list.loading"
+                  @sort-change="handleSortChange"
+                  @selection-change="handleSelectionChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column type="selection"
-                             width="55">
-            </el-table-column>
+            <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="name"
                              label="用户名"
                              sortable
                              width="180">
             </el-table-column>
-            <el-table-column prop="address"
+            <el-table-column prop="displayName"
                              label="手机号">
             </el-table-column>
-            <el-table-column prop="date"
-                             label="添加日期"
-                             width="180">
+            <el-table-column prop="description"
+                             label="添加时间">
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
                              width="400">
                 <template slot-scope="scope">
-                    <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
+                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-pagination class="clear"
-                       @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="list.currentPage"
-                       :page-sizes="[100, 200, 300, 400]"
-                       :page-size="100"
-                       layout="total, sizes, prev, pager, next, jumper"
-                       :total="400">
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="list.currentPage"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="list.pageSize"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="list.total">
         </el-pagination>
     </div>
 </template>
 <script>
-    import axios from "axios"
-    export default{
-        data:() =>({
-            search: {
-                name: "",
-                area: ""
-            },
-            list: {
-                tableData: [],
-                currentPage: 1
-            }
-        }),
-        sync(){
-            this.getData();
+import axios from "axios"
+import apiConfig from "~/static/apiConfig"
+export default{
+    data:() =>({
+        search: {
+            name: ""
         },
-        methods: {
-            /*
-            * 改变
-            */
-            handleSizeChange () {
-
-            },
-            handleCurrentChange() {
-
-            },
-            onEdit (i, m) {
-                var me = this;
-
-            },
-            onDelete (i, m) {
-                var me = this;
-                me.$confirm("确定删除？", "确定");
-            },
-            getData () {
-                axios.get("/data/demolist.json").then(response=>{
-                    this.list.tableData=response.data.Data;
-                })
-            }
+        list: {
+            tableData: [],
+            multipleSelection: [],
+            loading: false,
+            currentPage: 1,
+            pageSize: 20,
+            total: 0,
+            sort: {}
         },
-        mounted () {
+        currentUserId:0
+    }),
+    methods: {
+        handleSortChange(sort) {
             var me = this;
-            me.getData();
+            me.list.sort = {};
+            if (sort.column !== null) {
+                me.list.sort[sort.prop] = sort.order === "ascending" ? "asc" : "desc";
+            }
+            me.loadData();
+        },
+        getSort() {
+            var me = this;
+            var sort = me.list.sort;
+            var sorts = [];
+            for (var p in sort) {
+                sorts.push(p + " " + sort[p]);
+            }
+            var r = sorts.join(",");
+            return r === "" ? undefined : r;
+        },
+        getSkip () {
+            var me = this;
+            return (me.list.currentPage - 1) * me.list.pageSize;
+        },
+        handleSizeChange(val) {
+            this.list.pageSize = val;
+        },
+        handleCurrentChange (val) {
+            this.list.currentPage = val;
+            this.loadData();
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+        onToggle(model) {
+            var me = this;
+            me.$http.put("/api/account/{staffUid}/{IsEnabled}".format({
+                staffUid: model.Uid,
+                IsEnabled: model.IsEnabled ? "Disable" : "Enable"
+            })).then(response =>{});
+        },
+        onAdd() {
+            var me = this;
+            me.$loaderwindow("/main/user/edit?id=0", "创建用户")
+                .then( model => {
+                    me.$message({ type: "success", message: "创建用户成功！" });
+                    me.loadData();
+                });
+        },
+        onEdit(model) {
+            var me = this;
+            console.log(model);
+            me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
+                .then(model => {
+                    me.$message({ type: "success", message: "编辑用户成功！" });
+                    me.loadData();
+                });
+        },
+        onDelete(model) {
+            var me = this;
+            if (model) {
+                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    me.deleteSelect(model);
+                }).catch(() => {
+
+                });
+            } else {
+                me.$alert("请勾中要删除的项");
+            }
+        },
+        deleteSelect(model){
+            var me=this;
+            axios.post(apiConfig.user_delete,{id:model.id}).then(response=>{
+                me.$message({ type: "success", message: "删除用户成功！" });
+                me.loadData();
+            });
+        },
+        onResetPassword (model) {
+            var me = this;
+            me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
+                .then((model) => {
+                    me.$message({ type: "success", message: "重置密码成功！" });
+                });
+        },
+        loadData () {
+            var me=this;
+            me.loading = true;
+            axios.post(apiConfig.user_all_get, {
+                skipCount: me.getSkip(),
+                maxResultCount: me.list.pageSize
+            })
+            .then(response => {
+                me.list.tableData = response.data.result.items;
+                me.list.total = response.data.result.totalCount;
+                me.loading=false;
+            }).catch(response=>{
+                me.loading=false;
+            });
         }
-    };
+    },
+    mounted () {
+        var me = this;
+        me.loadData();
+    }
+};
 </script>
-    

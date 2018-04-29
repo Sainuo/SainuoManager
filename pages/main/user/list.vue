@@ -84,128 +84,128 @@
     </div>
 </template>
 <script>
-    import axios from "axios"
-    import apiConfig from "~/static/apiConfig"
-    export default{
-        data:() =>({
-            search: {
-                name: ""
-            },
-            list: {
-                tableData: [],
-                multipleSelection: [],
-                loading: false,
-                currentPage: 1,
-                pageSize: 20,
-                total: 0,
-                sort: {}
-            },
-            currentUserId:0
-        }),
-        methods: {
-            handleSortChange(sort) {
-                var me = this;
-                me.list.sort = {};
-                if (sort.column !== null) {
-                    me.list.sort[sort.prop] = sort.order === "ascending" ? "asc" : "desc";
-                }
-                me.loadData();
-            },
-            getSort() {
-                var me = this;
-                var sort = me.list.sort;
-                var sorts = [];
-                for (var p in sort) {
-                    sorts.push(p + " " + sort[p]);
-                }
-                var r = sorts.join(",");
-                return r === "" ? undefined : r;
-            },
-            getSkip () {
-                var me = this;
-                return (me.list.currentPage - 1) * me.list.pageSize;
-            },
-            handleSizeChange(val) {
-                this.list.pageSize = val;
-            },
-            handleCurrentChange (val) {
-                this.list.currentPage = val;
-                this.loadData();
-            },
-            onToggle(model) {
-                var me = this;
-                me.$http.put("/api/account/{staffUid}/{IsEnabled}".format({
-                    staffUid: model.Uid,
-                    IsEnabled: model.IsEnabled ? "Disable" : "Enable"
-                })).then(response =>{});
-            },
-            onAdd() {
-                var me = this;
-                me.$loaderwindow("/main/user/edit?id=0", "创建用户")
-                    .then( model => {
-                        me.$message({ type: "success", message: "创建用户成功！" });
-                        me.loadData();
-                    });
-            },
-            onEdit(model) {
-                var me = this;
-                console.log(model);
-                me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
-                    .then(model => {
-                        me.$message({ type: "success", message: "编辑用户成功！" });
-                        me.loadData();
-                    });
-            },
-            onDelete(model) {
-                var me = this;
-                if (model) {
-                    me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
-                        confirmButtonText: '删除',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(() => {
-                        me.deleteSelect(model);
-                    }).catch(() => {
-
-                    });
-                } else {
-                    me.$alert("请勾中要删除的项");
-                }
-            },
-            deleteSelect(model){
-                var me=this;
-                axios.post(apiConfig.user_delete,{id:model.id}).then(response=>{
-                    me.$message({ type: "success", message: "删除用户成功！" });
+import axios from "axios"
+import apiConfig from "~/static/apiConfig"
+export default{
+    data:() =>({
+        search: {
+            name: ""
+        },
+        list: {
+            tableData: [],
+            multipleSelection: [],
+            loading: false,
+            currentPage: 1,
+            pageSize: 20,
+            total: 0,
+            sort: {}
+        },
+        currentUserId:0
+    }),
+    methods: {
+        handleSortChange(sort) {
+            var me = this;
+            me.list.sort = {};
+            if (sort.column !== null) {
+                me.list.sort[sort.prop] = sort.order === "ascending" ? "asc" : "desc";
+            }
+            me.loadData();
+        },
+        getSort() {
+            var me = this;
+            var sort = me.list.sort;
+            var sorts = [];
+            for (var p in sort) {
+                sorts.push(p + " " + sort[p]);
+            }
+            var r = sorts.join(",");
+            return r === "" ? undefined : r;
+        },
+        getSkip () {
+            var me = this;
+            return (me.list.currentPage - 1) * me.list.pageSize;
+        },
+        handleSizeChange(val) {
+            this.list.pageSize = val;
+        },
+        handleCurrentChange (val) {
+            this.list.currentPage = val;
+            this.loadData();
+        },
+        onToggle(model) {
+            var me = this;
+            me.$http.put("/api/account/{staffUid}/{IsEnabled}".format({
+                staffUid: model.Uid,
+                IsEnabled: model.IsEnabled ? "Disable" : "Enable"
+            })).then(response =>{});
+        },
+        onAdd() {
+            var me = this;
+            me.$loaderwindow("/main/user/edit?id=0", "创建用户")
+                .then( model => {
+                    me.$message({ type: "success", message: "创建用户成功！" });
                     me.loadData();
                 });
-            },
-            onResetPassword (model) {
-                var me = this;
-                me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
-                    .then((model) => {
-                        me.$message({ type: "success", message: "重置密码成功！" });
-                    });
-            },
-            loadData () {
-                var me=this;
-                me.loading = true;
-                axios.post(apiConfig.user_all_get, {
-                    skipCount: me.getSkip(),
-                    maxResultCount: me.list.pageSize
-                })
-                .then(response => {
-                    me.list.tableData = response.data.result.items;
-                    me.list.total = response.data.result.totalCount;
-                    me.loading=false;
-                }).catch(response=>{
-                    me.loading=false;
+        },
+        onEdit(model) {
+            var me = this;
+            console.log(model);
+            me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
+                .then(model => {
+                    me.$message({ type: "success", message: "编辑用户成功！" });
+                    me.loadData();
                 });
+        },
+        onDelete(model) {
+            var me = this;
+            if (model) {
+                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    me.deleteSelect(model);
+                }).catch(() => {
+
+                });
+            } else {
+                me.$alert("请勾中要删除的项");
             }
         },
-        mounted () {
+        deleteSelect(model){
+            var me=this;
+            axios.post(apiConfig.user_delete,{id:model.id}).then(response=>{
+                me.$message({ type: "success", message: "删除用户成功！" });
+                me.loadData();
+            });
+        },
+        onResetPassword (model) {
             var me = this;
-            me.loadData();
+            me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
+                .then((model) => {
+                    me.$message({ type: "success", message: "重置密码成功！" });
+                });
+        },
+        loadData () {
+            var me=this;
+            me.loading = true;
+            axios.post(apiConfig.user_all_get, {
+                skipCount: me.getSkip(),
+                maxResultCount: me.list.pageSize
+            })
+            .then(response => {
+                me.list.tableData = response.data.result.items;
+                me.list.total = response.data.result.totalCount;
+                me.loading=false;
+            }).catch(response=>{
+                me.loading=false;
+            });
         }
-    };
+    },
+    mounted () {
+        var me = this;
+        me.loadData();
+    }
+};
 </script>
     

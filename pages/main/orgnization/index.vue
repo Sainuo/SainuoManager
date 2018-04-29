@@ -9,40 +9,56 @@
         v-model="tree.filterText">
       </el-input>
       <el-tree
+        ref="tree"
         :data="tree.treeData"
         :props="tree.props"
         node-key="id"
         default-expand-all
+        @node-click="onSelectedOrganization"
+        :filter-node-method="filterNode"
         :expand-on-click-node="false">
         <span slot-scope="{ node, data }">
           <span>{{ node.label }}</span>
-          <i class="el-icon-edit margin-m"></i>
+          <i class="el-icon-edit margin-m" @click="eidt(node,data)"></i>
           <i class="el-icon-circle-plus-outline margin-m" @click="append(node, data)"></i>
           <i class="el-icon-remove-outline margin-m" @click="remove(node, data)"></i>
         </span>
       </el-tree>
     </el-col>
     <el-col :span="12" class="padding-m">
-        <div>中心1</div>
+         <el-form :inline="true" class="background-color-minor margin-bottom-m padding-m">
+            <el-form-item>
+                <span v-if="selectedOrgnization">{{selectedOrgnization.displayName}}</span>
+            </el-form-item>
+            <el-form-item>
+                <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加成员</el-button>
+            </el-form-item>
+        </el-form>
         <el-table :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
+            <el-table-column prop="username"
+                             label="用户名"
+                             sortable
+                             width="180">
+            </el-table-column>
             <el-table-column prop="name"
                              label="姓名"
                              sortable
                              width="180">
             </el-table-column>
-            <el-table-column prop="date"
-                             label="日期"
+            <el-table-column prop="phone"
+                             label="手机号"
+                             sortable
                              width="180">
             </el-table-column>
-            <el-table-column prop="address"
-                             label="地址">
+            <el-table-column prop="date"
+                             label="添加时间"
+                             width="180">
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
                              width="400">
                 <template slot-scope="scope">
-                    <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
-                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">删除</el-button>
+                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">移除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -63,7 +79,13 @@
 import axios from "axios";
 import apiConfig from "~/static/apiConfig";
 export default {
+  watch: {
+      "tree.filterText"(val) {
+        this.$refs.tree.filter(val);
+      }
+  },
   data: () => ({
+    selectedOrgnization:null,
     tree: {
       filterText: "",
       treeData: [],
@@ -112,10 +134,16 @@ export default {
       this.list.currentPage = val;
       this.loadData();
     },
-    onAdd(model) {
+    onSelectedOrganization(node){
+      var me=this;
+      console.log(node);
+      me.selectedOrgnization=node;
+      me.loadData();
+    },
+    onAdd() {
       var me = this;
-      me.$loaderwindow(`/main/role/edit?id=0`, "创建角色").then(model => {
-        me.$message({ type: "success", message: "创建用户成功！" });
+      me.$loaderwindow(`/main/orgnization/userinorgnization?id=${me.selectOrgnization.id}`, "添加成员").then(model => {
+        me.$message({ type: "success", message: "添加成员成功！" });
         me.loadData();
       });
     },
@@ -130,8 +158,7 @@ export default {
     onDelete(model) {
       var me = this;
       if (model) {
-        me
-          .$confirm("是否永久删除[" + model.name + "]?", "询问", {
+        me.$confirm("是否永久删除[" + model.name + "]?", "询问", {
             confirmButtonText: "删除",
             cancelButtonText: "取消",
             type: "warning"
@@ -160,10 +187,12 @@ export default {
     loadData() {
       var me = this;
       me.loading = true;
-      axios
-        .post(apiConfig.role_all_get, {
-          skipCount: me.getSkip(),
-          maxResultCount: me.list.pageSize
+      axios.get(apiConfig.organization_user_get, {
+          params:{
+            organizationId:me.selectedOrgnization.id,
+            skipCount: me.getSkip(),
+            maxCount: me.list.pageSize
+          }
         })
         .then(response => {
           me.list.tableData = response.data.result.items;
@@ -174,35 +203,44 @@ export default {
           me.loading = false;
         });
     },
+    filterNode(value, data) {
+      if (!value) return true;
+        return data.displayName.indexOf(value) !== -1;
+    },
     eidt(data){
         var me=this;
-        me.$loaderwindow(`/main/orgnization/edit?id=${data.id}`).then(response=>{
-            me.$message({ type: "success", message: "" });
+        me.$loaderwindow(`/main/orgnization/edit?id=${data.id}`,`编辑${data.label}`).then(model=>{
+            for(var p in model){
+              data[p]=model[p];
+            }
+            me.$message({ type: "success", message: "组织机构编辑成功" });
         });
     },
     append(node, data) {
       var me=this;
-      me.$loaderwindow(`/main/orgnization/edit?id=0&parentId=${node.parent.data.id}`).then(response=>{
-          const newChild = { id: id++, label: "testtest", children: [] };
+      me.$loaderwindow(`/main/orgnization/edit?id=0&parentId=${node.data.id}`,`创建组织`).then(model=>{
+          const newChild = model;
           if (!data.children) {
             this.$set(data, "children", []);
           }
           data.children.push(newChild);
-          me.$message({ type: "success", message: "" });
+          me.$message({ type: "success", message: "组织机构添加成功" });
       });
     },
     remove(node, data) {
       var me=this;
-      me.$confirm('是否永久删除[' + model.displayName + ']?', '询问', {
+      me.$confirm(`是否永久删除[${data.displayName}]?`, '询问', {
           confirmButtonText: '删除',
           cancelButtonText: '取消',
           type: 'warning'
       }).then(() => {
+        axios.delete(apiConfig.organization_delete,{params:{organizationId:data.id}}).then(response=>{
           const parent = node.parent;
           const children = parent.data.children || parent.data;
           const index = children.findIndex(d => d.id === data.id);
           children.splice(index, 1);
-          me.$message({ type: "success", message: "" });
+          me.$message({ type: "success", message: "组织机构删除成功" });
+        });
       }).catch(() => {
 
       });
@@ -234,17 +272,12 @@ export default {
     },
     allowDrag(draggingNode) {
       return draggingNode.data.label.indexOf("三级 3-1-1") === -1;
-    },
-    getData() {
-      axios.get("/data/demolist.json").then(response => {
-        this.list.tableData = response.data.Data;
-      });
     }
   },
   mounted() {
     var me = this;
-    me.getData();
     me.loadOrgnization();
+    window.vm=me;
   }
 };
 </script>
