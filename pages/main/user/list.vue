@@ -64,7 +64,7 @@
                                inactive-text=""
                                active-color="#13ce66"
                                inactive-color="#ff4949"
-                               v-show="currentUserId!==scope.row.id">
+                    >
                     </el-switch>
                     <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
                     <el-button size="small" icon="el-icon-edit" @click="onResetPassword(scope.row)">重置密码</el-button>
@@ -134,10 +134,10 @@ export default{
         },
         onToggle(model) {
             var me = this;
-            me.$http.put("/api/account/{staffUid}/{IsEnabled}".format({
-                staffUid: model.Uid,
-                IsEnabled: model.IsEnabled ? "Disable" : "Enable"
-            })).then(response =>{});
+             axios.put(apiConfig.user_active,{
+                "userId": model.id,
+                "isActived": model.isActive
+            }).then(response =>{});
         },
         onAdd() {
             var me = this;
@@ -181,7 +181,7 @@ export default{
         },
         onResetPassword (model) {
             var me = this;
-            me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
+            me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, `重置[${model.userName}]密码`)
                 .then((model) => {
                     me.$message({ type: "success", message: "重置密码成功！" });
                 });

@@ -1,11 +1,11 @@
 <template>
-    <el-form ref="form" :model="ruleForm" label-width="80px">
+    <el-form ref="form" :model="ruleForm" v-loading="loading" label-width="80px">
         <el-form-item label="组织名称">
             <el-input v-model="ruleForm.displayName" placeholder="输入组织名称200字以内" :max=200></el-input>
         </el-form-item>
         <div class="text-align-right">
-        <el-button @click="$emit('cancel')">取消</el-button>
-        <el-button @click="onConfirm" type="primary">保存</el-button>
+          <el-button @click="$emit('cancel')">取消</el-button>
+          <el-button @click="onConfirm" type="primary">保存</el-button>
         </div> 
     </el-form>
 </template>
@@ -15,6 +15,7 @@ import apiConfig from "~/static/apiConfig";
 export default {
   data: () => ({
     id: 0,
+    loading:false,
     ruleForm: {
       parentId: 0,
       displayName: ""
@@ -35,8 +36,10 @@ export default {
     },
     loadData() {
       var me = this;
+      me.loading=true
       axios.get(apiConfig.organization_get_by_id, { params:{ organizationId: me.id }}).then(response => {
-        me.ruleForm = response.data.result.items[0];
+        me.ruleForm = response.data.result;
+        me.loading=false;
       });
     }
   },

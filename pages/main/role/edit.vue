@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+    <el-form :model="ruleForm" :rules="rules" v-loading="loading" ref="ruleForm" label-width="120px">
         <el-form-item label="角色名称" prop="name">
             <el-input v-model="ruleForm.name"></el-input>
         </el-form-item>
@@ -38,6 +38,7 @@ import axios from "axios"
 export default {
     data:()=> ({
         id:0,
+        loading:false,
         permissions:[],
         props:{
           children: 'children',
@@ -81,9 +82,11 @@ export default {
         },
         loadData(){
             var me = this;
+            me.loading=true;
             axios.post(apiConfig.role_get,{ id:me.id}).then(response=>{
                 me.ruleForm = response.data.result;
                 me.$refs.permissionsTree.setCheckedKeys(me.ruleForm.permissions);
+                me.loading=false;
             });
         },
         loadPermissions(){
@@ -100,7 +103,6 @@ export default {
             me.loadData();
         }
         me.loadPermissions();
-        window.vm=this;
     }
 }
 </script>

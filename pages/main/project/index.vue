@@ -19,9 +19,6 @@
         :expand-on-click-node="false">
         <span slot-scope="{ node, data }">
           <span>{{ node.label }}</span>
-          <i class="el-icon-edit margin-m" @click="eidt(node,data)"></i>
-          <i class="el-icon-circle-plus-outline margin-m" @click="append(node, data)"></i>
-          <i class="el-icon-remove-outline margin-m" @click="remove(node, data)"></i>
         </span>
       </el-tree>
     </el-col>
