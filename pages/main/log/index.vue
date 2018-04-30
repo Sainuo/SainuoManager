@@ -6,8 +6,30 @@
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
-            <el-form-item prop="name">
-                <el-input placeholder="输入关键字搜索" v-model="search.name"></el-input>
+            <el-form-item label="" prop="serviceName">
+                    <el-date-picker
+                        v-model="search.date"
+                        type="daterange"
+                        range-separator="-"
+                        start-placeholder="开始时间"
+                        end-placeholder="结束时间">
+                    </el-date-picker>
+            </el-form-item>
+            <el-form-item label="" prop="serviceName">
+                <el-select v-model="search.hasException" placeholder="错误状态">
+                    <el-option label="全部" :value=null>全部</el-option>
+                    <el-option label="成功" :value=false>成功</el-option>
+                    <el-option label="失败" :value=true>失败</el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="" prop="serviceName">
+                <el-input placeholder="服务名称" v-model="search.serviceName"></el-input>
+            </el-form-item>
+            <el-form-item label=""  prop="serviceName">
+                <el-input placeholder="方法名称" v-model="search.methodName"></el-input>
+            </el-form-item>
+            <el-form-item label=""  prop="userName">
+                  <el-input placeholder="用户名" v-model="search.userName"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
@@ -20,56 +42,52 @@
                   @sort-change="handleSortChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
+            <el-table-column prop="exception"
+                             label="状态"
+                             sortable
+                             width="80">
+            <template slot-scope="scope">
+                <el-tag
+                :type="scope.row.exception === null ? 'success' : 'danger'"
+                disable-transitions>{{scope.row.exception === null ? '成功' : '失败'}}</el-tag>
+            </template>
+            </el-table-column>
+            <el-table-column prop="executionTime"
+                             label="创建时间"
+                             width="200">
+            </el-table-column>
             <el-table-column prop="userName"
                              label="用户名"
                              sortable
                              width="120">
             </el-table-column>
-            <el-table-column prop="fullName"
-                             label="全名"
-                             sortable
-                             width="120">
-            </el-table-column>
-            <el-table-column prop="roles"
-                             label="角色"
-                             sortable
-                             width="120">
-                    <template slot-scope="scope">
-                    <span>{{scope.row.roles.join(",")}}</span>
-                    </template>
-            </el-table-column>
-            <el-table-column prop="emailAddress"
+            <el-table-column prop="serviceName"
                              width="200"
-                             label="邮箱">
+                             label="服务名称">
             </el-table-column>
-            <el-table-column prop="address"
+            <el-table-column prop="methodName"
                              width="120"
-                             label="手机号码">
+                             label="方法名称">
             </el-table-column>
-            <el-table-column prop="lastLoginTime"
-                             label="上次登录时间"
+            <el-table-column prop="executionDuration"
+                             label="耗时"
                              width="200">
             </el-table-column>
-            <el-table-column prop="creationTime"
-                             label="创建时间"
+            <el-table-column prop="clientIpAddress"
+                             label="IP"
                              width="200">
             </el-table-column>
-            <el-table-column label="操作"
-                             fixed="right"
-                             width="400">
-                <template slot-scope="scope">
-                    <el-switch class="margin-xl" @change="onToggle(scope.row)"
-                               v-model="scope.row.isActive"
-                               active-text=""
-                               inactive-text=""
-                               active-color="#13ce66"
-                               inactive-color="#ff4949"
-                    >
-                    </el-switch>
-                    <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
-                    <el-button size="small" icon="el-icon-edit" @click="onResetPassword(scope.row)">重置密码</el-button>
-                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">删除</el-button>
-                </template>
+            <el-table-column prop="clientName"
+                             label="客户端名称"
+                             width="200">
+            </el-table-column>
+            <el-table-column prop="browserInfo"
+                             label="浏览器"
+                             width="200">
+            </el-table-column>
+            <el-table-column prop="customData"
+                             label="浏览器"
+                             width="200">
             </el-table-column>
         </el-table>
         <el-pagination class="clear"
@@ -89,7 +107,11 @@ import apiConfig from "~/static/apiConfig"
 export default{
     data:() =>({
         search: {
-            name: ""
+            userName: "",
+            serviceName:"",
+            actionName:"",
+            hasException:null,
+            date:[]
         },
         list: {
             tableData: [],
@@ -188,11 +210,21 @@ export default{
         },
         loadData () {
             var me=this;
+            let s=me.search;
             me.loading = true;
-            axios.post(apiConfig.user_all_get, {
-                skipCount: me.getSkip(),
-                maxResultCount: me.list.pageSize
-            })
+            axios.get(apiConfig.log_audited_get,{params:
+                    {
+                        userName:s.userName,
+                        serviceName:s.serviceName,
+                        actionName:s.actionName,
+                        hasException:s.hasException,
+                        startTime:typeof s.date ==="undefined"?s.date[0] :null,
+                        endTime:typeof s.date ==="undefined"?s.date[0] :null,
+                        skipCount: me.getSkip(),
+                        maxResultCount: me.list.pageSize
+                    }
+                }
+            )
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
