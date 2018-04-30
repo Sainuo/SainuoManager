@@ -30,11 +30,6 @@
             </el-form-item>
         </el-form>
         <el-table :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
-            <el-table-column type="expand">
-                <template slot-scope="props">
-                    {{ props.row.projectDescription }}
-                </template>
-            </el-table-column>
             <el-table-column prop="id"
                              label="项目ID"
                              sortable

@@ -55,7 +55,7 @@
             "FunctionName": "审计日志",
             "DisplayName": "审计日志",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/log/list",
+            "ActionUrl": "/main/log/",
             "FunctionType": "",
             "ChildrenModels": []
           }
