@@ -58,12 +58,33 @@
             "ActionUrl": "/main/log/list",
             "FunctionType": "",
             "ChildrenModels": []
-          },
+          }
+        ]
+      },
+      {
+        "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+        "ParentGuid": "00000000-0000-0000-0000-000000000000",
+        "FunctionName": "项目管理",
+        "DisplayName": "项目管理",
+        "Icon": "el-icon-message",
+        "ActionUrl": "",
+        "FunctionType": "",
+        "ChildrenModels": [
           {
             "FunctionGuid": "00000000-0000-0000-0000-000000000000",
             "ParentGuid": "00000000-0000-0000-0000-000000000000",
             "FunctionName": "项目设置",
             "DisplayName": "项目设置",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/project",
+            "FunctionType": "",
+            "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "项目列表",
+            "DisplayName": "项目列表",
             "Icon": "el-icon-message",
             "ActionUrl": "/main/project/list",
             "FunctionType": "",

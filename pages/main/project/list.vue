@@ -2,7 +2,7 @@
 <div class="padding-l">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder">添加成员</span>
+                <span class="font-weight-blder">用户管理</span>
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
@@ -18,20 +18,26 @@
                   border highlight-current-row
                   v-loading="list.loading"
                   @sort-change="handleSortChange"
-                  @selection-change="handleSelectionChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="name"
-                             label="用户名"
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <div v-html="props.row.projectDescription"></div>
+                </template>
+            </el-table-column>
+            <el-table-column prop="id"
+                             label="项目ID"
                              sortable
-                             width="180">
+                             width="120">
             </el-table-column>
-            <el-table-column prop="displayName"
-                             label="手机号">
+            <el-table-column prop="projectName"
+                             label="项目名称"
+                             sortable
+                             >
             </el-table-column>
-            <el-table-column prop="description"
-                             label="添加时间">
+            <el-table-column prop="creationTime"
+                             label="创建时间"
+                             width="200">
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
@@ -51,10 +57,6 @@
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="list.total">
         </el-pagination>
-        <div class="text-align-right">
-            <el-button @click="$emit('cancel')">取消</el-button>
-            <el-button @click="onConfirm" type="primary">保存</el-button>
-        </div> 
     </div>
 </template>
 <script>
@@ -106,74 +108,48 @@ export default{
             this.list.currentPage = val;
             this.loadData();
         },
-        handleSelectionChange(val) {
-            this.multipleSelection = val;
-        },
-        onToggle(model) {
-            var me = this;
-            me.$http.put("/api/account/{staffUid}/{IsEnabled}".format({
-                staffUid: model.Uid,
-                IsEnabled: model.IsEnabled ? "Disable" : "Enable"
-            })).then(response =>{});
-        },
         onAdd() {
             var me = this;
-            me.$loaderwindow("/main/user/edit?id=0", "创建用户")
+            me.$loaderwindow("/main/project/edit?id=0", "创建项目")
                 .then( model => {
-                    me.$message({ type: "success", message: "创建用户成功！" });
+                    me.$message({ type: "success", message: "创建项目成功！" });
                     me.loadData();
                 });
         },
         onEdit(model) {
             var me = this;
-            console.log(model);
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
-                .then(model => {
-                    me.$message({ type: "success", message: "编辑用户成功！" });
+            me.$loaderwindow(`/main/project/edit?id=${model.id}`, `编辑项目${model.projectName}`)
+                .then(m => {
+                    me.$message({ type: "success", message: `编辑项目${model.projectName}成功！`});
                     me.loadData();
                 });
         },
         onDelete(model) {
             var me = this;
-            if (model) {
-                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
-                    confirmButtonText: '删除',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    me.deleteSelect(model);
-                }).catch(() => {
+            me.$confirm(`是否永久删除【'${model.projectName}】?`, '询问', {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                me.deleteSelect(model);
+            }).catch(() => {
 
-                });
-            } else {
-                me.$alert("请勾中要删除的项");
-            }
+            });
         },
         deleteSelect(model){
             var me=this;
-            axios.post(apiConfig.user_delete,{id:model.id}).then(response=>{
+            axios.post(apiConfig.project_delete,{id:model.id}).then(response=>{
                 me.$message({ type: "success", message: "删除用户成功！" });
                 me.loadData();
             });
         },
-        onResetPassword (model) {
-            var me = this;
-            me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
-                .then((model) => {
-                    me.$message({ type: "success", message: "重置密码成功！" });
-                });
-        },
-        onConfirm(){
-          var me=this;
-          me.$emit("confirm",me.multipleSelection);  
-        },
         loadData () {
             var me=this;
             me.loading = true;
-            axios.post(apiConfig.user_notin_organization, {
+            axios.get(apiConfig.project_get, {params:{
                 skipCount: me.getSkip(),
-                maxResultCount: me.list.pageSize
-            })
+                maxCount: me.list.pageSize
+            }})
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
@@ -189,3 +165,4 @@ export default{
     }
 };
 </script>
+    

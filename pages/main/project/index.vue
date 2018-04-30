@@ -26,28 +26,28 @@
         <div >{{selectedOrgnization.displayName}}</div>
          <el-form :inline="true" class="background-color-minor margin-bottom-m padding-m">
             <el-form-item>
-                <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加成员</el-button>
+                <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加项目</el-button>
             </el-form-item>
         </el-form>
         <el-table :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
-            <el-table-column prop="userName"
-                             label="用户名"
-                             sortable
-                             width="180">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    {{ props.row.projectDescription }}
+                </template>
             </el-table-column>
-            <el-table-column prop="name"
-                             label="姓名"
+            <el-table-column prop="id"
+                             label="项目ID"
                              sortable
-                             width="160">
+                             width="120">
             </el-table-column>
-            <el-table-column prop="phoneNumber"
-                             label="手机号"
+            <el-table-column prop="projectName"
+                             label="项目名称"
                              sortable
-                             width="180">
+                             >
             </el-table-column>
-            <el-table-column prop="addedTime"
-                             label="添加时间"
-                             width="180">
+            <el-table-column prop="creationTime"
+                             label="创建时间"
+                             width="200">
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
@@ -136,25 +136,16 @@ export default {
     },
     onAdd() {
       var me = this;
-      me.$loaderwindow(`/main/orgnization/userinorgnization?id=${me.selectedOrgnization.id}`, "添加成员").then(model => {
-        axios.post(apiConfig.organization_add_users,{organizationUnitId:me.selectedOrgnization.id,userIds:model.map(x=>x.id)}).then(response=>{
+      me.$loaderwindow(`/main/project/projectinorganization?id=${me.selectedOrgnization.id}`, `向【${me.selectedOrgnization.displayName}】添加项目`).then(model => {
+        axios.post(apiConfig.project_adds_to_organization,{organizationUnitId:me.selectedOrgnization.id,projectIds:model.map(x=>x.id)}).then(response=>{
           me.$message({ type: "success", message: "添加成员成功！" });
           me.loadData();
         });
       });
     },
-    onEdit(model) {
-      var me = this;
-      me.$loaderwindow(`/main/role/edit?id=${model.id}`, "编辑角色")
-        .then(model => {
-          me.$message({ type: "success", message: "编辑角色成功！" });
-          me.loadData();
-        });
-    },
     onDelete(model) {
       var me = this;
-      if (model) {
-        me.$confirm("是否移除[" + model.name + "]?", "询问", {
+        me.$confirm(`是否移除【"${model.projectName}】`, "询问", {
             confirmButtonText: "删除",
             cancelButtonText: "取消",
             type: "warning"
@@ -163,16 +154,13 @@ export default {
             me.deleteSelect(model);
           })
           .catch(() => {});
-      } else {
-        me.$alert("请勾中要删除的项");
-      }
     },
     deleteSelect(model) {
       var me = this;
       axios.delete(apiConfig.organization_delete_user_by_organizationiduserid, 
       {params:{ organizationId:me.selectedOrgnization.id,userId: model.id }})
       .then(response => {
-        me.$message({ type: "success", message: "成功移除用户！" });
+        me.$message({ type: "success", message: `成功移除项目【${model.projectName}】！` });
         me.loadData();
       });
     },
@@ -185,7 +173,7 @@ export default {
     loadData() {
       var me = this;
       me.loading = true;
-      axios.get(apiConfig.organization_user_get, {
+      axios.get(apiConfig.project_in_organization, {
           params:{
             organizationId:me.selectedOrgnization.id,
             skipCount: me.getSkip(),
@@ -204,73 +192,6 @@ export default {
     filterNode(value, data) {
       if (!value) return true;
         return data.displayName.indexOf(value) !== -1;
-    },
-    eidt(node, data){
-        var me=this;
-        me.$loaderwindow(`/main/orgnization/edit?id=${data.id}`,`编辑${data.displayName}`).then(model=>{
-            for(var p in model){
-              data[p]=model[p];
-            }
-            me.$message({ type: "success", message: "组织机构编辑成功" });
-        });
-    },
-    append(node, data) {
-      var me=this;
-      me.$loaderwindow(`/main/orgnization/edit?id=0&parentId=${node.data.id}`,`创建组织`).then(model=>{
-          const newChild = model;
-          if (!data.children) {
-            this.$set(data, "children", []);
-          }
-          data.children.push(newChild);
-          me.$message({ type: "success", message: "组织机构添加成功" });
-      });
-    },
-    remove(node, data) {
-      var me=this;
-      me.$confirm(`是否永久删除[${data.displayName}]?`, '询问', {
-          confirmButtonText: '删除',
-          cancelButtonText: '取消',
-          type: 'warning'
-      }).then(() => {
-        axios.delete(apiConfig.organization_delete,{params:{organizationId:data.id}}).then(response=>{
-          const parent = node.parent;
-          const children = parent.data.children || parent.data;
-          const index = children.findIndex(d => d.id === data.id);
-          children.splice(index, 1);
-          me.$message({ type: "success", message: "组织机构删除成功" });
-          me.selectedOrgnization=null;
-        });
-      }).catch(() => {
-
-      });
-    },
-    handleDragStart(node, ev) {
-      console.log("drag start", node);
-    },
-    handleDragEnter(draggingNode, dropNode, ev) {
-      console.log("tree drag enter: ", dropNode.label);
-    },
-    handleDragLeave(draggingNode, dropNode, ev) {
-      console.log("tree drag leave: ", dropNode.label);
-    },
-    handleDragOver(draggingNode, dropNode, ev) {
-      console.log("tree drag over: ", dropNode.label);
-    },
-    handleDragEnd(draggingNode, dropNode, dropType, ev) {
-      console.log("tree drag end: ", dropNode && dropNode.label, dropType);
-    },
-    handleDrop(draggingNode, dropNode, dropType, ev) {
-      console.log("tree drop: ", dropNode.label, dropType);
-    },
-    allowDrop(draggingNode, dropNode, type) {
-      if (dropNode.data.label === "二级 3-1") {
-        return type !== "inner";
-      } else {
-        return true;
-      }
-    },
-    allowDrag(draggingNode) {
-      return draggingNode.data.label.indexOf("三级 3-1-1") === -1;
     }
   },
   mounted() {

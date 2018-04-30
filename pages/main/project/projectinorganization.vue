@@ -2,7 +2,7 @@
 <div class="padding-l">
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
             <el-form-item prop="name">
-                <el-input placeholder="输入关键字搜索" v-model="search.name" autofocus></el-input>
+                <el-input placeholder="输入关键字搜索" v-model="search.name"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
@@ -16,17 +16,25 @@
                   @selection-change="handleSelectionChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="name"
-                             label="用户名"
+            <el-table-column type="selection"></el-table-column>
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    {{ props.row.projectDescription }}
+                </template>
+            </el-table-column>
+            <el-table-column prop="id"
+                             label="项目ID"
                              sortable
-                             width="180">
+                             width="120">
             </el-table-column>
-            <el-table-column prop="displayName"
-                             label="手机号">
+            <el-table-column prop="projectName"
+                             label="项目名称"
+                             sortable
+                             >
             </el-table-column>
-            <el-table-column prop="description"
-                             label="添加时间">
+            <el-table-column prop="creationTime"
+                             label="创建时间"
+                             width="200">
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
@@ -113,50 +121,37 @@ export default{
         },
         onAdd() {
             var me = this;
-            me.$loaderwindow("/main/user/edit?id=0", "创建用户")
+            me.$loaderwindow("/main/project/edit?id=0", "创建项目")
                 .then( model => {
-                    me.$message({ type: "success", message: "创建用户成功！" });
+                    me.$message({ type: "success", message: "创建项目成功！" });
                     me.loadData();
                 });
         },
         onEdit(model) {
             var me = this;
-            console.log(model);
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
+            me.$loaderwindow(`/main/project/edit?id=${model.id}`, `编辑项目${model.projectName}`)
                 .then(model => {
                     me.$message({ type: "success", message: "编辑用户成功！" });
                     me.loadData();
                 });
         },
         onDelete(model) {
-            var me = this;
-            if (model) {
-                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
-                    confirmButtonText: '删除',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    me.deleteSelect(model);
-                }).catch(() => {
+            me.$confirm(`是否永久删除【'${model.projectName}】?`, '询问', {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                me.deleteSelect(model);
+            }).catch(() => {
 
-                });
-            } else {
-                me.$alert("请勾中要删除的项");
-            }
+            });
         },
         deleteSelect(model){
             var me=this;
-            axios.post(apiConfig.user_delete,{id:model.id}).then(response=>{
-                me.$message({ type: "success", message: "删除用户成功！" });
+            axios.post(apiConfig.project_delete,{id:model.id}).then(response=>{
+                me.$message({ type: "success", message: "删除项目成功！" });
                 me.loadData();
             });
-        },
-        onResetPassword (model) {
-            var me = this;
-            me.$loaderwindow(`/main/user/resetpassword?id=${model.id}`, "重置密码")
-                .then((model) => {
-                    me.$message({ type: "success", message: "重置密码成功！" });
-                });
         },
         onConfirm(){
           var me=this;
@@ -164,17 +159,17 @@ export default{
         },
         loadData () {
             var me=this;
-            me.loading = true;
-            axios.post(apiConfig.user_not_in_organization, {
+            me.list.loading = true;
+            axios.get(apiConfig.project_get,{ params:{
                 skipCount: me.getSkip(),
-                maxResultCount: me.list.pageSize
-            })
+                maxCount: me.list.pageSize
+            }})
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-                me.loading=false;
+                me.list.loading=false;
             }).catch(response=>{
-                me.loading=false;
+                me.list.loading=false;
             });
         }
     },
