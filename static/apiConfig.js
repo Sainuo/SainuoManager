@@ -45,7 +45,8 @@ let settings = {
     tenant_all_get: "/api/services/app/tenant/GetAll",
     tenant_create: "/api/services/app/tenant/Create",
     tenant_udpate: "/api/services/app/tenant/Update",
-    tenant_delete: "/api/services/app/tenant/Delete"
+    tenant_delete: "/api/services/app/tenant/Delete",
+    log_audited_get:"/api/services/app/auditedLog/GetList"
 }
 
 let options = webconfig.isOfficalData ? settings : settings
