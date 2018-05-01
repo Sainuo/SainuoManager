@@ -152,8 +152,8 @@ export default {
     },
     deleteSelect(model) {
       var me = this;
-      axios.delete(apiConfig.organization_delete_user_by_organizationiduserid, 
-      {params:{ organizationId:me.selectedOrgnization.id,userId: model.id }})
+      axios.delete(apiConfig.project_delete_from_organization, 
+      {params:{ organizationId:me.selectedOrgnization.id,projectId: model.id }})
       .then(response => {
         me.$message({ type: "success", message: `成功移除项目【${model.projectName}】！` });
         me.loadData();

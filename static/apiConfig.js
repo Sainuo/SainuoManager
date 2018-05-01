@@ -31,6 +31,7 @@ let settings = {
     project_adds_to_organization:"/api/services/app/medicalExamProject/AddProjectsToOrganization",
     project_add_to_organization:"/api/services/app/medicalExamProject/AddProjectToOrganization",
     project_in_organization:"/api/services/app/medicalExamProject/GetProjectsInOrganization",
+    project_delete_from_organization:"/api/services/app/medicalExamProject/RemoveProjectFromOrganization",
     permission_get: "/api/services/app/permission/GetAllPermissionTree",
     permission_all_get:"/api/services/app/permission/GetAllPermissionTree",
     permission_user_get: "/api/services/app/permission/GetUserPermissions",

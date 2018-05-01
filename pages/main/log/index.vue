@@ -86,7 +86,7 @@
                              width="200">
             </el-table-column>
             <el-table-column prop="customData"
-                             label="浏览器"
+                             label="自定义数据"
                              width="200">
             </el-table-column>
         </el-table>
