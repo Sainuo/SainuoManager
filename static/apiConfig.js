@@ -47,13 +47,17 @@ let settings = {
     tenant_create: "/api/services/app/tenant/Create",
     tenant_udpate: "/api/services/app/tenant/Update",
     tenant_delete: "/api/services/app/tenant/Delete",
-    log_audited_get:"/api/services/app/auditedLog/GetList"
+    log_audited_get:"/api/services/app/auditedLog/GetList",
+    tester_create:"",
+    tester_update:"",
+    tester_delete:"",
+    tester_read:"",
+    tester_get:"/api/services/app/testerProject/GetList",
+    tester_quit_reasons_get:"/api/services/app/testerProject/GetQuitReasons"
 }
 
-let options = webconfig.isOfficalData ? settings : settings
-
-for (var p in options) {
-    options[p] = webconfig.apiServerAddress.concat(options[p]);
+for (var p in settings) {
+    settings[p] = webconfig.apiServerAddress.concat(settings[p]);
 }
 
-export default options
+export default settings
