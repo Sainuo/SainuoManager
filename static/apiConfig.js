@@ -56,9 +56,12 @@ let settings = {
     tester_quit_reasons_get:"/api/services/app/testerProject/GetQuitReasons",
     tester_not_qualified_reasons_get:"/api/services/app/testerProject/GetNotQualifiedReasons",
     tester_quit_reason_create:"/api/services/app/testerProject/CreateQuitReason",
+    tester_quit_reason_update:"",
     tester_not_qualified_reason_create:"/api/services/app/testerProject/CreateNotQualifiedReason",
+    tester_not_qualified_reason_update:"",
     tester_quit_reason_read:"/api/services/app/testerProject/GetQuitReason",
-    tester_not_qualified_reason_read:"/api/services/app/testerProject/GetNotQualifiedReason"
+    tester_not_qualified_reason_read:"/api/services/app/testerProject/GetNotQualifiedReason",
+    tester_sms_red:"/api/services/app/testerProject/SendValidationSmsCode"
 }
 
 for (var p in settings) {

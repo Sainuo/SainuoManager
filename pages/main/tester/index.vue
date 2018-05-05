@@ -2,12 +2,12 @@
 <div class="padding-l">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder">审计日志</span>
+                <span class="font-weight-blder">受试者管理</span>
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
-            <el-form-item label="" prop="crfNumber">
-                <el-input placeholder="CRF号" v-model="search.crfNumber"></el-input>
+            <el-form-item label="" prop="organizationId">
+                <el-input placeholder="中心号" v-model="search.organizationId"></el-input>
             </el-form-item>
             <el-form-item label="" prop="crfNumber">
                 <el-input placeholder="CRF号" v-model="search.crfNumber"></el-input>
@@ -18,25 +18,19 @@
                         v-model="search.date"
                         type="daterange"
                         range-separator="-"
-                        start-placeholder="开始时间"
-                        end-placeholder="结束时间">
+                        start-placeholder="出生开始时间"
+                        end-placeholder="出生结束时间">
                     </el-date-picker>
             </el-form-item>
-            <el-form-item label="" prop="serviceName">
+            <el-form-item label="" prop="gender">
                 <el-select v-model="search.gender" placeholder="性别">
                     <el-option label="全部" :value=null>全部</el-option>
-                    <el-option label="男" :value=1>成功</el-option>
-                    <el-option label="女" :value=2>失败</el-option>
+                    <el-option label="女" :value=0>女</el-option>
+                    <el-option label="男" :value=1>男</el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="" prop="serviceName">
-                <el-input placeholder="服务名称" v-model="search.serviceName"></el-input>
-            </el-form-item>
-            <el-form-item label=""  prop="serviceName">
-                <el-input placeholder="方法名称" v-model="search.methodName"></el-input>
-            </el-form-item>
-            <el-form-item label=""  prop="userName">
-                  <el-input placeholder="用户名" v-model="search.userName"></el-input>
+            <el-form-item label=""  prop="patientName">
+                  <el-input placeholder="受试者" v-model="search.patientName"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
@@ -49,17 +43,7 @@
                   @sort-change="handleSortChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column prop="exception"
-                             label="状态"
-                             sortable
-                             width="80">
-            <template slot-scope="scope">
-                <el-tag
-                :type="scope.row.exception === null ? 'success' : 'danger'"
-                disable-transitions>{{scope.row.exception === null ? '成功' : '失败'}}</el-tag>
-            </template>
-            </el-table-column>
-            <el-table-column prop="nationality"
+            <el-table-column prop="organizationId"
                              label="中心号"
                              sortable
                              width="120">
@@ -80,6 +64,14 @@
             <el-table-column prop="gender"
                              label="性别"
                              width="200">
+                        <template slot-scope="scope">
+                            {{scope.row.gender?'男':'女'}}
+                        </template>
+            </el-table-column>
+            <el-table-column prop="nationality"
+                             label="民族"
+                             sortable
+                             width="120">
             </el-table-column>
             <el-table-column prop="medProjectName"
                              label="受试项目"
@@ -101,15 +93,15 @@
                              fixed="right"
                              width="400">
                 <template slot-scope="scope">
-                    <el-dropdown>
+                    <el-dropdown @command="handleCommand">
                     <span class="el-dropdown-link">
                         操作<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item @click="onView(scope.row)">查看CRF</el-dropdown-item>
-                        <el-dropdown-item @click="onNotQualified(scope.row)">剔除</el-dropdown-item>
-                        <el-dropdown-item @click="onQuit(scope.row)">脱落</el-dropdown-item>
-                        <el-dropdown-item @click="onSMS(scope.row)">发送短信</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onView',model:scope.row}">查看CRF</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onNotQualified',model:scope.row}">剔除</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onQuit',model:scope.row}">脱落</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onSMS',model:scope.row}">发送短信</el-dropdown-item>
                     </el-dropdown-menu>
                     </el-dropdown>
                 </template>
@@ -132,6 +124,7 @@ import apiConfig from "~/static/apiConfig"
 export default{
     data:() =>({
         search: {
+            organizationId:null,
             gender:null,
             phoneNumber: "",
             userName:"",
@@ -179,9 +172,13 @@ export default{
             this.list.currentPage = val;
             this.loadData();
         },
+        handleCommand(command) {
+            console.log(command);
+            this[command.name](command.model);
+        },
         onAdd() {
             var me = this;
-            me.$loaderwindow("/main/user/edit?id=0", "添加受试者")
+            me.$loaderwindow("/main/tester/edit?id=0", "添加受试者")
                 .then( model => {
                     me.$message({ type: "success", message: "创建用户成功！" });
                     me.loadData();
@@ -207,18 +204,18 @@ export default{
         onNotQualified(model) {
             var me = this;
             console.log(model);
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, `编辑用户`)
+            me.$loaderwindow(`/main/tester/notqualified?id=${model.id}`, `剔除`)
                 .then(m => {
-                    me.$message({ type: "success", message: "编辑用户成功！" });
+                    me.$message({ type: "success", message: "剔除成功！" });
                     me.loadData();
                 });
         },
         onQuit(model) {
             var me = this;
             console.log(model);
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, `编辑用户`)
+            me.$loaderwindow(`/main/user/edit?id=${model.id}`, `脱落`)
                 .then(m => {
-                    me.$message({ type: "success", message: "编辑用户成功！" });
+                    me.$message({ type: "success", message: "脱落成功！" });
                     me.loadData();
                 });
         },
@@ -232,22 +229,20 @@ export default{
                 });
         },
         loadData () {
-            var me=this;
-            let s=me.search;
+            var me = this;
+            let s = me.search;
+            let d = {
+                    gender:s.gender,
+                    phoneNumber:s.phoneNumber,
+                    patientName:s.patientName,
+                    birthdayStart:typeof s.date !=="undefined"?s.date[0] :null,
+                    birthdayEnd:typeof s.date !=="undefined"?s.date[1] :null,
+                    crfNumber:s.crfNumber,
+                    skipCount: me.getSkip(),
+                    maxResultCount: me.list.pageSize
+            };
             me.loading = true;
-            axios.get(apiConfig.log_audited_get,{params:
-                    {
-                        userName:s.userName,
-                        serviceName:s.serviceName,
-                        actionName:s.actionName,
-                        hasException:s.hasException,
-                        startTime:typeof s.date ==="undefined"?s.date[0] :null,
-                        endTime:typeof s.date ==="undefined"?s.date[0] :null,
-                        skipCount: me.getSkip(),
-                        maxResultCount: me.list.pageSize
-                    }
-                }
-            )
+            axios.get(apiConfig.tester_get,{params:d})
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;

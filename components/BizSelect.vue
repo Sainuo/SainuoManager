@@ -37,6 +37,19 @@ export default {
             "type": String,
             "default": "请选择"
         },
+        "modelMap":{
+            "type":Function,
+            "default":(model)=>{
+                return model;
+            }
+        },
+        "getParams":{
+            "type":Object,
+            "default":()=>({
+                skipCount:0,
+                maxCount:65536
+            })
+        },
         "showColumns": {
             "type": Array,
             "default": ["Uid", "Name"]
@@ -107,18 +120,9 @@ export default {
                 query = "";
             }
 
-            axios.get(me.src, {
-                params: {
-                    $filter: me.getOdataFilter(query),
-                    $select: me.getFields()
-                }
-            }).then(function (response) {
-                if (me.isDistinct && Enumerable) {
-                    me.options = me.distinct(response.data["value"]);
-                } else {
-                    me.options = response.data["value"];
-                }
-                me.allOptions = me.options;
+            axios.get(me.src,{params:me.getParams}).then(function (response) {
+                me.allOptions = me.modelMap(response.data);
+                me.options=me.allOptions;
                 me.loading = false;
             });
         },
