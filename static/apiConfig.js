@@ -48,12 +48,17 @@ let settings = {
     tenant_udpate: "/api/services/app/tenant/Update",
     tenant_delete: "/api/services/app/tenant/Delete",
     log_audited_get:"/api/services/app/auditedLog/GetList",
-    tester_create:"",
-    tester_update:"",
+    tester_create:"/api/services/app/testerProject/Create",
+    tester_update:"/api/services/app/testerProject/UpdateTester",
     tester_delete:"",
-    tester_read:"",
+    tester_read:"/api/services/app/testerProject/GetTester",
     tester_get:"/api/services/app/testerProject/GetList",
-    tester_quit_reasons_get:"/api/services/app/testerProject/GetQuitReasons"
+    tester_quit_reasons_get:"/api/services/app/testerProject/GetQuitReasons",
+    tester_not_qualified_reasons_get:"/api/services/app/testerProject/GetNotQualifiedReasons",
+    tester_quit_reason_create:"/api/services/app/testerProject/CreateQuitReason",
+    tester_not_qualified_reason_create:"/api/services/app/testerProject/CreateNotQualifiedReason",
+    tester_quit_reason_read:"/api/services/app/testerProject/GetQuitReason",
+    tester_not_qualified_reason_read:"/api/services/app/testerProject/GetNotQualifiedReason"
 }
 
 for (var p in settings) {

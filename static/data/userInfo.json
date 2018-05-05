@@ -104,6 +104,16 @@
           {
             "FunctionGuid": "00000000-0000-0000-0000-000000000000",
             "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "受试者管理",
+            "DisplayName": "受试者管理",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/tester",
+            "FunctionType": "",
+            "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
             "FunctionName": "病例管理",
             "DisplayName": "病例管理",
             "Icon": "el-icon-message",
