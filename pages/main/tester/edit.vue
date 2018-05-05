@@ -3,8 +3,8 @@
         <el-form-item label="检验项目" prop="medProjectId">
             <biz-select :src="projectgeturl" v-model="ruleForm.medProjectId" :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
         </el-form-item>
-        <el-form-item label="CRF号" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="CRF号" prop="crfNumber" v-if="id">
+            <el-input v-model="ruleForm.crfNumber" disabled="disabled"></el-input>
         </el-form-item>
         <el-form-item label="患者姓名" prop="patientName">
             <el-input v-model="ruleForm.patientName"></el-input>
@@ -32,7 +32,7 @@
             </el-radio-group>
         </el-form-item>
         <el-form-item label="民族" prop="nationality">
-            <el-input v-model="ruleForm.nationality"></el-input>
+          <biz-select src="/data/nationality.json" v-model="ruleForm.nationality" :modelMap="model=>model.data" valueField="name" displayField="name" :showColumns="['name']"></biz-select>
         </el-form-item>
         <div class="text-align-right">
             <el-button @click="$emit('cancel')">取消</el-button>
@@ -45,6 +45,7 @@
   import apiConfig from "~/static/apiConfig"
   import BizSelect from "~/components/BizSelect.vue"
   import ButtonCooldown from "~/components/ButtonCooldown.vue"
+  import utility from "~/static/javascript/utility"
 
   export default {
     components:{
@@ -57,6 +58,7 @@
         projectgeturl:apiConfig.project_get,
         ruleForm: {
             "medProjectId": null,
+            "crfNumber": "",
             "patientName": "",
             "gender": 0,
             "phoneNumber": "",
@@ -89,8 +91,8 @@
     methods: {
       loadData(){
         var me=this;
-        axios.post(apiConfig.user_get,{ id:me.id}).then(response=>{
-            me.ruleForm = response.data.result;
+        axios.get(apiConfig.tester_read,{ params:{ demologyId:me.id}}).then(response=>{
+            me.ruleForm = utility.toClientModel(response.data.result);
         });
       },
       onConfirm() {
@@ -98,10 +100,16 @@
         me.$refs.ruleForm.validate((valid) => {
           if (valid) {
               var me = this;
-              var url= me.id===0 ?apiConfig.tester_create : apiConfig.tester_update;
-              axios.post(url,me.ruleForm).then(response=>{  
-                me.$emit("confirm",me.ruleForm);
-              });
+              if(me.id===0){
+                axios.post(apiConfig.tester_create,utility.toServerModel(me.ruleForm)).then(response=>{
+                  me.$emit("confirm",me.ruleForm);
+                });
+              }
+              else{
+                axios.put(apiConfig.tester_update,utility.toServerModel(me.ruleForm)).then(response=>{
+                  me.$emit("confirm",me.ruleForm);
+                });
+              }
           }
           return valid;
         });

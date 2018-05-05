@@ -5,7 +5,7 @@
         <div v-for="(option,index) in options" :key="index" label="">
             <el-radio v-model="ruleForm.reasonId" name="reasonId" :label="option.reasonId">{{option.reasonName}}</el-radio>
         </div>
-        <el-input type="textarea" v-model="ruleForm.otherReason"></el-input>
+        <el-input type="textarea" v-model="ruleForm.otherReason" placeholder="其他详情"></el-input>
         <div class="text-align-right margin-top-xl">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -26,12 +26,12 @@
     },
     data() {
       return {
-        id:0,
+        isEdit:false,
         options:[],
         ruleForm: {
-          "demologyId": 0,
+          "demologyId":0,
           "reasonId": 0,
-          "otherReason": "string"
+          "otherReason": ""
         },
         rules: {
           medProjectId: [
@@ -57,8 +57,11 @@
     methods: {
       loadData(){
         var me=this;
-        axios.post(apiConfig.tester_not_qualified_reason_read,{ demologyId:me.id}).then(response=>{
+        axios.get(apiConfig.tester_not_qualified_reason_read,{ demologyId:me.id}).then(response=>{
+          if(response.data.result!==null)
+          {
             me.ruleForm = response.data.result;
+          } 
         });
       },
       loadOptions(){
@@ -72,36 +75,22 @@
         me.$refs.ruleForm.validate((valid) => {
           if (valid) {
             var me = this;
-            if(me.id===0) {
               axios.post(apiConfig.tester_not_qualified_reason_create,me.ruleForm).then(response=>{  
                 me.$emit("confirm",me.ruleForm);
               });
-            }
-            else{
-              axios.put(apiConfig.apiConfig.tester_not_qualified_reason_update,me.ruleForm).then(response=>{  
-                me.$emit("confirm",me.ruleForm);
-              });
-            }
           }
           return valid;
-        });
-      },
-      onSendSMS(){
-        let me=this;
-        me.$refs.ruleForm.validateField("phoneNumber",(errorMessage)=>{
-          if(errorMessage===""){
-            axios.get(apiConfig.tester_sms_red,{params:{phoneNumber:me.ruleForm.phoneNumber}});
-          }
         });
       }
     },
     mounted(){
         var me = this;
         if(typeof me.$route.query.id === "string" && me.$route.query.id!=="0"){
-          me.id = parseInt(me.$route.query.id);
-          me.loadOptions();
-          me.loadData();
+          me.ruleForm.demologyId=me.$route.query.id;
         }
+        me.loadData();
+        me.loadOptions();
+        window.vm=this;
     }
   }
 </script>

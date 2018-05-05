@@ -1,4 +1,6 @@
 ﻿import webConfig from "~/static/webConfig"
+import '~/static/javascript/stringFormat'
+import '~/static/javascript/dateFormat'
 
 class Utility {    
     constructor() {
@@ -236,7 +238,7 @@ class Utility {
             if (model.hasOwnProperty(property)) {
                 var v = model[property];
                 if (v instanceof Date) {
-                    model[property] = v.Format("yyyy-MM-dd HH:mm:ss");
+                    model[property] = v.format("yyyy-MM-dd HH:mm:ss");
                     continue;
                 }
                 else if (isDeep && v instanceof Object) {
