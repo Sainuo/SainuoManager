@@ -117,7 +117,7 @@
             "FunctionName": "病例管理",
             "DisplayName": "病例管理",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/home/welcome",
+            "ActionUrl": "/main/tester/crf",
             "FunctionType": "",
             "ChildrenModels": []
           },

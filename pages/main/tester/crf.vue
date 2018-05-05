@@ -12,40 +12,41 @@
             <el-form-item label="" prop="crfNumber">
                 <el-input placeholder="CRF号" v-model="search.crfNumber"></el-input>
             </el-form-item>
-            <el-form-item label="" prop="date">
+            <el-select v-model="search.gender" placeholder="访视" clearable>
+                <el-option v-for="i in 9" :label="'V'+i" :key=i :value="i"></el-option>
+            </el-select>
+            <el-form-item label="" prop="visitTime">
                     <el-date-picker
-                        placeholder="生日区间"
-                        v-model="search.date"
+                        placeholder="访视日期"
+                        v-model="search.visitTime"
                         type="daterange"
                         range-separator="-"
-                        start-placeholder="出生开始时间"
-                        end-placeholder="出生结束时间">
+                        start-placeholder="访视日期开始"
+                        end-placeholder="访视日期结束">
                     </el-date-picker>
             </el-form-item>
-            <el-form-item label="" prop="gender">
-                <el-select v-model="search.gender" placeholder="性别" clearable>
-                    <el-option label="女" :value=0>女</el-option>
-                    <el-option label="男" :value=1>男</el-option>
-                </el-select>
+            <el-form-item label="" prop="medProjectId">
+                <biz-select :src="urls.crf_project_get" placeholder="临床检验项目" v-model="search.medProjectId" clearable :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
             </el-form-item>
-            <el-form-item label="" prop="notQualified">
-                <el-select v-model="search.notQualified" placeholder="剔出" clearable>
-                    <el-option label="否" :value=false>否</el-option>
-                    <el-option label="是" :value=true>是</el-option>
-                </el-select>
+            <el-form-item label="" prop="medPhaseId">
+                <biz-select :src="urls.crf_phase_get" placeholder="阶段" v-model="search.medPhaseId" clearable :auto-load=false :modelMap="model=>model.result.items" valueField="id" :params="{medProjectId:search.medProjectId}" displayField="phasesName" :showColumns="['phasesName']"></biz-select>
             </el-form-item>
-            <el-form-item label="" prop="quit">
-                <el-select v-model="search.quit" placeholder="脱落" clearable>
-                    <el-option label="否" :value=false>否</el-option>
-                    <el-option label="是" :value=true>是</el-option>
-                </el-select>
+            <el-form-item label="" prop="creatorName">
+                <el-input placeholder="填表人" v-model="search.creatorName"></el-input>
             </el-form-item>
-            <el-form-item label=""  prop="patientName">
-                  <el-input placeholder="受试者" v-model="search.patientName"></el-input>
+            <el-form-item label="" prop="visitTime">
+                    <el-date-picker
+                        placeholder="填表日期"
+                        v-model="search.createTime"
+                        type="daterange"
+                        range-separator="-"
+                        start-placeholder="填表日期开始"
+                        end-placeholder="填表日期结束">
+                    </el-date-picker>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
-                <el-button type="primary" icon="el-icon-plus" @click="onAdd">添加受试者</el-button>
+                <el-button type="primary" icon="el-icon-plus" @click="onAdd">添加病例</el-button>
             </el-form-item>
         </el-form>
         <el-table :data="list.tableData"
@@ -54,7 +55,7 @@
                   @sort-change="handleSortChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column prop="organizationId"
+            <el-table-column prop="organizationUnitId"
                              label="中心号"
                              sortable
                              width="120">
@@ -68,39 +69,34 @@
                              width="200"
                              label="受试者姓名">
             </el-table-column>
-            <el-table-column prop="birthday"
+            <el-table-column prop="visitTime"
                              width="120"
-                             label="出生日期">
+                             label="访视日期">
             </el-table-column>
-            <el-table-column prop="gender"
-                             label="性别"
+            <el-table-column prop="visitNumber"
+                             label="访视"
                              width="80">
-                        <template slot-scope="scope">
-                            {{scope.row.gender?'男':'女'}}
-                        </template>
             </el-table-column>
-            <el-table-column prop="nationality"
-                             label="民族"
+            <el-table-column prop="medicalProjectName"
+                             label="临床检验项目"
                              sortable
                              width="120">
             </el-table-column>
-            <el-table-column prop="medProjectName"
-                             label="受试项目"
+            <el-table-column prop="medicalPhaseName"
+                             label="阶段"
                              width="200">
             </el-table-column>
-            <el-table-column prop="phoneNumber"
-                             label="手机号码"
+            <el-table-column prop="crfCreatorName"
+                             label="CRF填表人"
                              >
             </el-table-column>
-            <el-table-column prop="notQualified"
-                             label="剔除"
+            <el-table-column prop="createTime"
+                             label="填表最后日期"
                              width="80">
-                             <template slot-scope="scope">{{scope.row.notQualified?"是":"否"}}</template>
             </el-table-column>
-            <el-table-column prop="quit"
-                             label="脱落"
+            <el-table-column prop="isCRFValidated"
+                             label="完备"
                              width="80">
-                             <template slot-scope="scope">{{scope.row.quit?"是":"否"}}</template>
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
@@ -111,10 +107,10 @@
                         操作<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item :command="{name:'onEdit',model:scope.row}">编辑</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onView',model:scope.row}">查看CRF</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onNotQualified',model:scope.row}">剔除</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onQuit',model:scope.row}">脱落</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onEdit',model:scope.row}">查看详情</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onView',model:scope.row}">编辑病例</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onNotQualified',model:scope.row}">编辑详情</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onQuit',model:scope.row}">导出word</el-dropdown-item>
                     </el-dropdown-menu>
                     </el-dropdown>
                 </template>
@@ -134,17 +130,27 @@
 <script>
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
+import BizSelect from "~/components/BizSelect.vue"
+
 export default{
+    components:{
+        'biz-select':BizSelect
+    },
     data:() =>({
+        urls:{
+            crf_phase_get:apiConfig.crf_phase_get,
+            crf_project_get:apiConfig.crf_project_get
+        },
         search: {
-            organizationId:null,
-            quit:null,
-            notQualified:null,
-            gender:null,
-            phoneNumber: "",
-            userName:"",
             crfNumber:"",
-            date:[]
+            patientName:"",
+            visitTime:[],
+            visitNumber:null,
+            createTime:[],
+            creatorName:"",
+            medProjectId:null,
+            medPhaseId:null,
+            isValidated:null
         },
         list: {
             tableData: [],
@@ -242,19 +248,22 @@ export default{
             var me = this;
             let s = me.search;
             let d = {
-                    gender:s.gender,
-                    phoneNumber:s.phoneNumber,
-                    patientName:s.patientName,
-                    quit:s.quit,
-                    notQualified:s.notQualified,
-                    birthdayStart:typeof s.date !=="undefined"?s.date[0] :null,
-                    birthdayEnd:typeof s.date !=="undefined"?s.date[1] :null,
                     crfNumber:s.crfNumber,
+                    patientName:s.patientName,
+                    visitTimeStart:typeof s.visitTime ?s.visitTime[0] :null,
+                    visitTimeEnd:typeof s.visitTime ?s.visitTime[1] :null,
+                    visitNumber:s.visitNumber,
+                    createTimeStart:typeof s.createTime ?s.createTime[0] :null,
+                    createTimeEnd:typeof s.createTime ?s.createTime[1] :null,
+                    creatorName:s.creatorName,
+                    medProjectId:s.medProjectId,
+                    medPhaseId:s.medPhaseId,
+                    isValidated:s.isValidated,
                     skipCount: me.getSkip(),
                     maxResultCount: me.list.pageSize
             };
             me.loading = true;
-            axios.get(apiConfig.tester_get,{params:d})
+            axios.get(apiConfig.crf_get,{params:d})
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;

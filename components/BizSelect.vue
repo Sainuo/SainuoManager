@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="val" ref="select" :loading="loading" :placeholder="placeholder" @change="handleChange"> 
+    <el-select v-model="val" ref="select" :clearable="clearable" :loading="loading" :placeholder="placeholder" @change="handleChange"> 
         <el-option v-for="(item,index) in options"
         :key = "index"
         :label = "item[displayField]"
@@ -33,6 +33,14 @@ export default {
             "type": String,
             "default": ""
         },
+        "autoLoad":{
+            "type":Boolean,
+            "default":true
+        },
+        "clearable":{
+            type:Boolean,
+            default:false
+        },
         "placeholder": {
             "type": String,
             "default": "请选择"
@@ -43,7 +51,7 @@ export default {
                 return model;
             }
         },
-        "getParams":{
+        "params":{
             "type":Object,
             "default":()=>({
                 skipCount:0,
@@ -87,6 +95,11 @@ export default {
         "value": function (val, oldVal) {
             var me = this;
             me.val = val;
+        },
+        params : {
+            handler (val, oldVal) {
+                this.getData();
+            }
         }
     },
     methods: {
@@ -120,7 +133,7 @@ export default {
                 query = "";
             }
 
-            axios.get(me.src,{params:me.getParams}).then(function (response) {
+            axios.get(me.src,{params:me.params}).then(function (response) {
                 me.allOptions = me.modelMap(response.data);
                 me.options=me.allOptions;
                 me.loading = false;
@@ -180,7 +193,9 @@ export default {
         "el-option": ELEMENT.Option
     },
     mounted: function () {
-        this.getData();
+        if(this.autoLoad){
+         this.getData();
+        }
         this.updateValue(this.value);
     }
 }
