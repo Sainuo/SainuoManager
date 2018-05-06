@@ -192,7 +192,6 @@ export default {
   mounted() {
     var me = this;
     me.loadOrgnization();
-    window.vm=me;
   }
 };
 </script>

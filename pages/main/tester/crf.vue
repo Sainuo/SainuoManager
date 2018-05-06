@@ -7,14 +7,14 @@
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
             <el-form-item label="" prop="organizationId">
-                <el-input placeholder="中心号" v-model="search.organizationId"></el-input>
+                <el-input placeholder="中心号" v-model="search.organizationId" clearable></el-input>
             </el-form-item>
             <el-form-item label="" prop="crfNumber">
-                <el-input placeholder="CRF号" v-model="search.crfNumber"></el-input>
+                <el-input placeholder="CRF号" v-model="search.crfNumber" clearable></el-input>
             </el-form-item>
-            <el-select v-model="search.gender" placeholder="访视" clearable>
-                <el-option v-for="i in 9" :label="'V'+i" :key=i :value="i"></el-option>
-            </el-select>
+            <el-form-item label="" prop="visitNumber">
+                <biz-select src="/data/visitnumber.json" v-model="search.visitNumber" placeholder="访视" clearable></biz-select>
+            </el-form-item>
             <el-form-item label="" prop="visitTime">
                     <el-date-picker
                         placeholder="访视日期"
@@ -26,10 +26,10 @@
                     </el-date-picker>
             </el-form-item>
             <el-form-item label="" prop="medProjectId">
-                <biz-select :src="urls.crf_project_get" placeholder="临床检验项目" v-model="search.medProjectId" clearable :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
+                <biz-select @input="onSelectProject" :src="urls.crf_project_get" placeholder="临床检验项目" v-model="search.medProjectId" clearable :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
             </el-form-item>
             <el-form-item label="" prop="medPhaseId">
-                <biz-select :src="urls.crf_phase_get" placeholder="阶段" v-model="search.medPhaseId" clearable :auto-load=false :modelMap="model=>model.result.items" valueField="id" :params="{medProjectId:search.medProjectId}" displayField="phasesName" :showColumns="['phasesName']"></biz-select>
+                <biz-select ref="bsMedPhaseId" :src="urls.crf_phase_get" placeholder="阶段" v-model="search.medPhaseId" clearable :auto-load=false :modelMap="model=>model.result.items" valueField="id" :params="{medProjectId:search.medProjectId}" displayField="phasesName" :showColumns="['phasesName']"></biz-select>
             </el-form-item>
             <el-form-item label="" prop="creatorName">
                 <el-input placeholder="填表人" v-model="search.creatorName"></el-input>
@@ -92,11 +92,11 @@
             </el-table-column>
             <el-table-column prop="createTime"
                              label="填表最后日期"
-                             width="80">
+                             >
             </el-table-column>
             <el-table-column prop="isCRFValidated"
                              label="完备"
-                             width="80">
+                             >
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
@@ -107,8 +107,8 @@
                         操作<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item :command="{name:'onEdit',model:scope.row}">查看详情</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onView',model:scope.row}">编辑病例</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onView',model:scope.row}">查看详情</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onEdit',model:scope.row}">编辑病例</el-dropdown-item>
                         <el-dropdown-item :command="{name:'onNotQualified',model:scope.row}">编辑详情</el-dropdown-item>
                         <el-dropdown-item :command="{name:'onQuit',model:scope.row}">导出word</el-dropdown-item>
                     </el-dropdown-menu>
@@ -196,19 +196,28 @@ export default{
         handleCommand(command) {
             this[command.name](command.model);
         },
+        onSelectProject(val){
+            var me=this;
+            if(val){
+                me.$nextTick(()=>me.$refs.bsMedPhaseId.loadData())
+            }else{
+                me.search.medPhaseId=null;
+                me.$refs.bsMedPhaseId.options=[];
+            }
+        },
         onAdd() {
             var me = this;
-            me.$loaderwindow("/main/tester/edit?id=0", "添加受试者")
+            me.$loaderwindow("/main/tester/editcrf?id=0", "添加病例")
                 .then( m => {
-                    me.$message({ type: "success", message: "添加受试者成功！" });
+                    me.$message({ type: "success", message: "添加病例成功！" });
                     me.loadData();
                 });
         },
         onEdit(model) {
             var me = this;
-            me.$loaderwindow(`/main/tester/edit?id=${model.id}`, `编辑受试者`)
+            me.$loaderwindow(`/main/tester/editcrf?id=${model.id}`, `编辑病例`)
                 .then( m => {
-                    me.$message({ type: "success", message: "编辑受成功！" });
+                    me.$message({ type: "success", message: "编辑病例成功！" });
                     me.loadData();
                 });
         },
@@ -250,11 +259,11 @@ export default{
             let d = {
                     crfNumber:s.crfNumber,
                     patientName:s.patientName,
-                    visitTimeStart:typeof s.visitTime ?s.visitTime[0] :null,
-                    visitTimeEnd:typeof s.visitTime ?s.visitTime[1] :null,
+                    visitTimeStart:s.visitTime ?s.visitTime[0] :null,
+                    visitTimeEnd:s.visitTime ?s.visitTime[1] :null,
                     visitNumber:s.visitNumber,
-                    createTimeStart:typeof s.createTime ?s.createTime[0] :null,
-                    createTimeEnd:typeof s.createTime ?s.createTime[1] :null,
+                    createTimeStart:s.createTime ?s.createTime[0] :null,
+                    createTimeEnd:s.createTime ?s.createTime[1] :null,
                     creatorName:s.creatorName,
                     medProjectId:s.medProjectId,
                     medPhaseId:s.medPhaseId,

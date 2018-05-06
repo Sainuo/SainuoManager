@@ -63,12 +63,14 @@ let settings = {
     tester_not_qualified_reason_read:"/api/services/app/testerProject/GetNotQualifiedReason",
     tester_sms_red:"/api/services/app/testerProject/SendValidationSmsCode",
     tester_read_by_crf:"/api/services/app/cRF/GetTesterByCRFNumber",
+    crf_create:"/api/services/app/cRF/Create",
     crf_get:"/api/services/app/cRF/GetCRFBaseInfoList",
     crf_read:"/api/services/app/cRF/GetCRFBaseInfo",
     crf_update:"/api/services/app/cRF/UpdateCRFBaseInfo",
     crf_navigation_get:"/api/services/app/cRF/GetCRFNavigation ",
     crf_project_get:"/api/services/app/cRF/GetSearchMedProjectDropDownList",
-    crf_phase_get:"/api/services/app/cRF/GetSearchMedPhaseDropDownList"
+    crf_phase_get:"/api/services/app/cRF/GetSearchMedPhaseDropDownList",
+    crf_phases_get:"/api/services/app/cRF/GetPhases"
 }
 
 for (var p in settings) {

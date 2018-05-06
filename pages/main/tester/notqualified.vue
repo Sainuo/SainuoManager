@@ -90,7 +90,6 @@
         }
         me.loadData();
         me.loadOptions();
-        window.vm=this;
     }
   }
 </script>

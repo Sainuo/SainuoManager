@@ -247,8 +247,8 @@ export default{
                     patientName:s.patientName,
                     quit:s.quit,
                     notQualified:s.notQualified,
-                    birthdayStart:typeof s.date !=="undefined"?s.date[0] :null,
-                    birthdayEnd:typeof s.date !=="undefined"?s.date[1] :null,
+                    birthdayStart: s.date?s.date[0] :null,
+                    birthdayEnd: s.date ?s.date[1] :null,
                     crfNumber:s.crfNumber,
                     skipCount: me.getSkip(),
                     maxResultCount: me.list.pageSize

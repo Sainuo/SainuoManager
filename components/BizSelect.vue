@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="val" ref="select" :clearable="clearable" :loading="loading" :placeholder="placeholder" @change="handleChange"> 
+    <el-select v-model="val" ref="select" :clearable="clearable" :disabled="disabled" :loading="loading" :placeholder="placeholder" @change="handleChange"> 
         <el-option v-for="(item,index) in options"
         :key = "index"
         :label = "item[displayField]"
@@ -41,6 +41,10 @@ export default {
             type:Boolean,
             default:false
         },
+        "disabled":{
+            type:Boolean,
+            default:false
+        },
         "placeholder": {
             "type": String,
             "default": "请选择"
@@ -60,15 +64,15 @@ export default {
         },
         "showColumns": {
             "type": Array,
-            "default": ["Uid", "Name"]
+            "default":()=> ["id", "name"]
         },
         "valueField": {
             "type": String,
-            "default": ""//model:item|fieldName:item.fieldName
+            "default": "id"//model:item|fieldName:item.fieldName
         },
         "displayField": {
             "type": String,
-            "default": "Name"
+            "default": "name"
         },
         "isDistinct": {
             "type": Boolean,
@@ -95,11 +99,6 @@ export default {
         "value": function (val, oldVal) {
             var me = this;
             me.val = val;
-        },
-        params : {
-            handler (val, oldVal) {
-                this.getData();
-            }
         }
     },
     methods: {
@@ -125,7 +124,7 @@ export default {
             }
             return odata.join(" or ");
         },
-        getData: function (query) {
+        loadData: function (query) {
             var me = this;
             me.loading = true;
 
@@ -137,6 +136,7 @@ export default {
                 me.allOptions = me.modelMap(response.data);
                 me.options=me.allOptions;
                 me.loading = false;
+                me.$emit("load",{target:me,data:me.allOptions});
             });
         },
         distinct: function (arr) {
@@ -193,10 +193,11 @@ export default {
         "el-option": ELEMENT.Option
     },
     mounted: function () {
-        if(this.autoLoad){
-         this.getData();
+        var me=this;
+        if(me.autoLoad){
+            me.loadData();
         }
-        this.updateValue(this.value);
+        me.updateValue(me.value);
     }
 }
 </script>

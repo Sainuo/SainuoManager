@@ -89,8 +89,7 @@
           me.ruleForm.demologyId=me.$route.query.id;
         }
         me.loadData();
-        me.loadOptions();
-        window.vm=this;
+        me.loadOptions();        
     }
   }
 </script>

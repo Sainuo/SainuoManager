@@ -218,8 +218,8 @@ export default{
                         serviceName:s.serviceName,
                         actionName:s.actionName,
                         hasException:s.hasException,
-                        startTime:typeof s.date !=="undefined"?s.date[0] :null,
-                        endTime:typeof s.date !=="undefined"?s.date[1] :null,
+                        startTime:s.date ? s.date[0]:null,
+                        endTime:s.date ? s.date[1]:null,
                         skipCount: me.getSkip(),
                         maxResultCount: me.list.pageSize
                     }

@@ -67,11 +67,9 @@ export default {
    mounted() {
     var me = this;
     let q = me.$route.query;
-    console.log(q);
     if (typeof q.id === "string" && q.id !== "0") {
       me.id = parseInt(q.id);
     }
-    window.vm=this;
   }
 }
 </script>
