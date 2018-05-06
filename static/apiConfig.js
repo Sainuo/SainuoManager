@@ -67,10 +67,14 @@ let settings = {
     crf_get:"/api/services/app/cRF/GetCRFBaseInfoList",
     crf_read:"/api/services/app/cRF/GetCRFBaseInfo",
     crf_update:"/api/services/app/cRF/UpdateCRFBaseInfo",
-    crf_navigation_get:"/api/services/app/cRF/GetCRFNavigation ",
+    crf_navigation_get:"/api/services/app/cRF/GetCRFNavigation",
     crf_project_get:"/api/services/app/cRF/GetSearchMedProjectDropDownList",
     crf_phase_get:"/api/services/app/cRF/GetSearchMedPhaseDropDownList",
-    crf_phases_get:"/api/services/app/cRF/GetPhases"
+    crf_phases_get:"/api/services/app/cRF/GetPhases",
+    medItemPatientAgreement_get:"/api/services/app/medItemPatientAgreement/GetOne",
+    medItemPatientAgreement_put:"/api/services/app/medItemPatientAgreement/Update",
+    medItemVitalSign_get:"/api/services/app/medItemVitalSign/GetOne",
+    medItemVitalSign_put:"/api/services/app/medItemVitalSign/Update"
 }
 
 for (var p in settings) {

@@ -109,8 +109,8 @@
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item :command="{name:'onView',model:scope.row}">查看详情</el-dropdown-item>
                         <el-dropdown-item :command="{name:'onEdit',model:scope.row}">编辑病例</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onNotQualified',model:scope.row}">编辑详情</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onQuit',model:scope.row}">导出word</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onEditDetail',model:scope.row}">编辑详情</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onExportWord',model:scope.row}">导出word</el-dropdown-item>
                     </el-dropdown-menu>
                     </el-dropdown>
                 </template>
@@ -208,10 +208,14 @@ export default{
         onAdd() {
             var me = this;
             me.$loaderwindow("/main/tester/editcrf?id=0", "添加病例")
-                .then( m => {
-                    me.$message({ type: "success", message: "添加病例成功！" });
-                    me.loadData();
+            .then( m => {
+                me.$message({ type: "success", message: "添加病例成功！" });
+                me.loadData();
+                me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
+                .then(() => {
+                    me.$router.push(`/main/tester/forms?id=${m.id}`);
                 });
+            });
         },
         onEdit(model) {
             var me = this;
@@ -221,15 +225,11 @@ export default{
                     me.loadData();
                 });
         },
-        onView(model) {
+        onEditDetail(model) {
             var me = this;
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, `编辑用户`)
-                .then(m => {
-                    me.$message({ type: "success", message: "编辑用户成功！" });
-                    me.loadData();
-                });
+            me.$router.push(`/main/tester/forms?id=${model.id}`);
         },
-        onNotQualified(model) {
+        onExportWord(model) {
             var me = this;
             me.$loaderwindow(`/main/tester/notqualified?id=${model.id}`, `剔除`)
                 .then(m => {
@@ -237,39 +237,23 @@ export default{
                     me.loadData();
                 });
         },
-        onQuit(model) {
-            var me = this;
-            me.$loaderwindow(`/main/tester/quit?id=${model.id}`, `脱落`)
-                .then(m => {
-                    me.$message({ type: "success", message: "脱落成功！" });
-                    me.loadData();
-                });
-        },
-        onSMS(model) {
-            var me = this;
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, `编辑用户`)
-                .then(m => {
-                    me.$message({ type: "success", message: "编辑用户成功！" });
-                    me.loadData();
-                });
-        },
         loadData () {
             var me = this;
             let s = me.search;
             let d = {
-                    crfNumber:s.crfNumber,
-                    patientName:s.patientName,
-                    visitTimeStart:s.visitTime ?s.visitTime[0] :null,
-                    visitTimeEnd:s.visitTime ?s.visitTime[1] :null,
-                    visitNumber:s.visitNumber,
-                    createTimeStart:s.createTime ?s.createTime[0] :null,
-                    createTimeEnd:s.createTime ?s.createTime[1] :null,
-                    creatorName:s.creatorName,
-                    medProjectId:s.medProjectId,
-                    medPhaseId:s.medPhaseId,
-                    isValidated:s.isValidated,
-                    skipCount: me.getSkip(),
-                    maxResultCount: me.list.pageSize
+                crfNumber:s.crfNumber,
+                patientName:s.patientName,
+                visitTimeStart:s.visitTime ?s.visitTime[0] :null,
+                visitTimeEnd:s.visitTime ?s.visitTime[1] :null,
+                visitNumber:s.visitNumber,
+                createTimeStart:s.createTime ?s.createTime[0] :null,
+                createTimeEnd:s.createTime ?s.createTime[1] :null,
+                creatorName:s.creatorName,
+                medProjectId:s.medProjectId,
+                medPhaseId:s.medPhaseId,
+                isValidated:s.isValidated,
+                skipCount: me.getSkip(),
+                maxResultCount: me.list.pageSize
             };
             me.loading = true;
             axios.get(apiConfig.crf_get,{params:d})

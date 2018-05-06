@@ -4,7 +4,7 @@
             <span class="color-white font-size-xxl padding-xl menu-width">{{systemName}}</span>
             <nav class="color-white user-info">
                 <div class="padding-left-right-xl">
-                    <el-dropdown @command="handleCommand">
+                    <el-dropdown @command="handleCommand" trigger="click">
                         <span class="el-dropdown-link color-white">
                             <span>{{userName}}<img class="avatar margin-left-l" src="images/avatar.jpg" /></span>
                         </span>
