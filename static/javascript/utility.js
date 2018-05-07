@@ -2,7 +2,7 @@
 import '~/static/javascript/stringFormat'
 import '~/static/javascript/dateFormat'
 
-class Utility {    
+class Utility {
     constructor() {
         var me = this;
         this.history = [];
@@ -206,6 +206,20 @@ class Utility {
         var user = me.getUser();
         return user.UserMenuModels;
     }
+    htmlEncode(v) {
+        return (v + "").replace(/&/g, "&amp;")
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, "&#39;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+    }
+    htmlDecode(v) {
+        return (v + "").replace(/&amp;/g, "&")
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'")
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">");
+    }
     /**
     *服务器模型转客户端模型
     */
@@ -214,6 +228,7 @@ class Utility {
         for (var property in model) {
             if (model.hasOwnProperty(property)) {
                 var v = model[property];
+
                 if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(v)) {
                     //2016-09-18T03:46:11.893Z
                     model[property] = new Date(v);
@@ -221,6 +236,14 @@ class Utility {
                 else if (/\/Date\(-?\d+\)\//.test(v)) {
                     //Microsoft json Date \/Date(1450800000000)\/ \/Date(-62135596800000)\/
                     model[property] = new Date(parseInt(v.substring(6)));
+                }
+                else if (typeof v === "string") {
+                    model[property] = me.htmlDecode(v);
+                }
+                else if (isDeep && v instanceof Array) {
+                    for (var i = 0, item; item = v[i]; i++) {
+                        me.toClientModel(item, isDeep);
+                    }
                 }
                 else if (isDeep && v instanceof Object) {
                     me.toClientModel(v, isDeep);
@@ -238,8 +261,15 @@ class Utility {
             if (model.hasOwnProperty(property)) {
                 var v = model[property];
                 if (v instanceof Date) {
-                    model[property] = v.format("yyyy-MM-dd HH:mm:ss");
-                    continue;
+                    model[property] = v.Format("yyyy-MM-dd HH:mm:ss");
+                }
+                else if (typeof v === "string") {
+                    model[property] = me.htmlEncode(v);
+                }
+                else if (isDeep && v instanceof Array) {
+                    for (var i = 0, item; item = v[i]; i++) {
+                        me.toServerModel(item, isDeep);
+                    }
                 }
                 else if (isDeep && v instanceof Object) {
                     me.toServerModel(v, isDeep);

@@ -27,6 +27,8 @@ const _c12caee6 = () => import('..\\pages\\main\\demo\\router.push.vue' /* webpa
 const _6572008c = () => import('..\\pages\\main\\integration\\CKEditor.vue' /* webpackChunkName: "pages_main_integration_CKEditor" */).then(m => m.default || m)
 const _97ee17fe = () => import('..\\pages\\main\\tester\\forms.vue' /* webpackChunkName: "pages_main_tester_forms" */).then(m => m.default || m)
 const _2d5fadeb = () => import('..\\pages\\main\\tester\\forms\\medItemVitalSign.vue' /* webpackChunkName: "pages_main_tester_forms_medItemVitalSign" */).then(m => m.default || m)
+const _c5e670e8 = () => import('..\\pages\\main\\tester\\forms\\medItemFertility.vue' /* webpackChunkName: "pages_main_tester_forms_medItemFertility" */).then(m => m.default || m)
+const _ede67262 = () => import('..\\pages\\main\\tester\\forms\\medItemFertility.1.vue' /* webpackChunkName: "pages_main_tester_forms_medItemFertility.1" */).then(m => m.default || m)
 const _60fe4d73 = () => import('..\\pages\\main\\tester\\forms\\medItemPatientAgreement.vue' /* webpackChunkName: "pages_main_tester_forms_medItemPatientAgreement" */).then(m => m.default || m)
 const _5108ed56 = () => import('..\\pages\\main\\demo\\tableexpand.vue' /* webpackChunkName: "pages_main_demo_tableexpand" */).then(m => m.default || m)
 const _576e66ab = () => import('..\\pages\\main\\tester\\sms.vue' /* webpackChunkName: "pages_main_tester_sms" */).then(m => m.default || m)
@@ -228,6 +230,16 @@ export function createRouter () {
 							path: "medItemVitalSign",
 							component: _2d5fadeb,
 							name: "main-tester-forms-medItemVitalSign"
+						},
+						{
+							path: "medItemFertility",
+							component: _c5e670e8,
+							name: "main-tester-forms-medItemFertility"
+						},
+						{
+							path: "medItemFertility.1",
+							component: _ede67262,
+							name: "main-tester-forms-medItemFertility.1"
 						},
 						{
 							path: "medItemPatientAgreement",

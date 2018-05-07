@@ -74,7 +74,15 @@ let settings = {
     medItemPatientAgreement_get:"/api/services/app/medItemPatientAgreement/GetOne",
     medItemPatientAgreement_put:"/api/services/app/medItemPatientAgreement/Update",
     medItemVitalSign_get:"/api/services/app/medItemVitalSign/GetOne",
-    medItemVitalSign_put:"/api/services/app/medItemVitalSign/Update"
+    medItemVitalSign_put:"/api/services/app/medItemVitalSign/Update",
+    medItemFertility_get:"/api/services/app/medItemFertility/GetOne",
+    medItemFertility_put:"/api/services/app/medItemFertility/Update",
+    medItemHCGTest_get:"/api/services/app/medItemHCGTest/GetOne",
+    medItemHCGTest_put:"/api/services/app/medItemHCGTest/Update",
+    medItemAlcoholHistory_get:"/api/services/app/medItemAlcoholHistory/GetOne",
+    medItemAlcoholHistory_put:"/api/services/app/medItemAlcoholHistory/Update",
+    medItemHepatitisBHistory_get:"/api/services/app/medItemHepatitisBHistory/GetOne",
+    medItemHepatitisBHistory_put:"/api/services/app/medItemHepatitisBHistory/Update"
 }
 
 for (var p in settings) {
