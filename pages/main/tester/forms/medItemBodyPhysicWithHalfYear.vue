@@ -1,36 +1,120 @@
 <template>
     <div>
-        <div>人体生命体征体格检查 （肝纤维化检验）</div>
+        <div>体格检查（肝纤维化检验）</div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-            <el-form-item label="身高">
-                <el-input-number v-model="ruleForm.height" :min="1" label="请输入身高"></el-input-number>cm
-                <div class="color-gray">请输入数字</div>
-            </el-form-item>
-            <el-form-item label="体重">
-                <el-input-number v-model="ruleForm.weight" :min="1" label="请输入体重"></el-input-number>kg
-                <div class="color-gray">请输入数字，只保留小数点后一位</div>
-            </el-form-item>
-            <el-form-item label="BMI">
-                <span>{{ruleForm.weight/ruleForm.height}}</span>kg/m2
-                <div class="color-gray">体重/身高2</div>
-            </el-form-item>
-            <el-form-item label="体温">
-                <el-input-number v-model="ruleForm.bodyTemperature" :min="1" label="请输入体温"></el-input-number>℃
-                <div class="color-gray">请输入数字，只保留小数点后一位</div>
-            </el-form-item>
-            <el-form-item label="脉搏">
-                <el-input-number v-model="ruleForm.pluse" :min="1"  label="请输入脉搏"></el-input-number>次/分
-                <div class="color-gray">请输入数字，只保留小数点后一位</div>
-            </el-form-item>
-            <el-form-item label="呼吸">
-                <el-input-number v-model="ruleForm.breath" :min="1"  label="请输入脉搏"></el-input-number>℃
-                <div class="color-gray">请输入数字，只保留小数点后一位</div>
-            </el-form-item>
-            <el-form-item label="血压">
-                <el-input-number v-model="ruleForm.systolicPressure" :min="1"  label="请输入收缩压"></el-input-number>\
-                <el-input-number v-model="ruleForm.diastolicPressure" :min="1" label="请输入舒张压"></el-input-number>mmHg
-                <div class="color-gray">收缩压 请输入数字,舒张压 请输入数字</div>
-            </el-form-item>
+            <div>
+                <h2>体格检查</h2>
+                <el-form-item label="检查日期">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate" style="width: 100%;"></el-date-picker>
+                </el-form-item>
+            </div>
+            <div>
+                <h2>全身各系统</h2>
+                <el-form-item label="1、五官">
+                    <el-radio v-model="ruleForm.wg" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.wg" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.wg" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.wg===2">
+                    <el-input v-model="ruleForm.wgDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="2、呼吸">
+                    <el-radio v-model="ruleForm.hx" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.hx" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.hx" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.hx===2">
+                    <el-input v-model="ruleForm.hxDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="3、循环">
+                    <el-radio v-model="ruleForm.xh" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.xh" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.xh" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.xh===2">
+                    <el-input v-model="ruleForm.xhDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="4、消化">
+                    <el-radio v-model="ruleForm.xiaoHua" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.xiaoHua" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.xiaoHua" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.xiaoHua===2">
+                    <el-input v-model="ruleForm.xiaoHuaDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="5、泌尿">
+                    <el-radio v-model="ruleForm.mn" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.mn" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.mn" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.mn===2">
+                    <el-input v-model="ruleForm.mnDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="5、泌尿">
+                    <el-radio v-model="ruleForm.mn" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.mn" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.mn" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.mn===2">
+                    <el-input v-model="ruleForm.mnDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="6、肌肉骨骼">
+                    <el-radio v-model="ruleForm.jrgg" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.jrgg" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.jrgg" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.jrgg===2">
+                    <el-input v-model="ruleForm.jrggDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="7、神经">
+                    <el-radio v-model="ruleForm.sj" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.sj" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.sj" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.sj===2">
+                    <el-input v-model="ruleForm.sjDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="8、内分泌和代谢">
+                    <el-radio v-model="ruleForm.nfmdx" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.nfmdx" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.nfmdx" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.nfmdx===2">
+                    <el-input v-model="ruleForm.nfmdxDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="9、血液/淋巴">
+                    <el-radio v-model="ruleForm.xylb" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.xylb" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.xylb" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.xylb===2">
+                    <el-input v-model="ruleForm.xylbDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="10、皮肤">
+                    <el-radio v-model="ruleForm.pf" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.pf" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.pf" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.pf===2">
+                    <el-input v-model="ruleForm.pfDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="11、过敏/免疫">
+                    <el-radio v-model="ruleForm.pf" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.pf" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.pf" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.pf===2">
+                    <el-input v-model="ruleForm.pfDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+                <el-form-item label="12、其他">
+                    <el-radio v-model="ruleForm.other" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.other" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.other" :label="2">异常</el-radio>
+                </el-form-item>
+                <div v-if="ruleForm.other===2">
+                    <el-input v-model="ruleForm.otherDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                </div>
+            </div>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -50,26 +134,49 @@ export default {
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
-                "weight": 0,
-                "height": 0,
-                "bodyTemperature": 0,
-                "pluse": 0,
-                "breath": 0,
-                "bmi": 0,
-                "systolicPressure": 0,
-                "diastolicPressure": 0
+                "testDate": new Date(),
+                "wg": 0,
+                "wgDes": "string",
+                "hx": 0,
+                "hxDes": "string",
+                "xh": 0,
+                "xhDes": "string",
+                "xiaoHua": 0,
+                "xiaoHuaDes": "string",
+                "mn": 0,
+                "mnDes": "string",
+                "jrgg": 0,
+                "jrggDes": "string",
+                "sj": 0,
+                "sjDes": "string",
+                "nfmdx": 0,
+                "nfmdxDes": "string",
+                "xylb": 0,
+                "xylbDes": "string",
+                "pf": 0,
+                "pfDes": "string",
+                "gmmy": 0,
+                "gmmyDes": "string",
+                "other": 0,
+                "otherDes": "string",
+                "halfYearMedTake": 0,
+                "halfYearMedObjectFromJson": [
+                    {
+                    "commonName": "string",
+                    "userFor": "string",
+                    "startTime": "2018-05-07T08:28:44.097Z",
+                    "endTime": "2018-05-07T08:28:44.097Z"
+                    }
+                ]
             },
             rules: {
-                agreementImgBase64: [
-                    { required: true, message: '请上传同意书照片', trigger: 'change' }
-                ]
             }
         };
     },
     methods: {
         loadData(){
             var me=this;
-            axios.get(apiConfig.medItemVitalSign_get,{ params:{ id:me.id}}).then(response=>{
+            axios.get(apiConfig.medItemBodyPhysicWithHalfYear_get,{ params:{ id:me.id}}).then(response=>{
                 me.ruleForm = utility.toClientModel(response.data.result);
             });
         },
@@ -78,7 +185,7 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
-                    axios.put(apiConfig.medItemVitalSign_put,utility.toServerModel(me.ruleForm)).then(response=>{
+                    axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.ruleForm)).then(response=>{
                         me.$emit("confirm",me.ruleForm);
                     });
                 }

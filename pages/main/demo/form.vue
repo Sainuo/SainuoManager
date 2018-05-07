@@ -5,7 +5,7 @@
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
     <el-form-item label="生日">
-      <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthday" style="width: 100%;"></el-date-picker>
+      <el-date-picker v-model="ruleForm.birthday" type="date" placeholder="选择日期" style="width: 100%;"></el-date-picker>
     </el-form-item>
     <el-form-item label="身高">
       <el-input-number v-model="ruleForm.stature"></el-input-number>
@@ -27,7 +27,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="持续时间">
-          <el-date-picker v-model="ruleForm.range" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">          </el-date-picker>
+          <el-date-picker v-model="ruleForm.range" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
     </el-form-item>
     <el-form-item label="活动区域">
       <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
@@ -48,7 +48,7 @@
       </el-select>
     </el-form-item>
     <el-form-item label="详细说明">
-      <el-input type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容" v-model="ruleForm.description"></el-input>
+      <el-input  v-model="ruleForm.description" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
     </el-form-item>
     <div>
         <el-radio v-model="ruleForm.score" label="0">优秀</el-radio>

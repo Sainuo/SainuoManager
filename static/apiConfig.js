@@ -82,7 +82,9 @@ let settings = {
     medItemAlcoholHistory_get:"/api/services/app/medItemAlcoholHistory/GetOne",
     medItemAlcoholHistory_put:"/api/services/app/medItemAlcoholHistory/Update",
     medItemHepatitisBHistory_get:"/api/services/app/medItemHepatitisBHistory/GetOne",
-    medItemHepatitisBHistory_put:"/api/services/app/medItemHepatitisBHistory/Update"
+    medItemHepatitisBHistory_put:"/api/services/app/medItemHepatitisBHistory/Update",
+    medItemBodyPhysicWithHalfYear_get:"/api/services/app/medItemBodyPhysicWithHalfYear/Update",
+    medItemBodyPhysicWithHalfYear_put:"/api/services/app/medItemBodyPhysicWithHalfYear/GetOne"
 }
 
 for (var p in settings) {
