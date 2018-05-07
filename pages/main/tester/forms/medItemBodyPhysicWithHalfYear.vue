@@ -50,14 +50,6 @@
                 <div v-if="ruleForm.mn===2">
                     <el-input v-model="ruleForm.mnDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
                 </div>
-                <el-form-item label="5、泌尿">
-                    <el-radio v-model="ruleForm.mn" :label="0">未做</el-radio>
-                    <el-radio v-model="ruleForm.mn" :label="1">正常</el-radio>
-                    <el-radio v-model="ruleForm.mn" :label="2">异常</el-radio>
-                </el-form-item>
-                <div v-if="ruleForm.mn===2">
-                    <el-input v-model="ruleForm.mnDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
-                </div>
                 <el-form-item label="6、肌肉骨骼">
                     <el-radio v-model="ruleForm.jrgg" :label="0">未做</el-radio>
                     <el-radio v-model="ruleForm.jrgg" :label="1">正常</el-radio>
@@ -99,12 +91,12 @@
                     <el-input v-model="ruleForm.pfDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
                 </div>
                 <el-form-item label="11、过敏/免疫">
-                    <el-radio v-model="ruleForm.pf" :label="0">未做</el-radio>
-                    <el-radio v-model="ruleForm.pf" :label="1">正常</el-radio>
-                    <el-radio v-model="ruleForm.pf" :label="2">异常</el-radio>
+                    <el-radio v-model="ruleForm.gmmy" :label="0">未做</el-radio>
+                    <el-radio v-model="ruleForm.gmmy" :label="1">正常</el-radio>
+                    <el-radio v-model="ruleForm.gmmy" :label="2">异常</el-radio>
                 </el-form-item>
-                <div v-if="ruleForm.pf===2">
-                    <el-input v-model="ruleForm.pfDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
+                <div v-if="ruleForm.gmmy===2">
+                    <el-input v-model="ruleForm.gmmyDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
                 </div>
                 <el-form-item label="12、其他">
                     <el-radio v-model="ruleForm.other" :label="0">未做</el-radio>

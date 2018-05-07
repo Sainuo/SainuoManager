@@ -261,7 +261,7 @@ class Utility {
             if (model.hasOwnProperty(property)) {
                 var v = model[property];
                 if (v instanceof Date) {
-                    model[property] = v.Format("yyyy-MM-dd HH:mm:ss");
+                    model[property] = v.format("yyyy-MM-dd HH:mm:ss");
                 }
                 else if (typeof v === "string") {
                     model[property] = me.htmlEncode(v);

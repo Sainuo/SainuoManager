@@ -30,10 +30,10 @@
                 </div>
                 <div v-if="ruleForm.etkw==='1' || ruleForm.lfmd==='1' || ruleForm.adfw==='1' || ruleForm.tbfd==='1'">
                     <div>目前使用核苷类似物的种类和持续时间：</div>
-                    <div v-if="ruleForm.etkw==='1'"><el-date-picker v-model="ruleForm.etkwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></div>
-                    <div v-if="ruleForm.lfmd==='1'"><el-date-picker v-model="ruleForm.lfmdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></div>
-                    <div v-if="ruleForm.adfw==='1'"><el-date-picker v-model="ruleForm.adfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></div>
-                    <div v-if="ruleForm.tbfd==='1'"><el-date-picker v-model="ruleForm.tbfdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></div>
+                    <div v-if="ruleForm.etkw==='1'"><el-date-picker v-model="ruleForm.etkwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker></div>
+                    <div v-if="ruleForm.lfmd==='1'"><el-date-picker v-model="ruleForm.lfmdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker></div>
+                    <div v-if="ruleForm.adfw==='1'"><el-date-picker v-model="ruleForm.adfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker></div>
+                    <div v-if="ruleForm.tbfd==='1'"><el-date-picker v-model="ruleForm.tbfdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker></div>
                 </div>
                 <div>其他抗病毒药物？</div>
                 <div>

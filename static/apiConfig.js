@@ -84,7 +84,11 @@ let settings = {
     medItemHepatitisBHistory_get:"/api/services/app/medItemHepatitisBHistory/GetOne",
     medItemHepatitisBHistory_put:"/api/services/app/medItemHepatitisBHistory/Update",
     medItemBodyPhysicWithHalfYear_get:"/api/services/app/medItemBodyPhysicWithHalfYear/Update",
-    medItemBodyPhysicWithHalfYear_put:"/api/services/app/medItemBodyPhysicWithHalfYear/GetOne"
+    medItemBodyPhysicWithHalfYear_put:"/api/services/app/medItemBodyPhysicWithHalfYear/GetOne",
+    medItemDiseaseHistory_get:"/api/services/app/medItemDiseaseHistory/GetOne",
+    medItemDiseaseHistory_put:"/api/services/app/medItemDiseaseHistory/Update",
+    medItemBloodRoutineTest_get:"/api/services/app/medItemBloodRoutineTest/GetOne",
+    medItemBloodRoutineTest_put:"/api/services/app/medItemBloodRoutineTest/Update"
 }
 
 for (var p in settings) {
