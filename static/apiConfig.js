@@ -112,7 +112,11 @@ let settings = {
     medItemAFP_get:"/api/services/app/medItemAFP/GetOne",
     medItemAFP_put:"/api/services/app/medItemAFP/Update",
     medItemBellUltrasound_get:"/api/services/app/medItemBellUltrasound/GetOne",
-    medItemBellUltrasound_put:"/api/services/app/medItemBellUltrasound/Update"
+    medItemBellUltrasound_put:"/api/services/app/medItemBellUltrasound/Update",
+    medItemCardiogram_get:"/api/services/app/medItemCardiogram/GetOne",
+    medItemCardiogram_put:"/api/services/app/medItemCardiogram/Update",
+    medItemBloodSerumTest_get:"/api/services/app/medItemBloodSerumTest/GetOne",
+    medItemBloodSerumTest_put:"/api/services/app/medItemBloodSerumTest/Update"
 }
 
 for (var p in settings) {
