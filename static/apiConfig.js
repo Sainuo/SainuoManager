@@ -92,7 +92,11 @@ let settings = {
     medItemUrineRoutineTest_get:"/api/services/app/medItemUrineRoutineTest/GetOne",
     medItemUrineRoutineTest_put:"/api/services/app/medItemUrineRoutineTest/Update",
     medItemBloodBiochemistryTest_get:"/api/services/app/medItemBloodBiochemistryTest/GetOne",
-    medItemBloodBiochemistryTest_put:"/api/services/app/medItemBloodBiochemistryTest/Update"
+    medItemBloodBiochemistryTest_put:"/api/services/app/medItemBloodBiochemistryTest/Update",
+    medItemBloodCoagulationTest_get:"/api/services/app/medItemBloodCoagulationTest/GetOne",
+    medItemBloodCoagulationTest_put:"/api/services/app/medItemBloodCoagulationTest/Update",
+    medItemCKMBTest_get:"/api/services/app/medItemCKMBTest/GetOne",
+    medItemCKMBTest_put:"/api/services/app/medItemCKMBTest/Update"
 }
 
 for (var p in settings) {
