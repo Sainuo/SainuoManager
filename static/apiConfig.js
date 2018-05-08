@@ -100,7 +100,9 @@ let settings = {
     medItemHbA1CTest_get:"/api/services/app/medItemHbA1CTest/GetOne",
     medItemHbA1CTest_put:"/api/services/app/medItemHbA1CTest/Update",
     medItemThyroidTest_get:"/api/services/app/medItemThyroidTest/GetOne",
-    medItemThyroidTest_put:"/api/services/app/medItemThyroidTest/Update"
+    medItemThyroidTest_put:"/api/services/app/medItemThyroidTest/Update",
+    medItemImmunizationTest_get:"/api/services/app/medItemImmunizationTest/GetOne",
+    medItemImmunizationTest_put:"/api/services/app/medItemImmunizationTest/Update"
 }
 
 for (var p in settings) {
