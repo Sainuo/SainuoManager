@@ -10,7 +10,16 @@
         <el-form label-width="120px">
             <div v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index">
                 <el-form-item label="药物名称">
-                    <el-input v-model="item.dieaseName" placeholder="请输入药物名称"></el-input>
+                    <el-input v-model="item.drugName" placeholder="请输入药物名称"></el-input>
+                </el-form-item>
+                <el-form-item label="每次用量">
+                    <el-input v-model="item.quantityUse" placeholder="请输入每次用量"></el-input>
+                </el-form-item>
+                <el-form-item label="用药持续时间">
+                    <el-date-picker v-model="item.range" @change="onUseTimeChange(item)" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="其它备注">
+                  <el-input  v-model="ruleForm.otherNote" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入其它备注"></el-input>
                 </el-form-item>
                 <el-form-item label="操作">
                     <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
@@ -39,26 +48,26 @@ export default {
         id: 0,
         crfBasicId: 0,
         hadPastYearDiseaseHistory: 0,
-        pastDiseaseHistoryFromJson: [
-            {
-                "drugName": "string",
-                "quantityUse": "string",
-                "startUseTime": "2018-05-08T09:18:55.862Z",
-                "endUseTime": "2018-05-08T09:18:55.862Z",
-                "otherNote": "string"
-            }
-        ]
+        pastDiseaseHistoryFromJson: []
       },
       rules: {}
     };
   },
   methods: {
+    onUseTimeChange(item){
+      item.startUseTime=item.UseTime[0];
+      item.endUseTime=item.UseTime[1];
+    },
     onAdd() {
       let me = this;
       me.ruleForm.pastDiseaseHistoryFromJson.push({
-        dieaseName: "",
-        isTreating: false
-      });
+                "drugName": "",
+                "quantityUse": "",
+                "UseTime":[new Date(),new Date()],
+                "startUseTime": new Date(),
+                "endUseTime": new Date(),
+                "otherNote": ""
+            });
     },
     onDelete(item,index){
         let me=this;
@@ -71,7 +80,14 @@ export default {
       axios
         .get(apiConfig.medItemDrugCombinationRecord_get, { params: { id: me.id } })
         .then(response => {
-          me.ruleForm = utility.toClientModel(response.data.result);
+          let model=utility.toClientModel(response.data.result);
+          model.pastDiseaseHistoryFromJson.forEach(element=>{
+            element.UseTime=[
+              element.startUseTime,
+              element.endUseTime
+            ];
+          });
+          me.ruleForm = model;
         });
     },
     onConfirm() {

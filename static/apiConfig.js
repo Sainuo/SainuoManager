@@ -122,7 +122,9 @@ let settings = {
     medItemBloodSampleBackup_get:"/api/services/app/medItemBloodSampleBackup/GetOne",
     medItemBloodSampleBackup_put:"/api/services/app/medItemBloodSampleBackup/Update",
     medItemDrugCombinationRecord_get:"/api/services/app/medItemDrugCombinationRecord/GetOne",
-    medItemDrugCombinationRecord_put:"/api/services/app/medItemDrugCombinationRecord/Update"
+    medItemDrugCombinationRecord_put:"/api/services/app/medItemDrugCombinationRecord/Update",
+    medItemAdverseEvent_get:"/api/services/app/medItemAdverseEvent/GetOne",
+    medItemAdverseEvent_put:"/api/services/app/medItemAdverseEvent/Update"
 }
 
 for (var p in settings) {
