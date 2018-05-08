@@ -104,7 +104,15 @@ let settings = {
     medItemImmunizationTest_get:"/api/services/app/medItemImmunizationTest/GetOne",
     medItemImmunizationTest_put:"/api/services/app/medItemImmunizationTest/Update",
     medItemHepatocirrhosisTest_get:"/api/services/app/medItemHepatocirrhosisTest/Update",
-    medItemHepatocirrhosisTest_put:"/api/services/app/medItemHepatocirrhosisTest/GetOne"
+    medItemHepatocirrhosisTest_put:"/api/services/app/medItemHepatocirrhosisTest/GetOne",
+    medItemVitalSignWithDifference_get:"/api/services/app/medItemVitalSignWithDifference/GetOne",
+    medItemVitalSignWithDifference_put:"/api/services/app/medItemVitalSignWithDifference/Update",
+    medItemTlymphocytesTest_get:"/api/services/app/medItemTlymphocytesTest/GetOne",
+    medItemTlymphocytesTest_put:"/api/services/app/medItemTlymphocytesTest/Update",
+    medItemAFP_get:"/api/services/app/medItemAFP/GetOne",
+    medItemAFP_put:"/api/services/app/medItemAFP/Update",
+    medItemBellUltrasound_get:"/api/services/app/medItemBellUltrasound/GetOne",
+    medItemBellUltrasound_put:"/api/services/app/medItemBellUltrasound/Update"
 }
 
 for (var p in settings) {
