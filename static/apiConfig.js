@@ -124,7 +124,9 @@ let settings = {
     medItemDrugCombinationRecord_get:"/api/services/app/medItemDrugCombinationRecord/GetOne",
     medItemDrugCombinationRecord_put:"/api/services/app/medItemDrugCombinationRecord/Update",
     medItemAdverseEvent_get:"/api/services/app/medItemAdverseEvent/GetOne",
-    medItemAdverseEvent_put:"/api/services/app/medItemAdverseEvent/Update"
+    medItemAdverseEvent_put:"/api/services/app/medItemAdverseEvent/Update",
+    medItemIfPatientContinueResearch_get:"/api/services/app/medItemIfPatientContinueResearch/GetOne",
+    medItemIfPatientContinueResearch_put:"/api/services/app/medItemIfPatientContinueResearch/Update"
 }
 
 for (var p in settings) {
