@@ -116,7 +116,13 @@ let settings = {
     medItemCardiogram_get:"/api/services/app/medItemCardiogram/GetOne",
     medItemCardiogram_put:"/api/services/app/medItemCardiogram/Update",
     medItemBloodSerumTest_get:"/api/services/app/medItemBloodSerumTest/GetOne",
-    medItemBloodSerumTest_put:"/api/services/app/medItemBloodSerumTest/Update"
+    medItemBloodSerumTest_put:"/api/services/app/medItemBloodSerumTest/Update",
+    medItemHBVDNA_get:"/api/services/app/medItemHBVDNA/GetOne",
+    medItemHBVDNA_put:"/api/services/app/medItemHBVDNA/Update",
+    medItemBloodSampleBackup_get:"/api/services/app/medItemBloodSampleBackup/GetOne",
+    medItemBloodSampleBackup_put:"/api/services/app/medItemBloodSampleBackup/Update",
+    medItemDrugCombinationRecord_get:"/api/services/app/medItemDrugCombinationRecord/GetOne",
+    medItemDrugCombinationRecord_put:"/api/services/app/medItemDrugCombinationRecord/Update"
 }
 
 for (var p in settings) {

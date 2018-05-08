@@ -1,27 +1,25 @@
 <template>
     <div>
-        <div>既往病史（肝纤维化检验）</div>
+        <div>合并用药（肝纤维化检验）</div>
         <div>
-            <div>在过去一年里，受试者是否存在除乙肝以外的病史或既往史？</div>
+            <div>自上次访视以来，是否有新的合并用药？</div>
             <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="0">否</el-radio>
             <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="1">是</el-radio>
             <span>如果“是”请在下面详述</span>
         </div>
-        <el-form v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index" :inline="true" label-width="120px">
-            <el-form-item :label="(index+1)+'疾病名称'">
-                <el-input v-model="item.dieaseName" placeholder="请输入疾病名称"></el-input>
-            </el-form-item>
-            <el-form-item label="正在治疗">
-                <el-radio class="radio" v-model="item.isTreating" :label="true">是</el-radio>
-                <el-radio class="radio" v-model="item.isTreating" :label="false">否</el-radio>
-            </el-form-item>
-            <el-form-item label="">
-                <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
-            </el-form-item>
+        <el-form label-width="120px">
+            <div v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index">
+                <el-form-item label="药物名称">
+                    <el-input v-model="item.dieaseName" placeholder="请输入药物名称"></el-input>
+                </el-form-item>
+                <el-form-item label="操作">
+                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
+                </el-form-item>
+            </div>
+            <div>
+                <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加合并用药记录</el-button>
+            </div>
         </el-form>
-        <div>
-            <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加病史</el-button>
-        </div>
         <div class="text-align-right">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -41,7 +39,15 @@ export default {
         id: 0,
         crfBasicId: 0,
         hadPastYearDiseaseHistory: 0,
-        pastDiseaseHistoryFromJson: []
+        pastDiseaseHistoryFromJson: [
+            {
+                "drugName": "string",
+                "quantityUse": "string",
+                "startUseTime": "2018-05-08T09:18:55.862Z",
+                "endUseTime": "2018-05-08T09:18:55.862Z",
+                "otherNote": "string"
+            }
+        ]
       },
       rules: {}
     };
@@ -63,7 +69,7 @@ export default {
     loadData() {
       var me = this;
       axios
-        .get(apiConfig.medItemDiseaseHistory_get, { params: { id: me.id } })
+        .get(apiConfig.medItemDrugCombinationRecord_get, { params: { id: me.id } })
         .then(response => {
           me.ruleForm = utility.toClientModel(response.data.result);
         });
@@ -72,7 +78,7 @@ export default {
       var me = this;
       axios
         .put(
-          apiConfig.medItemDiseaseHistory_put,
+          apiConfig.medItemDrugCombinationRecord_put,
           utility.toServerModel(me.ruleForm)
         )
         .then(response => {
