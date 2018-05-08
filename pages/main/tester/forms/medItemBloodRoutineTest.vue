@@ -30,6 +30,142 @@
                                 <el-radio class="radio" v-model="ruleForm.whiteBloodCellMeaning" :label="true">有</el-radio>
                             </td>
                         </tr>
+                        <tr>
+                            <td>红细胞计数RBC</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.redBloodCellCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.redBloodCellCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.redBloodCell"></el-input-number>
+                            </td>
+                            <td>
+                                ×1012 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.redBloodCellMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.redBloodCellMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>血红蛋白HB</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.hemoglobinBloodCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.hemoglobinBloodCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.hemoglobinBlood"></el-input-number>
+                            </td>
+                            <td>
+                                g/L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.hemoglobinBloodMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.hemoglobinBloodMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>中性粒细胞计数NEUT</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.neutCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.neutCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.neut"></el-input-number>
+                            </td>
+                            <td>
+                                ×109 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.neutMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.neutMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>淋巴细胞计数LYMPH</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.lymphCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.lymphCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.lymph"></el-input-number>
+                            </td>
+                            <td>
+                                ×109 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.lymphMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.lymphMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>单核细胞计数MONO</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.monoCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.monoCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.mono"></el-input-number>
+                            </td>
+                            <td>
+                                ×109 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.monoMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.monoMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>嗜酸性粒细胞EO</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.eoCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.eoCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.eo"></el-input-number>
+                            </td>
+                            <td>
+                                ×109 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.eoMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.eoMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>嗜碱性粒细胞BASO</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.basoCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.basoCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.baso"></el-input-number>
+                            </td>
+                            <td>
+                                ×109 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.basoMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.basoMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>血小板计数PLT</td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.pltCheck" :label="false">未查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.pltCheck" :label="true">已查</el-radio>
+                            </td>
+                            <td>
+                                <el-input-number v-model="ruleForm.plt"></el-input-number>
+                            </td>
+                            <td>
+                                ×109 /L
+                            </td>
+                            <td>
+                                <el-radio class="radio" v-model="ruleForm.pltMeaning" :label="false">无</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.pltMeaning" :label="true">有</el-radio>
+                            </td>
+                        </tr>
                     </tbody>
                </table>
             </div>

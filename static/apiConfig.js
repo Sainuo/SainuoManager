@@ -88,7 +88,9 @@ let settings = {
     medItemDiseaseHistory_get:"/api/services/app/medItemDiseaseHistory/GetOne",
     medItemDiseaseHistory_put:"/api/services/app/medItemDiseaseHistory/Update",
     medItemBloodRoutineTest_get:"/api/services/app/medItemBloodRoutineTest/GetOne",
-    medItemBloodRoutineTest_put:"/api/services/app/medItemBloodRoutineTest/Update"
+    medItemBloodRoutineTest_put:"/api/services/app/medItemBloodRoutineTest/Update",
+    medItemUrineRoutineTest_get:"/api/services/app/medItemUrineRoutineTest/GetOne",
+    medItemUrineRoutineTest_put:"/api/services/app/medItemUrineRoutineTest/Update"
 }
 
 for (var p in settings) {
