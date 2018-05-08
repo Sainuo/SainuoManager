@@ -69,13 +69,10 @@ export default {
       ruleForm:{
         "id": 0,
         "crfBasicId": 0,
-        "ckCheck": true,
-        "ckMeaning": true,
-        "ckResult": 0,
-        "ldhCheck": true,
-        "ldhMeaning": true,
-        "ldhResult": 0,
-        "testDate": new Date()
+        "testDate": new Date(),
+        "hb1ACCheck": true,
+        "hb1ACMeaning": true,
+        "hb1ACResult": 0
       },
       rules: {}
     };

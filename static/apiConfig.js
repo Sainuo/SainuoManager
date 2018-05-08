@@ -96,7 +96,11 @@ let settings = {
     medItemBloodCoagulationTest_get:"/api/services/app/medItemBloodCoagulationTest/GetOne",
     medItemBloodCoagulationTest_put:"/api/services/app/medItemBloodCoagulationTest/Update",
     medItemCKMBTest_get:"/api/services/app/medItemCKMBTest/GetOne",
-    medItemCKMBTest_put:"/api/services/app/medItemCKMBTest/Update"
+    medItemCKMBTest_put:"/api/services/app/medItemCKMBTest/Update",
+    medItemHbA1CTest_get:"/api/services/app/medItemHbA1CTest/GetOne",
+    medItemHbA1CTest_put:"/api/services/app/medItemHbA1CTest/Update",
+    medItemThyroidTest_get:"/api/services/app/medItemThyroidTest/GetOne",
+    medItemThyroidTest_put:"/api/services/app/medItemThyroidTest/Update"
 }
 
 for (var p in settings) {
