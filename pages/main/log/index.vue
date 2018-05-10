@@ -61,11 +61,11 @@
                              width="120">
             </el-table-column>
             <el-table-column prop="serviceName"
-                             width="200"
+                             width="500"
                              label="服务名称">
             </el-table-column>
             <el-table-column prop="methodName"
-                             width="120"
+                             width="200"
                              label="方法名称">
             </el-table-column>
             <el-table-column prop="executionDuration"

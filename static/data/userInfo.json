@@ -15,7 +15,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "基础功能",
         "DisplayName": "基础功能",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-gear",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -66,7 +66,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "项目管理",
         "DisplayName": "项目管理",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-plus-square",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -97,7 +97,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "检验项目",
         "DisplayName": "检验项目",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-stethoscope",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -148,7 +148,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "项目咨询",
         "DisplayName": "项目咨询",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-question-circle",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -179,7 +179,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "示例",
         "DisplayName": "示例",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-navicon",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -272,6 +272,16 @@
             "ActionUrl": "/main/demo/docs",
             "FunctionType": "",
             "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "fontawesome",
+            "DisplayName": "fontawesome",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/demo/fontawesome",
+            "FunctionType": "",
+            "ChildrenModels": []
           }
         ]
       },
@@ -280,7 +290,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "集成第三方组件",
         "DisplayName": "集成第三方组件",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-paper-plane",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -321,7 +331,7 @@
         "ParentGuid": "00000000-0000-0000-0000-000000000000",
         "FunctionName": "自制元件",
         "DisplayName": "自制元件",
-        "Icon": "el-icon-message",
+        "Icon": "menu-icon fa fa-microchip",
         "ActionUrl": "",
         "FunctionType": "",
         "ChildrenModels": [
@@ -366,16 +376,6 @@
             "ChildrenModels": []
           }
         ]
-      },
-      {
-        "FunctionGuid": "00000000-0000-0000-0000-000000000000",
-        "ParentGuid": "00000000-0000-0000-0000-000000000000",
-        "FunctionName": "导航三",
-        "DisplayName": "导航三",
-        "Icon": "el-icon-setting",
-        "ActionUrl": "",
-        "FunctionType": "",
-        "ChildrenModels": []
       }
     ]
   }

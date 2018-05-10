@@ -3,10 +3,6 @@
 * 宽、高、圆角、边框宽度、定位方式、对齐方式
 */
 
-body{
-    margin: 0;
-}
-
 /*#region 栅格化系统*/
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
     float: left;
@@ -493,18 +489,15 @@ table, tr {
     padding-right: 15px;
 }
 /*外边距*/
-.margin-none{
-    margin: 0;
-}
-
 .margin-m {
     margin: 5px;
 }
-
-.margin-l {
+.margin-l{
     margin: 10px;
 }
-
+.margin-xl {
+    margin: 15px;
+}
 .margin-top-m {
     margin-top: 5px;
 }
@@ -519,11 +512,6 @@ table, tr {
 
 .margin-top-header {
     margin-top: 45px;
-}
-
-.margin-bottom-m {
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 .margin-top-bottom-m {
@@ -793,7 +781,11 @@ table, tr {
     width: 800px;
 }
 
-@media screen and (max-width: 800px) {
+.el-dialog__body .form-width {
+    width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
     /*表单宽度*/
     .form-width {
         width: 100%;

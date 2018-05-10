@@ -107,7 +107,7 @@
                         操作<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item :command="{name:'onView',model:scope.row}">查看详情</el-dropdown-item>
+                        <el-dropdown-item :command="{name:'onEditDetail',model:scope.row}">查看详情</el-dropdown-item>
                         <el-dropdown-item :command="{name:'onEdit',model:scope.row}">编辑病例</el-dropdown-item>
                         <el-dropdown-item :command="{name:'onEditDetail',model:scope.row}">编辑详情</el-dropdown-item>
                         <el-dropdown-item :command="{name:'onExportWord',model:scope.row}">导出word</el-dropdown-item>
@@ -227,6 +227,7 @@ export default{
         },
         onEditDetail(model) {
             var me = this;
+            me.$store.commit("modules/crf/setCrfInfo",model);
             me.$router.push(`/main/tester/forms?id=${model.id}`);
         },
         onExportWord(model) {

@@ -4,7 +4,7 @@
 // 例子：   
 // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423   
 // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
-Date.prototype.Format = function (fmt) { //author: meizz   
+Date.prototype.format = function (fmt) { //author: meizz   
     var o = {
         "M+": this.getMonth() + 1,               //月份   
         "d+": this.getDate(),                    //日   
@@ -73,7 +73,7 @@ function GMTStringToDate(text) {
 //月(m)、日(d)、小时(h)、分(n)、秒(s)、毫秒(ms) 可以用 1-2 个占位符，
 //(new Date()).AddDate('d',-1) ==> 减一天
 //(new Date()).AddDate('m',3)  ==> 加三月
-Date.prototype.AddDate = function (interval, number) {
+Date.prototype.addDate = function (interval, number) {
     var d = this;
     var k = { 'y': 'FullYear', 'q': 'Month', 'm': 'Month', 'w': 'Date', 'd': 'Date', 'h': 'Hours', 'n': 'Minutes', 's': 'Seconds', 'ms': 'MilliSeconds' };
     var n = { 'q': 3, 'w': 7 };
@@ -95,66 +95,66 @@ Date.prototype.DateDiff = function (interval, objDate2) {
     return i[interval];
 };
 
-Date.prototype.Start = function () {
+Date.prototype.start = function () {
     var nowdate = this;
     return new Date(nowdate.getFullYear(), nowdate.getMonth(), nowdate.getDate());
 };
 
-Date.prototype.End = function () {
+Date.prototype.end = function () {
     return this.Start().AddDate("s", 86399);
 }
 
 /************************周**************************/
 //获得本周第一天
-Date.prototype.ThisWeekFirstDay = function () {
+Date.prototype.thisWeekFirstDay = function () {
     var nowdate = this;
     var weekFirstDay = new Date(nowdate - (nowdate.getDay()) * 86400000);
     return weekFirstDay;
 };
 
 //获得本周最后一天
-Date.prototype.ThisWeekLastDay = function () {
+Date.prototype.thisWeekLastDay = function () {
     var weekFirstDay = this.ThisWeekFirstDay();
     var weekLastDay = new Date((weekFirstDay / 1000 + 6 * 86400) * 1000);
     return weekLastDay;
 };
 
 //上周第一天
-Date.prototype.PreviousWeekFirstDay = function () {
+Date.prototype.previousWeekFirstDay = function () {
     var weekFirstDay = this.ThisWeekFirstDay();
     return new Date(weekFirstDay - 86400000 * 7);
 };
 //上周最后一天
-Date.prototype.PreviousLastWeekDay = function () {
+Date.prototype.previousLastWeekDay = function () {
     var weekFirstDay = this.ThisWeekFirstDay();
     return new Date(weekFirstDay - 86400000);
 };
 
 //下周第一天
-Date.prototype.NextWeekFirstDay = function () {
+Date.prototype.nextWeekFirstDay = function () {
     var monthFirstDay = this.ThisWeekLastDay();
     return new Date((monthFirstDay / 1000 + 86400) * 1000);
 };
 //下周最后一天
-Date.prototype.NextWeekLastDay = function () {
+Date.prototype.nextWeekLastDay = function () {
     var monthFirstDay = this.ThisWeekLastDay();
     return new Date((monthFirstDay / 1000 + 7 * 86400) * 1000);
 };
 /************************月**************************/
 //获得某月的天数
-Date.prototype.GetMonthDays = function (myMonth) {
+Date.prototype.getMonthDays = function (myMonth) {
     var monthStartDate = new Date(this.getFullYear(), myMonth, 1);
     var monthEndDate = new Date(this.getFullYear(), myMonth + 1, 1);
     var days = (monthEndDate - monthStartDate) / (1000 * 60 * 60 * 24);
     return days;
 };
 //本月第一天
-Date.prototype.ThisMonthFirstDay = function () {
+Date.prototype.thisMonthFirstDay = function () {
     var monthFirstDay = new Date(this.getFullYear(), this.getMonth(), 1);
     return monthFirstDay;
 };
 //本月最后一天
-Date.prototype.ThisMonthLastDay = function () {
+Date.prototype.thisMonthLastDay = function () {
     var monthFirstDay = new Date(this.getFullYear(), this.getMonth(), 1);
     var monthLastDay = monthFirstDay.AddDate('m', 1).AddDate('d', -1);
     return monthLastDay;
@@ -162,7 +162,7 @@ Date.prototype.ThisMonthLastDay = function () {
 /************************季**************************/
 //获得本季度的开始月份
 //javascript月份为0到11
-Date.prototype.GetQuarterStartMonth = function () {
+Date.prototype.getQuarterStartMonth = function () {
     var quarterStartMonth;
     var nowMonth = this.getMonth();
     if (nowMonth < 3) { //0,1,2
@@ -177,26 +177,26 @@ Date.prototype.GetQuarterStartMonth = function () {
     return quarterStartMonth;
 };
 //获得本季度的开始日期
-Date.prototype.ThisQuarterFirstDate = function () {
+Date.prototype.thisQuarterFirstDate = function () {
     var quarterStartDate = new Date(this.getFullYear(), this.GetQuarterStartMonth(), 1);
     return quarterStartDate;
 };
 
 //或的本季度的结束日期
-Date.prototype.ThisQuarterLastDate = function () {
+Date.prototype.thisQuarterLastDate = function () {
     var quarterEndMonth = this.GetQuarterStartMonth() + 2;
     var quarterStartDate = new Date(this.getFullYear(), quarterEndMonth, this.GetMonthDays(quarterEndMonth));
     return quarterStartDate;
 };
 /************************年**************************/
 //本年度的开始日期
-Date.prototype.ThisYearFirstDate = function () {
+Date.prototype.thisYearFirstDate = function () {
     var thisYearFirstDate = new Date(this.getFullYear(), 0, 1);
     return thisYearFirstDate;
 };
 
 //本年度的结束日期
-Date.prototype.ThisYearLastDate = function () {
+Date.prototype.thisYearLastDate = function () {
     var thisYearLastDate = new Date(this.getFullYear(), 11, 31);
     return thisYearLastDate;
 };

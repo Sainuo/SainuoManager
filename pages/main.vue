@@ -6,22 +6,22 @@
             </div>
             <el-tabs v-model="activeName"  class="nav-menu">
                 <el-tab-pane name="1">
-                    <span slot="label"><i class="el-icon-tickets"></i> 肝多龙中心</span>
+                    <span slot="label"><i class="fa fa-medkit"></i> 肝多龙中心</span>
                 </el-tab-pane>
                 <el-tab-pane name="2">
-                    <span slot="label"><i class="el-icon-date"></i> 大健康</span>
+                    <span slot="label"><i class="fa fa-heartbeat"></i> 大健康</span>
                 </el-tab-pane>
                 <el-tab-pane name="3">
-                    <span slot="label"><i class="el-icon-date"></i> 社区服务</span>
+                    <span slot="label"><i class="fa fa-building"></i> 社区服务</span>
                 </el-tab-pane>
                 <el-tab-pane name="4">
-                    <span slot="label"><i class="el-icon-date"></i> 健康档案管理</span>
+                    <span slot="label"><i class="fa fa-folder"></i> 健康档案管理</span>
                 </el-tab-pane>
                 <el-tab-pane name="5">
-                    <span slot="label"><i class="el-icon-date"></i> 合作伙伴</span>
+                    <span slot="label"><i class="fa fa-handshake-o"></i> 合作伙伴</span>
                 </el-tab-pane>
                 <el-tab-pane name="6">
-                    <span slot="label"><i class="el-icon-date"></i> 专家资源库</span>
+                    <span slot="label"><i class="fa fa-group"></i> 专家资源库</span>
                 </el-tab-pane>
             </el-tabs>
             <nav class="color-white">
