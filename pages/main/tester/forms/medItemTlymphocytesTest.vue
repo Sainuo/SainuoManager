@@ -14,7 +14,7 @@
                    </thead>
                     <tbody>
                         <tr>
-                            <td>CD<span class="text-small">4+<span></td>
+                            <td>CD<span class="text-small">4+</span></td>
                             <td>
                                 <el-radio class="radio" v-model="ruleForm.cD4Check" :label="false">未查</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.cD4Check" :label="true">已查</el-radio>
@@ -31,7 +31,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>CD<span class="text-small">8+<span></td>
+                            <td>CD<span class="text-small">8+</span></td>
                             <td>
                                 <el-radio class="radio" v-model="ruleForm.cD5Check" :label="false">未查</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.cD5Check" :label="true">已查</el-radio>
