@@ -31,6 +31,18 @@
                 <el-input-number v-model="ruleForm.diastolicPressure" :min="1" label="请输入舒张压"></el-input-number>mmHg
                 <div class="color-gray">收缩压 请输入数字,舒张压 请输入数字</div>
             </el-form-item>
+            <div>全身各系统体格检查是否与上次体检相比是否有变化？</div>
+            <div>
+                <el-radio v-model="ruleForm.isChanged" :label="0">否</el-radio>
+            </div>
+            <div>
+                <el-radio v-model="ruleForm.isChanged" :label="1">未查</el-radio>
+                <el-input  v-model="ruleForm.description" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
+            </div>
+            <div>
+                <el-radio v-model="ruleForm.isChanged" :label="2">是</el-radio>
+                <el-input  v-model="ruleForm.changedHow" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
+            </div>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -59,13 +71,10 @@ export default {
                 "systolicPressure": 0,
                 "diastolicPressure": 0,
                 "isChanged": 0,
-                "notCheckReason": "string",
-                "changedHow": "string"
+                "notCheckReason": "",
+                "changedHow": ""
             },
             rules: {
-                agreementImgBase64: [
-                    { required: true, message: '请上传同意书照片', trigger: 'change' }
-                ]
             }
         };
     },

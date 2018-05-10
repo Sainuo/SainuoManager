@@ -19,34 +19,35 @@ const _2d2c9553 = () => import('..\\pages\\main\\custom\\windowloader.vue' /* we
 const _6572008c = () => import('..\\pages\\main\\integration\\CKEditor.vue' /* webpackChunkName: "pages_main_integration_CKEditor" */).then(m => m.default || m)
 const _fcb4b0ca = () => import('..\\pages\\main\\demo\\urlQuery.vue' /* webpackChunkName: "pages_main_demo_urlQuery" */).then(m => m.default || m)
 const _97ee17fe = () => import('..\\pages\\main\\tester\\forms.vue' /* webpackChunkName: "pages_main_tester_forms" */).then(m => m.default || m)
-const _491b37fd = () => import('..\\pages\\main\\tester\\forms\\medItemCKMBTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemCKMBTest" */).then(m => m.default || m)
-const _307015ee = () => import('..\\pages\\main\\tester\\forms\\medItemVitalSignWithDifference.vue' /* webpackChunkName: "pages_main_tester_forms_medItemVitalSignWithDifference" */).then(m => m.default || m)
-const _97866e0a = () => import('..\\pages\\main\\tester\\forms\\medItemCardiogram.vue' /* webpackChunkName: "pages_main_tester_forms_medItemCardiogram" */).then(m => m.default || m)
-const _2cbecb22 = () => import('..\\pages\\main\\tester\\forms\\medItemImmunizationTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemImmunizationTest" */).then(m => m.default || m)
-const _c5e670e8 = () => import('..\\pages\\main\\tester\\forms\\medItemFertility.vue' /* webpackChunkName: "pages_main_tester_forms_medItemFertility" */).then(m => m.default || m)
-const _440f3136 = () => import('..\\pages\\main\\tester\\forms\\medItemAdverseEvent.vue' /* webpackChunkName: "pages_main_tester_forms_medItemAdverseEvent" */).then(m => m.default || m)
-const _6b0b8df2 = () => import('..\\pages\\main\\tester\\forms\\medItemBodyPhysicWithHalfYear.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBodyPhysicWithHalfYear" */).then(m => m.default || m)
-const _f68ac07c = () => import('..\\pages\\main\\tester\\forms\\medItemDrugCombinationRecord.vue' /* webpackChunkName: "pages_main_tester_forms_medItemDrugCombinationRecord" */).then(m => m.default || m)
-const _60fe4d73 = () => import('..\\pages\\main\\tester\\forms\\medItemPatientAgreement.vue' /* webpackChunkName: "pages_main_tester_forms_medItemPatientAgreement" */).then(m => m.default || m)
-const _3fff302c = () => import('..\\pages\\main\\tester\\forms\\medItemIfPatientContinueResearch.vue' /* webpackChunkName: "pages_main_tester_forms_medItemIfPatientContinueResearch" */).then(m => m.default || m)
-const _072be466 = () => import('..\\pages\\main\\tester\\forms\\medItemDiseaseHistory.vue' /* webpackChunkName: "pages_main_tester_forms_medItemDiseaseHistory" */).then(m => m.default || m)
-const _3de23cb2 = () => import('..\\pages\\main\\tester\\forms\\medItemBloodCoagulationTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodCoagulationTest" */).then(m => m.default || m)
-const _5b5f88ea = () => import('..\\pages\\main\\tester\\forms\\medItemBloodBiochemistryTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodBiochemistryTest" */).then(m => m.default || m)
-const _44346526 = () => import('..\\pages\\main\\tester\\forms\\medItemAFP.vue' /* webpackChunkName: "pages_main_tester_forms_medItemAFP" */).then(m => m.default || m)
 const _846fe0d8 = () => import('..\\pages\\main\\tester\\forms\\medItemAlcoholHistory.vue' /* webpackChunkName: "pages_main_tester_forms_medItemAlcoholHistory" */).then(m => m.default || m)
-const _d251d900 = () => import('..\\pages\\main\\tester\\forms\\medItemHCGTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHCGTest" */).then(m => m.default || m)
-const _7d1aa681 = () => import('..\\pages\\main\\tester\\forms\\medItemTlymphocytesTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemTlymphocytesTest" */).then(m => m.default || m)
-const _2d5fadeb = () => import('..\\pages\\main\\tester\\forms\\medItemVitalSign.vue' /* webpackChunkName: "pages_main_tester_forms_medItemVitalSign" */).then(m => m.default || m)
-const _1725d39e = () => import('..\\pages\\main\\tester\\forms\\MedItemBloodSerumTest.vue' /* webpackChunkName: "pages_main_tester_forms_MedItemBloodSerumTest" */).then(m => m.default || m)
-const _53e0e798 = () => import('..\\pages\\main\\tester\\forms\\medItemBellUltrasound.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBellUltrasound" */).then(m => m.default || m)
-const _f02f657e = () => import('..\\pages\\main\\tester\\forms\\medItemUrineRoutineTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemUrineRoutineTest" */).then(m => m.default || m)
-const _5f26282d = () => import('..\\pages\\main\\tester\\forms\\medItemHbA1CTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHbA1CTest" */).then(m => m.default || m)
-const _1735e4a8 = () => import('..\\pages\\main\\tester\\forms\\medItemBloodSampleBackup.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodSampleBackup" */).then(m => m.default || m)
-const _b564565e = () => import('..\\pages\\main\\tester\\forms\\medItemThyroidTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemThyroidTest" */).then(m => m.default || m)
+const _307015ee = () => import('..\\pages\\main\\tester\\forms\\medItemVitalSignWithDifference.vue' /* webpackChunkName: "pages_main_tester_forms_medItemVitalSignWithDifference" */).then(m => m.default || m)
 const _ebb16bae = () => import('..\\pages\\main\\tester\\forms\\medItemHBVDNA.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHBVDNA" */).then(m => m.default || m)
-const _a11f2fe2 = () => import('..\\pages\\main\\tester\\forms\\medItemHepatitisBHistory.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHepatitisBHistory" */).then(m => m.default || m)
+const _97866e0a = () => import('..\\pages\\main\\tester\\forms\\medItemCardiogram.vue' /* webpackChunkName: "pages_main_tester_forms_medItemCardiogram" */).then(m => m.default || m)
+const _b564565e = () => import('..\\pages\\main\\tester\\forms\\medItemThyroidTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemThyroidTest" */).then(m => m.default || m)
+const _6b0b8df2 = () => import('..\\pages\\main\\tester\\forms\\medItemBodyPhysicWithHalfYear.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBodyPhysicWithHalfYear" */).then(m => m.default || m)
+const _f02f657e = () => import('..\\pages\\main\\tester\\forms\\medItemUrineRoutineTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemUrineRoutineTest" */).then(m => m.default || m)
+const _f68ac07c = () => import('..\\pages\\main\\tester\\forms\\medItemDrugCombinationRecord.vue' /* webpackChunkName: "pages_main_tester_forms_medItemDrugCombinationRecord" */).then(m => m.default || m)
+const _c5a11884 = () => import('..\\pages\\main\\tester\\forms\\medItemBloodSerumTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodSerumTest" */).then(m => m.default || m)
+const _4f5f20dc = () => import('..\\pages\\main\\tester\\forms\\medItemBodyPhysic.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBodyPhysic" */).then(m => m.default || m)
+const _53e0e798 = () => import('..\\pages\\main\\tester\\forms\\medItemBellUltrasound.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBellUltrasound" */).then(m => m.default || m)
+const _2cbecb22 = () => import('..\\pages\\main\\tester\\forms\\medItemImmunizationTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemImmunizationTest" */).then(m => m.default || m)
+const _7d1aa681 = () => import('..\\pages\\main\\tester\\forms\\medItemTlymphocytesTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemTlymphocytesTest" */).then(m => m.default || m)
+const _491b37fd = () => import('..\\pages\\main\\tester\\forms\\medItemCKMBTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemCKMBTest" */).then(m => m.default || m)
+const _c5e670e8 = () => import('..\\pages\\main\\tester\\forms\\medItemFertility.vue' /* webpackChunkName: "pages_main_tester_forms_medItemFertility" */).then(m => m.default || m)
+const _5b5f88ea = () => import('..\\pages\\main\\tester\\forms\\medItemBloodBiochemistryTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodBiochemistryTest" */).then(m => m.default || m)
+const _1735e4a8 = () => import('..\\pages\\main\\tester\\forms\\medItemBloodSampleBackup.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodSampleBackup" */).then(m => m.default || m)
+const _2d5fadeb = () => import('..\\pages\\main\\tester\\forms\\medItemVitalSign.vue' /* webpackChunkName: "pages_main_tester_forms_medItemVitalSign" */).then(m => m.default || m)
+const _60fe4d73 = () => import('..\\pages\\main\\tester\\forms\\medItemPatientAgreement.vue' /* webpackChunkName: "pages_main_tester_forms_medItemPatientAgreement" */).then(m => m.default || m)
+const _440f3136 = () => import('..\\pages\\main\\tester\\forms\\medItemAdverseEvent.vue' /* webpackChunkName: "pages_main_tester_forms_medItemAdverseEvent" */).then(m => m.default || m)
 const _6729098a = () => import('..\\pages\\main\\tester\\forms\\medItemHepatocirrhosisTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHepatocirrhosisTest" */).then(m => m.default || m)
 const _e12b32ec = () => import('..\\pages\\main\\tester\\forms\\medItemBloodRoutineTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodRoutineTest" */).then(m => m.default || m)
+const _a11f2fe2 = () => import('..\\pages\\main\\tester\\forms\\medItemHepatitisBHistory.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHepatitisBHistory" */).then(m => m.default || m)
+const _d251d900 = () => import('..\\pages\\main\\tester\\forms\\medItemHCGTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHCGTest" */).then(m => m.default || m)
+const _5f26282d = () => import('..\\pages\\main\\tester\\forms\\medItemHbA1CTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemHbA1CTest" */).then(m => m.default || m)
+const _3de23cb2 = () => import('..\\pages\\main\\tester\\forms\\medItemBloodCoagulationTest.vue' /* webpackChunkName: "pages_main_tester_forms_medItemBloodCoagulationTest" */).then(m => m.default || m)
+const _072be466 = () => import('..\\pages\\main\\tester\\forms\\medItemDiseaseHistory.vue' /* webpackChunkName: "pages_main_tester_forms_medItemDiseaseHistory" */).then(m => m.default || m)
+const _3fff302c = () => import('..\\pages\\main\\tester\\forms\\medItemIfPatientContinueResearch.vue' /* webpackChunkName: "pages_main_tester_forms_medItemIfPatientContinueResearch" */).then(m => m.default || m)
+const _44346526 = () => import('..\\pages\\main\\tester\\forms\\medItemAFP.vue' /* webpackChunkName: "pages_main_tester_forms_medItemAFP" */).then(m => m.default || m)
 const _601b4f6f = () => import('..\\pages\\main\\orgnization\\userinorgnization.vue' /* webpackChunkName: "pages_main_orgnization_userinorgnization" */).then(m => m.default || m)
 const _5108ed56 = () => import('..\\pages\\main\\demo\\tableexpand.vue' /* webpackChunkName: "pages_main_demo_tableexpand" */).then(m => m.default || m)
 const _02cf8a2f = () => import('..\\pages\\main\\demo\\numberForm.vue' /* webpackChunkName: "pages_main_demo_numberForm" */).then(m => m.default || m)
@@ -221,9 +222,9 @@ export function createRouter () {
 					name: "main-tester-forms",
 					children: [
 						{
-							path: "medItemCKMBTest",
-							component: _491b37fd,
-							name: "main-tester-forms-medItemCKMBTest"
+							path: "medItemAlcoholHistory",
+							component: _846fe0d8,
+							name: "main-tester-forms-medItemAlcoholHistory"
 						},
 						{
 							path: "medItemVitalSignWithDifference",
@@ -231,109 +232,14 @@ export function createRouter () {
 							name: "main-tester-forms-medItemVitalSignWithDifference"
 						},
 						{
+							path: "medItemHBVDNA",
+							component: _ebb16bae,
+							name: "main-tester-forms-medItemHBVDNA"
+						},
+						{
 							path: "medItemCardiogram",
 							component: _97866e0a,
 							name: "main-tester-forms-medItemCardiogram"
-						},
-						{
-							path: "medItemImmunizationTest",
-							component: _2cbecb22,
-							name: "main-tester-forms-medItemImmunizationTest"
-						},
-						{
-							path: "medItemFertility",
-							component: _c5e670e8,
-							name: "main-tester-forms-medItemFertility"
-						},
-						{
-							path: "medItemAdverseEvent",
-							component: _440f3136,
-							name: "main-tester-forms-medItemAdverseEvent"
-						},
-						{
-							path: "medItemBodyPhysicWithHalfYear",
-							component: _6b0b8df2,
-							name: "main-tester-forms-medItemBodyPhysicWithHalfYear"
-						},
-						{
-							path: "medItemDrugCombinationRecord",
-							component: _f68ac07c,
-							name: "main-tester-forms-medItemDrugCombinationRecord"
-						},
-						{
-							path: "medItemPatientAgreement",
-							component: _60fe4d73,
-							name: "main-tester-forms-medItemPatientAgreement"
-						},
-						{
-							path: "medItemIfPatientContinueResearch",
-							component: _3fff302c,
-							name: "main-tester-forms-medItemIfPatientContinueResearch"
-						},
-						{
-							path: "medItemDiseaseHistory",
-							component: _072be466,
-							name: "main-tester-forms-medItemDiseaseHistory"
-						},
-						{
-							path: "medItemBloodCoagulationTest",
-							component: _3de23cb2,
-							name: "main-tester-forms-medItemBloodCoagulationTest"
-						},
-						{
-							path: "medItemBloodBiochemistryTest",
-							component: _5b5f88ea,
-							name: "main-tester-forms-medItemBloodBiochemistryTest"
-						},
-						{
-							path: "medItemAFP",
-							component: _44346526,
-							name: "main-tester-forms-medItemAFP"
-						},
-						{
-							path: "medItemAlcoholHistory",
-							component: _846fe0d8,
-							name: "main-tester-forms-medItemAlcoholHistory"
-						},
-						{
-							path: "medItemHCGTest",
-							component: _d251d900,
-							name: "main-tester-forms-medItemHCGTest"
-						},
-						{
-							path: "medItemTlymphocytesTest",
-							component: _7d1aa681,
-							name: "main-tester-forms-medItemTlymphocytesTest"
-						},
-						{
-							path: "medItemVitalSign",
-							component: _2d5fadeb,
-							name: "main-tester-forms-medItemVitalSign"
-						},
-						{
-							path: "MedItemBloodSerumTest",
-							component: _1725d39e,
-							name: "main-tester-forms-MedItemBloodSerumTest"
-						},
-						{
-							path: "medItemBellUltrasound",
-							component: _53e0e798,
-							name: "main-tester-forms-medItemBellUltrasound"
-						},
-						{
-							path: "medItemUrineRoutineTest",
-							component: _f02f657e,
-							name: "main-tester-forms-medItemUrineRoutineTest"
-						},
-						{
-							path: "medItemHbA1CTest",
-							component: _5f26282d,
-							name: "main-tester-forms-medItemHbA1CTest"
-						},
-						{
-							path: "medItemBloodSampleBackup",
-							component: _1735e4a8,
-							name: "main-tester-forms-medItemBloodSampleBackup"
 						},
 						{
 							path: "medItemThyroidTest",
@@ -341,14 +247,79 @@ export function createRouter () {
 							name: "main-tester-forms-medItemThyroidTest"
 						},
 						{
-							path: "medItemHBVDNA",
-							component: _ebb16bae,
-							name: "main-tester-forms-medItemHBVDNA"
+							path: "medItemBodyPhysicWithHalfYear",
+							component: _6b0b8df2,
+							name: "main-tester-forms-medItemBodyPhysicWithHalfYear"
 						},
 						{
-							path: "medItemHepatitisBHistory",
-							component: _a11f2fe2,
-							name: "main-tester-forms-medItemHepatitisBHistory"
+							path: "medItemUrineRoutineTest",
+							component: _f02f657e,
+							name: "main-tester-forms-medItemUrineRoutineTest"
+						},
+						{
+							path: "medItemDrugCombinationRecord",
+							component: _f68ac07c,
+							name: "main-tester-forms-medItemDrugCombinationRecord"
+						},
+						{
+							path: "medItemBloodSerumTest",
+							component: _c5a11884,
+							name: "main-tester-forms-medItemBloodSerumTest"
+						},
+						{
+							path: "medItemBodyPhysic",
+							component: _4f5f20dc,
+							name: "main-tester-forms-medItemBodyPhysic"
+						},
+						{
+							path: "medItemBellUltrasound",
+							component: _53e0e798,
+							name: "main-tester-forms-medItemBellUltrasound"
+						},
+						{
+							path: "medItemImmunizationTest",
+							component: _2cbecb22,
+							name: "main-tester-forms-medItemImmunizationTest"
+						},
+						{
+							path: "medItemTlymphocytesTest",
+							component: _7d1aa681,
+							name: "main-tester-forms-medItemTlymphocytesTest"
+						},
+						{
+							path: "medItemCKMBTest",
+							component: _491b37fd,
+							name: "main-tester-forms-medItemCKMBTest"
+						},
+						{
+							path: "medItemFertility",
+							component: _c5e670e8,
+							name: "main-tester-forms-medItemFertility"
+						},
+						{
+							path: "medItemBloodBiochemistryTest",
+							component: _5b5f88ea,
+							name: "main-tester-forms-medItemBloodBiochemistryTest"
+						},
+						{
+							path: "medItemBloodSampleBackup",
+							component: _1735e4a8,
+							name: "main-tester-forms-medItemBloodSampleBackup"
+						},
+						{
+							path: "medItemVitalSign",
+							component: _2d5fadeb,
+							name: "main-tester-forms-medItemVitalSign"
+						},
+						{
+							path: "medItemPatientAgreement",
+							component: _60fe4d73,
+							name: "main-tester-forms-medItemPatientAgreement"
+						},
+						{
+							path: "medItemAdverseEvent",
+							component: _440f3136,
+							name: "main-tester-forms-medItemAdverseEvent"
 						},
 						{
 							path: "medItemHepatocirrhosisTest",
@@ -359,6 +330,41 @@ export function createRouter () {
 							path: "medItemBloodRoutineTest",
 							component: _e12b32ec,
 							name: "main-tester-forms-medItemBloodRoutineTest"
+						},
+						{
+							path: "medItemHepatitisBHistory",
+							component: _a11f2fe2,
+							name: "main-tester-forms-medItemHepatitisBHistory"
+						},
+						{
+							path: "medItemHCGTest",
+							component: _d251d900,
+							name: "main-tester-forms-medItemHCGTest"
+						},
+						{
+							path: "medItemHbA1CTest",
+							component: _5f26282d,
+							name: "main-tester-forms-medItemHbA1CTest"
+						},
+						{
+							path: "medItemBloodCoagulationTest",
+							component: _3de23cb2,
+							name: "main-tester-forms-medItemBloodCoagulationTest"
+						},
+						{
+							path: "medItemDiseaseHistory",
+							component: _072be466,
+							name: "main-tester-forms-medItemDiseaseHistory"
+						},
+						{
+							path: "medItemIfPatientContinueResearch",
+							component: _3fff302c,
+							name: "main-tester-forms-medItemIfPatientContinueResearch"
+						},
+						{
+							path: "medItemAFP",
+							component: _44346526,
+							name: "main-tester-forms-medItemAFP"
 						}
 					]
 				},

@@ -2,7 +2,7 @@
     <div>
         <div>不良事件（肝纤维化检验）</div>
         <el-form label-width="120px">
-            <div v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index" >
+            <div v-for="(item,index) in ruleForm.adEvents" :key="index" >
                 <el-form-item label="不良事件名称">
                     <el-input  v-model="item.adverseEventName" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
                 </el-form-item>

@@ -11,7 +11,14 @@
         <div class="forms-aside">
           <el-menu ref="elMenu" :default-active="active">
               <template v-for="(menu,i) in menus">
-                  <el-menu-item :index="i.toString()" :key="i" @click="nav(menu)">{{menu.medItemName}}<i v-if="menu.validation" class="el-icon-success" style="color:green;"></i></el-menu-item>
+                <el-tooltip :key="i" effect="dark" :content="menu.medItemName" placement="right">
+                  <el-menu-item class="elmenuitem" :index="i.toString()" :key="i" @click="nav(menu,i)">
+                    <span class="name">{{menu.medItemName}}</span>
+                    <span>
+                      <i v-if="menu.validation" class="el-icon-success" style="color:green;"></i>
+                    </span>
+                  </el-menu-item>
+                </el-tooltip>
               </template>
             </el-menu>
         </div>
@@ -37,6 +44,7 @@ export default {
       id:0,
       loading:false,
       active:'0',
+      current:0,
       menus:[]
     };
   },
@@ -44,7 +52,7 @@ export default {
     onConfirm(model){
       console.log(model);
        let me=this;
-       let item= me.findMedItem(model.id);
+       let item= me.menus[me.current];
        item.validation=true;
        me.$message({
             message: `${item.medItemName}保存成功`,
@@ -64,8 +72,10 @@ export default {
           me.openDefault(me.menus);
       });
     },
-    nav(model){
-        this.$router.push(`${model.path}?id=${model.medItemId}`);
+    nav(model,i){
+      let me=this;
+      me.current=i;
+      me.$router.push(`${model.path}?id=${model.medItemId}`);
     },
     openDefault(menus){
       let me=this;
@@ -85,6 +95,16 @@ export default {
 }
 </script>
 <style scoped>
+.elmenuitem{
+  display: flex;
+}
+
+.elmenuitem .name{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  flex: auto;
+}
   .forms-main{
     position: absolute;
     display: flex;
@@ -120,7 +140,7 @@ export default {
     position: absolute;
     left: 0;
     top:0;
-    width: 450px;
+    width: 300px;
     bottom: 0;
     overflow:auto;
   }
@@ -129,7 +149,7 @@ export default {
     top:0;
     right: 0;
     bottom: 0;
-    left: 450px;
+    left: 300px;
     overflow:auto;
   }
   .el-menu{

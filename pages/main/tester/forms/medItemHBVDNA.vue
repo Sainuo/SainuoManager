@@ -16,7 +16,7 @@
                         <tr>
                             <td>HBV DNA</td>
                             <td>
-                                <el-input-number v-model="ruleForm.astResult"></el-input-number>
+                                <el-input-number v-model="ruleForm.hbvdnaResult"></el-input-number>
                             </td>
                             <td>
                                 IU/mL

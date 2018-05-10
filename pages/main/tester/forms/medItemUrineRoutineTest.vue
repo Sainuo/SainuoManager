@@ -20,7 +20,7 @@
                                 <el-radio class="radio" v-model="ruleForm.proCheck" :label="true">已查</el-radio>
                             </td>
                             <td>
-                                <el-input-number v-model="ruleForm.proCheck"></el-input-number>
+                                <el-input-number v-model="ruleForm.proResult"></el-input-number>
                             </td>
                             <td>
                                 &nbsp;

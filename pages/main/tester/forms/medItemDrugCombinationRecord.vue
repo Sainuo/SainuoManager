@@ -5,9 +5,9 @@
             <div>自上次访视以来，是否有新的合并用药？</div>
             <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="0">否</el-radio>
             <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="1">是</el-radio>
-            <span>如果“是”请在下面详述</span>
         </div>
-        <el-form label-width="120px">
+        <el-form v-if="ruleForm.hadPastYearDiseaseHistory===1" label-width="120px">
+            <div><span>请在下面详述</span></div>
             <div v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index">
                 <el-form-item label="药物名称">
                     <el-input v-model="item.drugName" placeholder="请输入药物名称"></el-input>

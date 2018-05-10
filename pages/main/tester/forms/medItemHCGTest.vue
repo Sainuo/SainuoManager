@@ -6,13 +6,13 @@
                 <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
             </el-form-item>
             <div>
-                <el-radio v-model="ruleForm.testResult" label="0">阴性</el-radio>
+                <el-radio v-model="ruleForm.testResult" :label="0">阴性</el-radio>
             </div>
             <div>
-                <el-radio v-model="ruleForm.testResult" label="1">阳性</el-radio>
+                <el-radio v-model="ruleForm.testResult" :label="1">阳性</el-radio>
             </div>
             <div>
-                <el-radio v-model="ruleForm.testResult" label="2">未做</el-radio>
+                <el-radio v-model="ruleForm.testResult" :label="2">未做</el-radio>
             </div>
             <el-form-item label="女性受试者注明原因">
                 <el-input type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
