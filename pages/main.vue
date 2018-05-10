@@ -4,11 +4,25 @@
             <div class="logo">
                 <logo></logo>
             </div>
-            <el-tabs class="nav-menu">
-                <el-tab-pane label="用户管理" name="first"></el-tab-pane>
-                <el-tab-pane label="配置管理" name="second"></el-tab-pane>
-                <el-tab-pane label="角色管理" name="third"></el-tab-pane>
-                <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
+            <el-tabs v-model="activeName"  class="nav-menu">
+                <el-tab-pane name="1">
+                    <span slot="label"><i class="el-icon-tickets"></i> 肝多龙中心</span>
+                </el-tab-pane>
+                <el-tab-pane name="2">
+                    <span slot="label"><i class="el-icon-date"></i> 大健康</span>
+                </el-tab-pane>
+                <el-tab-pane name="3">
+                    <span slot="label"><i class="el-icon-date"></i> 社区服务</span>
+                </el-tab-pane>
+                <el-tab-pane name="4">
+                    <span slot="label"><i class="el-icon-date"></i> 健康档案管理</span>
+                </el-tab-pane>
+                <el-tab-pane name="5">
+                    <span slot="label"><i class="el-icon-date"></i> 合作伙伴</span>
+                </el-tab-pane>
+                <el-tab-pane name="6">
+                    <span slot="label"><i class="el-icon-date"></i> 专家资源库</span>
+                </el-tab-pane>
             </el-tabs>
             <nav class="color-white">
                 <div class="padding-left-right-xl">
@@ -59,6 +73,7 @@ export default {
     },
     data() {
         return {
+            activeName:"1",
             userName: "",
             menus: [],
             menuIndex: "",

@@ -3,7 +3,8 @@ module.exports = {
     '~/static/css/theme/default.css',
     '~/static/css/schema.default.css',
     '~/static/css/rich_media_content.css',
-    '~/static/css/app.css'
+    '~/static/css/app.css',
+    '~/static/css/fontawesome/font-awesome-4.7.0/css/font-awesome.css',
   ],
   /*
   ** Headers of the page
