@@ -40,7 +40,61 @@
 }
 
 .menu-width {
-    width: 230px;
+    width: 256px;
+}
+
+.main-head{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    left: 0;
+    top:0;
+    right: 0;
+    height: 60px;
+    background-color: rgba(0, 21, 41, 1);
+}
+
+.main-head .nav-menu{
+    position: relative;
+    flex: auto;
+    padding: 0 20px;
+    height: 60px;
+    border: 0;
+}
+
+.main-head .nav-menu .el-tabs__item.is-active
+{
+    color:#ffd04b;
+}
+
+.main-head .nav-menu .el-tabs__active-bar{
+    background-color:#ffd04b;
+}
+.main-head .nav-menu .el-tabs__nav-wrap::after{
+    background-color: #001529;
+}
+.main-head .nav-menu .el-tabs__item{
+    color: #a5acb3;
+}
+
+.main-head .nav-menu .el-tabs__header{
+    margin: 0;
+}
+
+.logo{
+    position: relative;
+    background-color: white;
+    width: 256px;
+    height: 60px;
+    min-width: 256px;
+}
+
+.logo img{
+    position: absolute;
+    max-width: 80%;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .user-info {
@@ -54,16 +108,16 @@
     left: 0;
     top: 60px;
     bottom: 0;
-    width: 230px;
+    width: 256px;
     clear: both;
-    background-color: #eef1f6;
-    overflow-y: auto;
+    background-color:#001529;
+    overflow-y: auto;    
 }
 
 .subPage {
     position: absolute;
     top: 60px;
-    left: 230px;
+    left: 256px;
     right: 0;
     bottom: 0;
     clear: both;

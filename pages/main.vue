@@ -1,8 +1,16 @@
 <template>
   <div id="index" class="page">
-        <header class="background-color-main">
-            <span class="color-white font-size-xxl padding-xl menu-width">{{systemName}}</span>
-            <nav class="color-white user-info">
+        <header class="main-head">
+            <div class="logo">
+                <logo></logo>
+            </div>
+            <el-tabs class="nav-menu">
+                <el-tab-pane label="用户管理" name="first"></el-tab-pane>
+                <el-tab-pane label="配置管理" name="second"></el-tab-pane>
+                <el-tab-pane label="角色管理" name="third"></el-tab-pane>
+                <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
+            </el-tabs>
+            <nav class="color-white">
                 <div class="padding-left-right-xl">
                     <el-dropdown @command="handleCommand" trigger="click">
                         <span class="el-dropdown-link color-white">
@@ -19,7 +27,7 @@
         </header>
         <aside class="menu">
             <el-col :span="24">
-                <el-menu :default-active="menuIndex" ref="elMenu">
+                <el-menu :default-active="menuIndex" ref="elMenu"  background-color="#001529" text-color="#a5acb3" active-text-color="#ffd04b">
                     <template v-if="menus.length" v-for="(menu,i) in menus">
                         <el-submenu v-if="menu.ChildrenModels.length" :index="i.toString()" :key="i">
                             <template slot="title">
@@ -42,12 +50,15 @@
 <script>
 import webConfig from "~/static/webConfig"
 import apiConfig from "~/static/apiConfig"
+import Logo from "~/components/Logo.vue"
 import axios from "axios"
 
 export default {
+    components:{
+        logo:Logo
+    },
     data() {
         return {
-            systemName: webConfig.systemName,
             userName: "",
             menus: [],
             menuIndex: "",
@@ -108,3 +119,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+.el-menu{
+    border-right: 0;
+}
+</style>

@@ -32,8 +32,7 @@
                   <el-input placeholder="用户名" v-model="search.userName"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
-                <el-button type="primary" icon="el-icon-plus" @click="onAdd">新增</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>                
             </el-form-item>
         </el-form>
         <el-table :data="list.tableData"
