@@ -51,7 +51,7 @@ export default {
         "testDate": new Date(),
         "checked": true,
         "result": 0,
-        "notCheckReason": "string",
+        "notCheckReason": "",
         "id": 0
         },
       rules: {}

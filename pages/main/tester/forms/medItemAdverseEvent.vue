@@ -2,7 +2,14 @@
     <div>
         <div>不良事件（肝纤维化检验）</div>
         <el-form label-width="120px">
-            <div v-for="(item,index) in ruleForm.adEvents" :key="index" >
+            <div>有不良事件？</div>
+            <div>
+                <el-radio v-model="ruleForm.anyAdverseEvent" :label="false">否</el-radio>
+            </div>
+            <div>
+                <el-radio v-model="ruleForm.anyAdverseEvent" :label="true">是</el-radio>
+            </div>
+            <div v-if="ruleForm.anyAdverseEvent" v-for="(item,index) in ruleForm.adEvents" :key="index" >
                 <el-form-item label="不良事件名称">
                     <el-input  v-model="item.adverseEventName" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
                 </el-form-item>
@@ -51,7 +58,7 @@
                 <el-form-item label="">
                     时间：当前系统时间
                 </el-form-item>    
-                <el-form-item label="">
+                <el-form-item label="操作">
                     <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
                 </el-form-item>
             </div>

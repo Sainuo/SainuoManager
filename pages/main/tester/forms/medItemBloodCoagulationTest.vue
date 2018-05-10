@@ -26,6 +26,7 @@
                                 s
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.ptMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ptMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ptMeaning" :label="true">有</el-radio>
                             </td>
@@ -43,6 +44,7 @@
                                 s
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.apttMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.apttMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.apttMeaning" :label="true">有</el-radio>
                             </td>
@@ -60,6 +62,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.ptaMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ptaMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ptaMeaning" :label="true">有</el-radio>
                             </td>
@@ -77,6 +80,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.inrMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.inrMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.inrMeaning" :label="true">有</el-radio>
                             </td>

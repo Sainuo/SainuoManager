@@ -32,8 +32,8 @@ export default {
         "id": 0,
         "crfBasicId": 0,
         "collected": true,
-        "collectedDate": "2018-05-08T09:18:55.700Z"
-    },
+        "collectedDate":new Date()
+      },
       rules: {}
     };
   },

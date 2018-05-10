@@ -26,6 +26,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.whiteBloodCellMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.whiteBloodCellMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.whiteBloodCellMeaning" :label="true">有</el-radio>
                             </td>
@@ -43,6 +44,7 @@
                                 ×1012 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.redBloodCellMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.redBloodCellMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.redBloodCellMeaning" :label="true">有</el-radio>
                             </td>
@@ -60,6 +62,7 @@
                                 g/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.hemoglobinBloodMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.hemoglobinBloodMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.hemoglobinBloodMeaning" :label="true">有</el-radio>
                             </td>
@@ -77,6 +80,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.neutMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.neutMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.neutMeaning" :label="true">有</el-radio>
                             </td>
@@ -94,6 +98,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.lymphMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.lymphMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.lymphMeaning" :label="true">有</el-radio>
                             </td>
@@ -111,6 +116,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.monoMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.monoMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.monoMeaning" :label="true">有</el-radio>
                             </td>
@@ -128,6 +134,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.eoMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.eoMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.eoMeaning" :label="true">有</el-radio>
                             </td>
@@ -145,6 +152,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.basoMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.basoMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.basoMeaning" :label="true">有</el-radio>
                             </td>
@@ -162,6 +170,7 @@
                                 ×109 /L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.pltMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.pltMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.pltMeaning" :label="true">有</el-radio>
                             </td>

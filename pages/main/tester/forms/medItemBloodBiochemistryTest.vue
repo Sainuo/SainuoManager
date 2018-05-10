@@ -26,6 +26,7 @@
                                 IU/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.astMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.astMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.astMeaning" :label="true">有</el-radio>
                             </td>
@@ -43,6 +44,7 @@
                                 IU/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.altMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.altMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.altMeaning" :label="true">有</el-radio>
                             </td>
@@ -60,6 +62,7 @@
                                 U/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.alpMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.alpMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.alpMeaning" :label="true">有</el-radio>
                             </td>
@@ -77,6 +80,7 @@
                                 U/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.yGTMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.yGTMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.yGTMeaning" :label="true">有</el-radio>
                             </td>
@@ -94,6 +98,7 @@
                                 g/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.tpMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tpMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tpMeaning" :label="true">有</el-radio>
                             </td>
@@ -111,6 +116,7 @@
                                 g/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.albMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.albMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.albMeaning" :label="true">有</el-radio>
                             </td>
@@ -128,6 +134,7 @@
                                 μmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.tbilMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tbilMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tbilMeaning" :label="true">有</el-radio>
                             </td>
@@ -145,6 +152,7 @@
                                 μmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.dbilMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.dbilMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.dbilMeaning" :label="true">有</el-radio>
                             </td>
@@ -162,6 +170,7 @@
                                 mmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.ureaMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ureaMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ureaMeaning" :label="true">有</el-radio>
                             </td>
@@ -179,6 +188,7 @@
                                 μmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.crMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.crMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.crMeaning" :label="true">有</el-radio>
                             </td>
@@ -196,6 +206,7 @@
                                 mmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.fbgMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.fbgMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.fbgMeaning" :label="true">有</el-radio>
                             </td>
@@ -213,6 +224,7 @@
                                 mmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.tcMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tcMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tcMeaning" :label="true">有</el-radio>
                             </td>
@@ -230,6 +242,7 @@
                                 mmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.tgMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tgMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tgMeaning" :label="true">有</el-radio>
                             </td>
@@ -247,6 +260,7 @@
                                 mmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.hdlcMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.hdlcMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.hdlcMeaning" :label="true">有</el-radio>
                             </td>
@@ -264,6 +278,7 @@
                                 mmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.ldlcMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ldlcMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.ldlcMeaning" :label="true">有</el-radio>
                             </td>
@@ -281,6 +296,7 @@
                                 μmol/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.uaMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.uaMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.uaMeaning" :label="true">有</el-radio>
                             </td>
@@ -298,6 +314,7 @@
                                 U/L
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.lpsMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.lpsMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.lpsMeaning" :label="true">有</el-radio>
                             </td>

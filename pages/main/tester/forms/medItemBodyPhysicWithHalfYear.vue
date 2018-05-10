@@ -107,6 +107,31 @@
                     <el-input v-model="ruleForm.otherDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
                 </div>
             </div>
+            <div>过去六个月内是否用过与治疗慢性乙型肝炎无关的药物？</div>
+            <div>
+                <el-radio v-model="ruleForm.halfYearMedTake" :label="true">是</el-radio>
+            </div>
+            <div>
+                <el-radio v-model="ruleForm.halfYearMedTake" :label="false">否</el-radio>
+            </div>
+            <div v-if="ruleForm.halfYearMedTake" v-for="(item,index) in ruleForm.halfYearMedObjectFromJson" :key="index">
+                <el-form-item label="通用名称">
+                    <el-input  v-model="item.commonName" placeholder="请输入药物通用名称"></el-input>
+                </el-form-item>
+                <el-form-item label="适应症">
+                    <el-input  v-model="item.userFor" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入适应症"></el-input>
+                </el-form-item>
+                <el-form-item label="发生与结束日期">
+                    <el-date-picker v-model="item.time" @change="onTimeChange(item)" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="正在应用">
+                    <el-radio class="radio" :label="true">是</el-radio>
+                    <el-radio class="radio" :label="false">否</el-radio>
+                </el-form-item>
+                <el-form-item label="操作">
+                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
+                </el-form-item>
+            </div>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -153,12 +178,6 @@ export default {
                 "otherDes": "string",
                 "halfYearMedTake": 0,
                 "halfYearMedObjectFromJson": [
-                    {
-                    "commonName": "string",
-                    "userFor": "string",
-                    "startTime": "2018-05-07T08:28:44.097Z",
-                    "endTime": "2018-05-07T08:28:44.097Z"
-                    }
                 ]
             },
             rules: {
@@ -166,6 +185,27 @@ export default {
         };
     },
     methods: {
+        onTimeChange(item){
+        item.startTime=item.time[0];
+        item.endTime=item.time[1];
+        },
+        onAdd() {
+            let me = this;
+            me.ruleForm.halfYearMedTake.push({
+                    "commonName": "",
+                    "userFor": "",
+                    "apply":false,
+                    "time":new Date(),
+                    "startTime": new Date(),
+                    "endTime": new Date()
+                    });
+        },
+        onDelete(item,index){
+            let me=this;
+            me.$confirm(`确定删除${item.commonName}?`).then(response=>{
+                me.ruleForm.halfYearMedTake.splice(index,1);
+            });
+        },
         loadData(){
             var me=this;
             axios.get(apiConfig.medItemBodyPhysicWithHalfYear_get,{ params:{ id:me.id}}).then(response=>{
