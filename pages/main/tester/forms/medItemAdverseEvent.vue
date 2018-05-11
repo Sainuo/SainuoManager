@@ -9,7 +9,8 @@
             <div>
                 <el-radio v-model="ruleForm.anyAdverseEvent" :label="true">是</el-radio>
             </div>
-            <div v-if="ruleForm.anyAdverseEvent" v-for="(item,index) in ruleForm.adEvents" :key="index" >
+            <template v-if="ruleForm.anyAdverseEvent">
+            <div v-for="(item,index) in ruleForm.adEvents" :key="index" >
                 <el-form-item label="不良事件名称">
                     <el-input  v-model="item.adverseEventName" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
                 </el-form-item>
@@ -62,10 +63,11 @@
                     <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
                 </el-form-item>
             </div>
+            <div>
+                <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加病史</el-button>
+            </div>
+        </template>
         </el-form>
-        <div>
-            <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加病史</el-button>
-        </div>
         <div class="text-align-right">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -83,7 +85,7 @@ export default {
       id: 0,
       ruleForm: {
             "crfBasicId": 0,
-            "anyAdverseEvent": true,
+            "anyAdverseEvent": false,
             "adEvents": [],
             "id": 0
         },
