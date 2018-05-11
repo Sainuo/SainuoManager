@@ -49,11 +49,11 @@ export default {
     };
   },
   methods:{
-    onConfirm(model){
-      console.log(model);
+    onConfirm(){
        let me=this;
        let item= me.menus[me.current];
        item.validation=true;
+       console.log(item);
        me.$message({
             message: `${item.medItemName}保存成功`,
             type: 'success'
@@ -80,7 +80,7 @@ export default {
     openDefault(menus){
       let me=this;
       if(typeof menus[0] ==="object"){
-        me.nav(menus[0]);
+        me.nav(menus[0],0);
       }
     }
   },
@@ -90,7 +90,6 @@ export default {
       me.id = parseInt(me.$route.query.id);
       me.loadMenu();
     }
-    window.vm=me;
   }
 }
 </script>

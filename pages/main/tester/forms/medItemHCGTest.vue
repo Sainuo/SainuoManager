@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div>育龄妇女血或尿HCG检测（肝纤维化检验）（仅适用于女性，18周岁至绝经后1年）</div>
+        <div><h2>育龄妇女血或尿HCG检测（肝纤维化检验）（仅适用于女性，18周岁至绝经后1年）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-            <el-form-item label="检查日期">
+            <div>
+                <span>检查日期</span>
                 <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
-            </el-form-item>
+            </div>
             <div>
                 <el-radio v-model="ruleForm.testResult" :label="0">阴性</el-radio>
             </div>
@@ -14,9 +15,10 @@
             <div>
                 <el-radio v-model="ruleForm.testResult" :label="2">未做</el-radio>
             </div>
-            <el-form-item label="女性受试者注明原因">
-                <el-input type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
-            </el-form-item>
+            <div>
+                <span>女性受试者注明原因</span>
+                <el-input v-model="ruleForm.notCheckReason" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
+            </div>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -37,7 +39,8 @@ export default {
                 "id": 0,
                 "crfBasicId": 0,
                 "testDate": new Date(),
-                "testResult": 0
+                "testResult": 0,
+                "notCheckReason":""
             },
             rules: {
                 agreementImgBase64: [

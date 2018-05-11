@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div>心电图（肝纤维化检验）</div>
+        <div><h2>心电图（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <el-radio v-model="ruleForm.checked" :label="false">未检查</el-radio>
-                <el-input  v-model="ruleForm.notCheckReason" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
+                <el-input v-model="ruleForm.notCheckReason" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
             </div>
             <div>
                 <el-radio v-model="ruleForm.checked" :label="true">已查</el-radio>
@@ -13,15 +13,20 @@
                         <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
                     </el-form-item>
                 </div>
-                <div>
-                    <el-radio v-model="ruleForm.hasException" :label="false">无异常发现</el-radio>
-                </div>
-                <div>
-                    <el-radio v-model="ruleForm.hasException" :label="true">有异常发现</el-radio>
-                </div>
-                <div>
-                    <el-input  v-model="ruleForm.exceptionContent" type="textarea" :rows="2" :autosize="{ minRows: 2}" :max=1000 placeholder="请描述异常1000个字以内"></el-input>
-                </div>
+                <template v-if="ruleForm.checked">
+                  <div>
+                      <el-radio v-model="ruleForm.hasException" :label="null">未填写</el-radio>
+                  </div>
+                  <div>
+                      <el-radio v-model="ruleForm.hasException" :label="false">无异常发现</el-radio>
+                  </div>
+                  <div>
+                      <el-radio v-model="ruleForm.hasException" :label="true">有异常发现</el-radio>
+                  </div>
+                  <div>
+                      <el-input  v-model="ruleForm.exceptionContent" type="textarea" :rows="2" :autosize="{ minRows: 2}" :max=1000 placeholder="请描述异常1000个字以内"></el-input>
+                  </div>
+                </template>
             </div>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>

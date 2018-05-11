@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>肝硬度检测 （肝纤维化检验）用Fibro-Touch或肝组织活检检测患者肝脏硬度状态</div>
+        <div><h2>肝硬度检测 （肝纤维化检验）用Fibro-Touch或肝组织活检检测患者肝脏硬度状态</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <el-form-item label="检查">
                 <el-radio class="radio" v-model="ruleForm.checked" :label="true">已查</el-radio>
@@ -11,7 +11,10 @@
                 <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
             <el-form-item label="检查结果">
-                <el-input  v-model="ruleForm.testResult" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入检查的结果"></el-input>
+                <el-input v-if="ruleForm.checked"  v-model="ruleForm.testResult" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入检查的结果"></el-input>
+                <template v-else>
+                    &nbsp;
+                </template>
             </el-form-item>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>

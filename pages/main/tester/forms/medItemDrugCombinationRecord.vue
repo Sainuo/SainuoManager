@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div>合并用药（肝纤维化检验）</div>
+        <div><h2>合并用药（肝纤维化检验）</h2></div>
         <div>
             <div>自上次访视以来，是否有新的合并用药？</div>
-            <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="0">否</el-radio>
-            <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="1">是</el-radio>
+            <el-radio class="radio" v-model="ruleForm.combinedDrugUse" :label="false">否</el-radio>
+            <el-radio class="radio" v-model="ruleForm.combinedDrugUse" :label="true">是</el-radio>
         </div>
-        <el-form v-if="ruleForm.hadPastYearDiseaseHistory===1" label-width="120px">
+        <el-form v-if="ruleForm.combinedDrugUse" label-width="120px">
             <div><span>请在下面详述</span></div>
             <div v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index">
                 <el-form-item label="药物名称">
@@ -47,23 +47,23 @@ export default {
       ruleForm: {
         id: 0,
         crfBasicId: 0,
-        hadPastYearDiseaseHistory: 0,
-        pastDiseaseHistoryFromJson: []
+        combinedDrugUse: false,
+        combinedDrugUserRecord: []
       },
       rules: {}
     };
   },
   methods: {
     onUseTimeChange(item){
-      item.startUseTime=item.UseTime[0];
-      item.endUseTime=item.UseTime[1];
+      item.startUseTime=item.useTime[0];
+      item.endUseTime=item.useTime[1];
     },
     onAdd() {
       let me = this;
-      me.ruleForm.pastDiseaseHistoryFromJson.push({
+      me.ruleForm.combinedDrugUserRecord.push({
                 "drugName": "",
                 "quantityUse": "",
-                "UseTime":[new Date(),new Date()],
+                "useTime":[new Date(),new Date()],
                 "startUseTime": new Date(),
                 "endUseTime": new Date(),
                 "otherNote": ""
@@ -72,7 +72,7 @@ export default {
     onDelete(item,index){
         let me=this;
         me.$confirm(`确定删除${item.dieaseName}?`).then(response=>{
-            me.ruleForm.pastDiseaseHistoryFromJson.splice(index,1);
+            me.ruleForm.combinedDrugUserRecord.splice(index,1);
         });
     },
     loadData() {
@@ -81,8 +81,8 @@ export default {
         .get(apiConfig.medItemDrugCombinationRecord_get, { params: { id: me.id } })
         .then(response => {
           let model=utility.toClientModel(response.data.result);
-          model.pastDiseaseHistoryFromJson.forEach(element=>{
-            element.UseTime=[
+          model.combinedDrugUserRecord.forEach(element=>{
+            element.useTime=[
               element.startUseTime,
               element.endUseTime
             ];

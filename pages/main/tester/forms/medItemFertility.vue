@@ -1,21 +1,21 @@
 <template>
     <div>
-        <div>生育状况（肝纤维化检验）</div>
+        <div><h2>生育状况（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
-                <el-radio v-model="ruleForm.option" label="0">不适用（男性）</el-radio>
+                <el-radio v-model="ruleForm.option" :label="0">不适用（男性）</el-radio>
             </div>
             <div>
-                <el-radio v-model="ruleForm.option" label="1">手术绝育</el-radio>
+                <el-radio v-model="ruleForm.option" :label="1">手术绝育</el-radio>
             </div>
             <div>
-                <el-radio v-model="ruleForm.option" label="2">绝经后</el-radio>
+                <el-radio v-model="ruleForm.option" :label="2">绝经后</el-radio>
             </div>
             <div>
-                <el-radio v-model="ruleForm.option" label="3">具有生育能力，是否采取避孕措施？</el-radio>
+                <el-radio v-model="ruleForm.option" :label="3">具有生育能力，是否采取避孕措施？</el-radio>
                 <div v-if="ruleForm.option===3">
-                    <el-radio v-model="ruleForm.takeBirthControlOrNot" :label=true>具有生育能力，是否采取避孕措施？</el-radio>
-                    <el-radio v-model="ruleForm.takeBirthControlOrNot" :label=false>具有生育能力，是否采取避孕措施？</el-radio>
+                    <el-radio v-model="ruleForm.takeBirthControlOrNot" :label=true>是</el-radio>
+                    <el-radio v-model="ruleForm.takeBirthControlOrNot" :label=false>否</el-radio>
                 </div>
             </div>
             <div class="text-align-right">

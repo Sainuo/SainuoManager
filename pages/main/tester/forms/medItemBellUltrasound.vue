@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>腹部（肝胆胰脾肾脏）B超（肝纤维化检验）</div>
+        <div><h2>腹部（肝胆胰脾肾脏）B超（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <el-radio v-model="ruleForm.checked" :label="false">未检查</el-radio>
@@ -12,6 +12,9 @@
                     <el-form-item label="检查日期">
                         <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
                     </el-form-item>
+                </div>
+                <div>
+                    <el-radio v-model="ruleForm.hasException" :label="null">未填写</el-radio>
                 </div>
                 <div>
                     <el-radio v-model="ruleForm.hasException" :label="false">无异常发现</el-radio>

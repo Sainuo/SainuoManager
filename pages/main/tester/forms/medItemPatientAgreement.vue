@@ -1,6 +1,8 @@
 <template>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
-        <el-form-item label="上传同意书照片" prop="medProjectId">
+<div>
+    <div><h2>受试者知情同意书（肝纤维化检验）</h2></div>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="200px">
+        <el-form-item label="上传同意书照片" prop="agreementImgBase64">
             <input type="file" @change="onChange"/>
         </el-form-item>
         <el-form-item v-if="typeof ruleForm.agreementImgBase64 === 'string'">
@@ -11,6 +13,7 @@
             <el-button @click="onConfirm" type="primary">保存</el-button>
         </div>
     </el-form>
+</div>
 </template>
 <script>
 import axios from "axios"

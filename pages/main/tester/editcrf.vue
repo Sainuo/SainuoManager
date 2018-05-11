@@ -111,7 +111,7 @@
               var me = this;
               if(me.id===0){
                 axios.post(apiConfig.crf_create,utility.toServerModel(me.ruleForm)).then(response=>{
-                  me.$emit("confirm",me.ruleForm);
+                  me.$emit("confirm",response.data);
                 });
               }
               else{
@@ -133,7 +133,6 @@
         else{
           me.getTestByCRF();
         }
-        window.vm=me; 
     }
   }
 </script>

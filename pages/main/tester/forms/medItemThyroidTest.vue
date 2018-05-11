@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div>甲状腺功能检查（肝纤维化检验）</div>
+        <div><h2>甲状腺功能检查（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
-                <el-form-item label="检查日期">
-                    <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
-                </el-form-item>
+                <span></span>
+                <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
             </div>
             <div>
                <table>
@@ -26,6 +25,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.t3Meaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.t3Meaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.t3Meaning" :label="true">有</el-radio>
                             </td>
@@ -43,6 +43,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.t4Meaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.t4Meaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.t4Meaning" :label="true">有</el-radio>
                             </td>
@@ -60,6 +61,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.fT3Meaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.fT3Meaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.fT3Meaning" :label="true">有</el-radio>
                             </td>
@@ -77,6 +79,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.fT4Meaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.fT4Meaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.fT4Meaning" :label="true">有</el-radio>
                             </td>
@@ -94,6 +97,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.tshMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tshMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.tshMeaning" :label="true">有</el-radio>
                             </td>

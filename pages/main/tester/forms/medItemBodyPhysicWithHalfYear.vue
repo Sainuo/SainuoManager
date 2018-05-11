@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div>体格检查（肝纤维化检验）</div>
+        <div><h2>体格检查（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <h2>体格检查</h2>
-                <el-form-item label="检查日期">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate" style="width: 100%;"></el-date-picker>
-                </el-form-item>
+                <div>
+                    <span>检查日期</span><el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
+                </div>   
             </div>
             <div>
                 <h2>全身各系统</h2>

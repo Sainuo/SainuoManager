@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>人体生命体征体格检查 （肝纤维化检验）</div>
+        <div><h2>人体生命体征体格检查 （肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <el-form-item label="身高">
                 <el-input-number v-model="ruleForm.height" :min="1" label="请输入身高"></el-input-number>cm

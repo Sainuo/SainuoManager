@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>备份血样（肝纤维化检验）（血清管5ml、抗凝管5ml）</div>
+        <div><h2>备份血样（肝纤维化检验）（血清管5ml、抗凝管5ml）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>留取备份血样</div>
             <div>

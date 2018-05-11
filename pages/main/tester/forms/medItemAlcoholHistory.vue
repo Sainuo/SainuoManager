@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>饮酒史（肝纤维化检验）</div>
+        <div><h2>饮酒史（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <el-radio v-model="ruleForm.hadAlcoholLastYear" :label="false">无</el-radio>

@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div>凝血检查（肝纤维化检验）</div>
+        <div><h2>凝血检查（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
-                <el-form-item label="检查日期">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate" style="width: 100%;"></el-date-picker>
-                </el-form-item>
+                <span>检查日期</span>
+                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
             </div>
             <div>
                <table>

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div>受试者是否继续本研究（肝纤维化检验）</div>
+        <div><h2>受试者是否继续本研究（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <div>自上次访视以来，是否有新的合并用药？</div>
                 <el-radio v-model="ruleForm.continueResearch" :label="false">否</el-radio>
                 <el-radio v-model="ruleForm.continueResearch" :label="true">是</el-radio>
             </div>
-            <div>
+            <div v-if="ruleForm.continueResearch">
                 <el-form-item label="下次随访时间">
                     <el-date-picker v-model="ruleForm.nextVisitTime" type="date" placeholder="选择日期"></el-date-picker>
                 </el-form-item>

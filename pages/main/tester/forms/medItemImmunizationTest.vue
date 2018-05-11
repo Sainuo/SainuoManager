@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div>免疫学和特殊化学检查 （肝纤维化检验）</div>
+        <div><h2>免疫学和特殊化学检查 （肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
-                <el-form-item label="检查日期">
-                    <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
-                </el-form-item>
+                <span>检查日期</span>
+                <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
             </div>
             <div>
                <table>
@@ -26,6 +25,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.hivMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.hivMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.hivMeaning" :label="true">有</el-radio>
                             </td>
@@ -43,6 +43,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.anaMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.anaMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.anaMeaning" :label="true">有</el-radio>
                             </td>
@@ -60,6 +61,7 @@
                                 &nbsp;
                             </td>
                             <td>
+                                <el-radio class="radio" v-model="ruleForm.afpMeaning" :label="null">未填写</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.afpMeaning" :label="false">无</el-radio>
                                 <el-radio class="radio" v-model="ruleForm.afpMeaning" :label="true">有</el-radio>
                             </td>
