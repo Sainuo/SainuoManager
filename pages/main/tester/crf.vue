@@ -208,15 +208,14 @@ export default{
         onAdd() {
             var me = this;
             me.$loaderwindow("/main/tester/editcrf?id=0", "添加病例")
-            /*.then( m => {
+            .then( m => {
                 me.$message({ type: "success", message: "添加病例成功！" });
                 me.loadData();
-                me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
-                .then(() => {
-                    me.$router.push(`/main/tester/forms?id=${m.result}`);
-                });
+                // me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
+                // .then(() => {
+                //     me.$router.push(`/main/tester/forms?id=${m.result}`);
+                // });
             });
-            */
         },
         onEdit(model) {
             var me = this;
