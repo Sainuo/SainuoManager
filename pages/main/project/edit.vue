@@ -15,7 +15,7 @@
 <script>
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
-import CKEditor from "~/components/CKEditor.vue"
+import CKEditor from "~/components/CKEditor4.vue"
 export default {
   components:{
     'ckeditor':CKEditor

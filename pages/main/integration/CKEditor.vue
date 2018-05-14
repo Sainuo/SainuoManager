@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import CKEditor from "~/components/CKEditor.vue"
+import CKEditor from "~/components/CKEditor4.vue"
 
 export default {
     data:()=>({
