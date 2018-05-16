@@ -89,6 +89,9 @@ export default {
         me.loading=false;
         axios.defaults.headers.common['authorization'] =`Bearer ${response.data.result}`;
         me.$router.push("/main");
+      })
+      .catch(response=>{
+        me.loading = false;
       });
     }
   },
