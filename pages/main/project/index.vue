@@ -1,8 +1,8 @@
 <template>
 <div class="padding-xl">
-  <div class="padding-m">组织机构</div>
   <el-row>
     <el-col :span="12" class="padding-m">
+      <div class="padding-m"><h1>组织机构</h1></div>
       <el-input
         placeholder="输入关键字进行过滤"
         suffix-icon="el-icon-search"
@@ -23,7 +23,7 @@
       </el-tree>
     </el-col>
     <el-col v-if="selectedOrgnization" :span="12" class="padding-m">
-        <div >{{selectedOrgnization.displayName}}</div>
+        <div><h1>{{selectedOrgnization.displayName}}</h1></div>
          <el-form :inline="true" class="background-color-minor margin-bottom-m padding-m">
             <el-form-item>
                 <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加项目</el-button>
@@ -61,6 +61,9 @@
                        layout="total, sizes, prev, pager, next, jumper"
                        :total="400">
         </el-pagination>
+    </el-col>
+    <el-col v-else :span="12" class="padding-m">
+      <div style="margin-top:200px;">&lt;=请点击左边的组织机构进行操作。</div>
     </el-col>
   </el-row>
 </div>

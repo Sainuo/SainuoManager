@@ -2,7 +2,7 @@
 <div class="padding-l">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder">审计日志</span>
+                <span class="font-weight-blder"><h1>审计日志</h1></span>
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
