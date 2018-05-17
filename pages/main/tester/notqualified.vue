@@ -81,8 +81,13 @@
         me.$refs.ruleForm.validate((valid) => {
           if (valid) {
             var me = this;
-              axios.post(apiConfig.tester_not_qualified_reason_create,me.ruleForm).then(response=>{  
+            me.loading=true;
+              axios.post(apiConfig.tester_not_qualified_reason_create,me.ruleForm)
+              .then(response=>{  
                 me.$emit("confirm",me.ruleForm);
+              })
+              .finally(()=>{
+                me.loading=false;
               });
           }
           return valid;
