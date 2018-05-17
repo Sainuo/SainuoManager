@@ -83,10 +83,12 @@ export default {
     },
     setValue: function(value) {
       var me = this;
-      if (me.isHtmlEncode) {
-        me.setBodyValue(me.htmlDecode(value));
-      } else {
-        me.setBodyValue(value);
+      if(me.ckeditor){
+        if (me.isHtmlEncode) {
+          me.setBodyValue(me.htmlDecode(value));
+        } else {
+          me.setBodyValue(value);
+        }
       }
     },
     /*
@@ -99,7 +101,9 @@ export default {
       var cke = me.ckeditor.element.$.nextElementSibling;
       if (cke && cke.getAttribute("role") === "application") {
         var body = cke.querySelector("iframe").contentWindow.document.body;
-        body.innerHTML = value;
+        if(body){
+          body.innerHTML = value;
+        }
       } else {
         me.ckeditor.setData(value);
       }
@@ -112,8 +116,12 @@ export default {
       return me.ckeditor.getData();
     },
     getRawValue: function() {
-      var me = this,
-        value = me.ckeditor.getData();
+      var me = this;
+      var value = "";
+
+      if(me.ckeditor){
+        value=me.ckeditor.getData()
+      }
 
       if (me.isHtmlEncode) {
         return me.htmlEncode(value);
