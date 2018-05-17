@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>血生化（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
@@ -45,6 +45,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm:{
         "crfBasicId": 0,
         "testDate": new Date(),
@@ -59,10 +60,14 @@ export default {
   methods: {
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemAFP_get, { params: { id: me.id } })
         .then(response => {
           me.ruleForm = utility.toClientModel(response.data.result);
+        })
+        .finally(()=>{
+          me.loading=false;
         });
     },
     onConfirm() {

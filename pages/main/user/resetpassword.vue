@@ -1,5 +1,5 @@
 <template>
-<div id="ChangePassword" class="padding-xl">
+<div id="ChangePassword" class="padding-xl" v-loading="loading">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
         <el-form-item label="新密码" prop="password">
             <el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input>
@@ -39,6 +39,7 @@ export default {
 
         return {
             id:0,
+            loading:false,
             ruleForm: {
                 password: "",
                 checkPassword: ""
@@ -54,8 +55,13 @@ export default {
             var me=this;
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
-                    axios.put(apiConfig.user_resetpassword,{userId:me.id,password:me.ruleForm.password}).then(response=>{
+                    me.loading=true;
+                    axios.put(apiConfig.user_resetpassword,{userId:me.id,password:me.ruleForm.password})
+                    .then(response=>{
                         me.$emit("confirm",me.ruleForm);
+                    })
+                    .finally(()=>{
+                        me.loading=false;
                     });
                     return true;
                 } else {

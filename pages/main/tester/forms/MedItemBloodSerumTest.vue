@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>血生化（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
@@ -117,10 +117,14 @@ export default {
   methods: {
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemBloodSerumTest_get, { params: { id: me.id } })
         .then(response => {
           me.ruleForm = utility.toClientModel(response.data.result);
+        })
+        .finally(()=>{
+              me.loading=false;
         });
     },
     onConfirm() {
@@ -128,6 +132,7 @@ export default {
       me.$refs.ruleForm.validate(valid => {
         if (valid) {
           var me = this;
+          me.loading=true;
           axios
             .put(
               apiConfig.medItemBloodSerumTest_put,
@@ -135,6 +140,9 @@ export default {
             )
             .then(response => {
               me.$emit("confirm", me.ruleForm);
+            })
+            .finally(()=>{
+              me.loading=false;
             });
         }
         return valid;

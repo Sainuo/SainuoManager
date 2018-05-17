@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+    <el-form v-loading="loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
         <el-form-item v-if="id===0" label="CRF号" prop="crfNumber">
           <el-input-number v-model="crfNumber" :min="1"></el-input-number>
         </el-form-item>
@@ -12,18 +12,20 @@
         <el-form-item label="访视" prop="visitNumber">
           <biz-select src="/data/visitnumber.json" v-model="ruleForm.visitNumber" placeholder="访视"></biz-select>
         </el-form-item>
-        <el-form-item label="患者姓名" prop="patientName">
-          <span>{{tester.patientName}}</span>
-        </el-form-item>
-        <el-form-item label="手机号码" prop="phoneNumber">
-          <span>{{tester.phoneNumber}}</span>
-        </el-form-item>
-        <el-form-item label="性别" prop="gender">
-          <span>{{tester.gender?"男":"女"}}</span>
-        </el-form-item>
-        <el-form-item label="出生日期" prop="birthday">
-          <span>{{tester.birthday}}</span>
-        </el-form-item>
+        <div v-loading="testerLoading">
+          <el-form-item label="患者姓名" prop="patientName">
+            <span>{{tester.patientName}}</span>
+          </el-form-item>
+          <el-form-item label="手机号码" prop="phoneNumber">
+            <span>{{tester.phoneNumber}}</span>
+          </el-form-item>
+          <el-form-item label="性别" prop="gender">
+            <span>{{tester.gender?"男":"女"}}</span>
+          </el-form-item>
+          <el-form-item label="出生日期" prop="birthday">
+            <span>{{tester.birthday}}</span>
+          </el-form-item>
+        </div>
         <div class="text-align-right">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
@@ -44,6 +46,8 @@
       return {
         id:0,
         crfNumber:1,
+        loading:false,
+        testerLoading:false,
         urls:{
           crf_phases_get:apiConfig.crf_phases_get
         },
@@ -81,7 +85,9 @@
     methods: {
       loadData(){
         var me=this;
-        axios.get(apiConfig.crf_read,{ params:{ crfBaseId:me.id}}).then(response=>{
+        me.loading=true;
+        axios.get(apiConfig.crf_read,{ params:{ crfBaseId:me.id}})
+        .then(response=>{
             let r=response.data.result;
             me.ruleForm = r;
             me.tester.phoneNumber=r.phoneNumber;
@@ -91,17 +97,25 @@
             me.$nextTick(()=>{
               me.$refs.bs.loadData();
             });
+        })
+        .finally(()=>{
+          me.loading=false
         });
       },
       getTestByCRF(){
         var me=this;
-        axios.get(apiConfig.tester_read_by_crf,{ params:{ crfNumber:me.crfNumber}}).then(response=>{
+        me.testerLoading=true;
+        axios.get(apiConfig.tester_read_by_crf,{ params:{ crfNumber:me.crfNumber}})
+        .then(response=>{
             me.tester=response.data.result;
             me.ruleForm.userId=me.tester.userId;
             me.ruleForm.medProjectId=me.tester.medProjectId;
             me.$nextTick(()=>{
               me.$refs.bs.loadData();
             });
+        })
+        .finally(()=>{
+          me.testerLoading=false;
         });
       },
       onConfirm() {
@@ -109,14 +123,21 @@
         me.$refs.ruleForm.validate((valid) => {
           if (valid) {
               var me = this;
+              me.loading=true;
               if(me.id===0){
                 axios.post(apiConfig.crf_create,utility.toServerModel(me.ruleForm)).then(response=>{
                   me.$emit("confirm",response.data);
+                })
+                .finally(()=>{
+                  me.loading=false;
                 });
               }
               else{
                 axios.put(apiConfig.crf_update,utility.toServerModel(me.ruleForm)).then(response=>{
                   me.$emit("confirm",me.ruleForm);
+                })
+                .finally(()=>{
+                  me.loading=false;
                 });
               }
           }

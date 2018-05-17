@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-loading="loading">
     <div><h2>受试者知情同意书（肝纤维化检验）</h2></div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="200px">
         <el-form-item label="上传同意书照片" prop="agreementImgBase64">
@@ -24,6 +24,7 @@ export default {
     data() {
         return {
             id:0,
+            loading:false,
             ruleForm: {
                 "id": 0,
                 "crfBasicId": 0,
@@ -39,8 +40,13 @@ export default {
     methods: {
         loadData(){
             var me=this;
-            axios.get(apiConfig.medItemPatientAgreement_get,{ params:{ id:me.id}}).then(response=>{
+            me.loading=true;
+            axios.get(apiConfig.medItemPatientAgreement_get,{ params:{ id:me.id}})
+            .then(response=>{
                 me.ruleForm = utility.toClientModel(response.data.result);
+            })
+            .finally(()=>{
+              me.loading=false;
             });
         },
         onChange(e){
@@ -57,8 +63,13 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
-                    axios.put(apiConfig.medItemPatientAgreement_put,utility.toServerModel(me.ruleForm)).then(response=>{
+                    me.loading=true;
+                    axios.put(apiConfig.medItemPatientAgreement_put,utility.toServerModel(me.ruleForm))
+                    .then(response=>{
                         me.$emit("confirm",me.ruleForm);
+                    })
+                    .finally(()=>{
+                        me.loading=false;
                     });
                 }
                 return valid;

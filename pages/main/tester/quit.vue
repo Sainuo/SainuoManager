@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading">
       <el-alert title="剔除病例将导致该受试者的所有CRF文档被标记为已剔除，但保留数据，请谨慎操作！"  type="warning" :closable="false"></el-alert>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <div v-for="(option,index) in options" :key="index" label="">
@@ -27,6 +27,7 @@
     data() {
       return {
         isEdit:false,
+        loading:false,
         options:[],
         ruleForm: {
           "demologyId":0,
@@ -57,17 +58,26 @@
     methods: {
       loadData(){
         var me=this;
-        axios.get(apiConfig.tester_quit_reason_read,{ demologyId:me.id}).then(response=>{
+        me.loading=true;
+        axios.get(apiConfig.tester_quit_reason_read,{ demologyId:me.id})
+        .then(response=>{
           if(response.data.result!==null)
           {
             me.ruleForm = response.data.result;
           } 
+        })
+        .finally(()=>{
+                me.loading=false;
         });
       },
       loadOptions(){
         let me=this;
+        me.loaidng=true;
         axios.get(apiConfig.tester_quit_reasons_get).then(response=>{
             me.options = response.data.result;
+        })
+        .finally(()=>{
+                me.loading=false;
         });
       },
       onConfirm() {

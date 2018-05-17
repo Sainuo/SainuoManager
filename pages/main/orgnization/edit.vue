@@ -37,8 +37,11 @@ export default {
     loadData() {
       var me = this;
       me.loading=true
-      axios.get(apiConfig.organization_get_by_id, { params:{ organizationId: me.id }}).then(response => {
+      axios.get(apiConfig.organization_get_by_id, { params:{ organizationId: me.id }})
+      .then(response => {
         me.ruleForm = response.data.result;
+      })
+      .finally(()=>{
         me.loading=false;
       });
     }
@@ -46,7 +49,6 @@ export default {
   mounted() {
     var me = this;
     let q = me.$route.query;
-    console.log(q);
     if (typeof q.id === "string" && q.id !== "0") {
       me.id = parseInt(q.id);
       me.loadData();

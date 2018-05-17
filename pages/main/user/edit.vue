@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="loading">
     <el-tabs v-model="activeName">
     <el-tab-pane label="用户管理" name="basic">
       <el-form ref="userForm" status-icon :model="ruleForm" :rules="rules" label-width="120px">
@@ -55,6 +55,7 @@ import axios from "axios"
 export default {
   data: () => ({
     id:0,
+    loading:false,
     activeName:"basic",
     rolescheck:[],
     orgnizationList:[],
@@ -108,8 +109,13 @@ export default {
       onConfirm(){
         var me = this;
         var url= me.id===0 ?apiConfig.user_create : apiConfig.user_update;
-        axios.post(url,me.ruleForm).then(response=>{  
+        me.loading=true;
+        axios.post(url,me.ruleForm)
+        .then(response=>{  
           me.$emit("confirm",me.ruleForm);
+        })
+        .finally(()=>{
+            me.loading=false;
         });
       },
       onCancel(){
@@ -117,25 +123,40 @@ export default {
       },
       loadData(){
         var me=this;
-        axios.post(apiConfig.user_get,{ id:me.id}).then(response=>{
+        me.loading=true;
+        axios.post(apiConfig.user_get,{ id:me.id})
+        .then(response=>{
             me.ruleForm = response.data.result;
+        })
+        .finally(()=>{
+                me.loading=false;
         });
       },
       loadOrgnizationtree(){
         var me=this;
+        me.loading=true;
         axios.get(apiConfig.organization_get_by_name,{params: 
           {organizationName:'赛诺多中心'}
-          }).then(response=>{
+          })
+        .then(response=>{
             me.orgnizationList = me.treeToList(response.data.result.items,0);
+        })
+        .finally(()=>{
+                me.loading=false;
         });
       },
       loadRoles(){
         var me=this;
+        me.loading=true;
         axios.post(apiConfig.role_all_get,{
           skipCount:0,
           maxResultCount:65536
-          }).then(response=>{
+          })
+        .then(response=>{
             me.rolescheck = response.data.result.items;
+        })
+        .finally(()=>{
+                me.loading=false;
         });
       }
   },

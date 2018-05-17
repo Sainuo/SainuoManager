@@ -185,9 +185,8 @@ export default {
         .then(response => {
           me.list.tableData = response.data.result.items;
           me.list.total = response.data.result.totalCount;
-          me.list.loading = false;
         })
-        .catch(response => {
+        .finally(() => {
           me.list.loading = false;
         });
     },

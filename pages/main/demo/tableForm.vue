@@ -399,6 +399,7 @@ export default {
       me.$refs.ruleForm.validate(valid => {
         if (valid) {
           var me = this;
+          me.loading=true;
           axios
             .put(
               apiConfig.medItemBloodBiochemistryTest_put,
@@ -406,6 +407,9 @@ export default {
             )
             .then(response => {
               me.$emit("confirm", me.ruleForm);
+            })
+            .finally(()=>{
+                me.loading=false;
             });
         }
         return valid;

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>不良事件（肝纤维化检验）</h2></div>
         <el-form label-width="120px">
             <div>有不良事件？</div>
@@ -83,6 +83,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm: {
             "crfBasicId": 0,
             "anyAdverseEvent": false,
@@ -103,8 +104,8 @@ export default {
             "adverseEventName": "",
             "isSerious": true,
             "time":[new Date(),new Date()],
-            "startTime": "2018-05-08T13:12:23.006Z",
-            "endTime": "2018-05-08T13:12:23.006Z",
+            "startTime": new Date(),
+            "endTime": new Date(),
             "drugRelated": 0,
             "researchRelated": 0,
             "undertake": 0,
@@ -120,6 +121,7 @@ export default {
     },
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemAdverseEvent_get, { params: { id: me.id } })
         .then(response => {
@@ -130,11 +132,15 @@ export default {
                     element.endTime
                 ];
             });
-            me.ruleForm = model;
+            me.ruleForm = model;            
+        })
+        .finally(()=>{
+            me.loading=false;
         });
     },
     onConfirm() {
       var me = this;
+      me.loading=true;
       axios
         .put(
           apiConfig.medItemAdverseEvent_put,
@@ -142,6 +148,9 @@ export default {
         )
         .then(response => {
           me.$emit("confirm", me.ruleForm);
+        })
+        .finally(()=>{
+            me.loading=false;
         });
     }
   },

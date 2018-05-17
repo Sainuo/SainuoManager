@@ -157,7 +157,6 @@ export default{
         },
         onEdit(model) {
             var me = this;
-            console.log(model);
             me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
                 .then(model => {
                     me.$message({ type: "success", message: "编辑用户成功！" });
@@ -196,7 +195,7 @@ export default{
         },
         loadData () {
             var me=this;
-            me.loading = true;
+            me.list.loading = true;
             axios.post(apiConfig.user_all_get, {
                 skipCount: me.getSkip(),
                 maxResultCount: me.list.pageSize
@@ -204,7 +203,8 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-            }).finally(response=>{
+            })
+            .finally(response=>{
                 me.list.loading=false;
             });
         }

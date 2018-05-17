@@ -18,6 +18,7 @@
         <el-form-item label="角色权限" prop="permissions">
             <el-tree
                 ref="permissionsTree"
+                v-loaidng="permissionsLoading"
                 :data="permissions"
                 show-checkbox
                 node-key="name"
@@ -40,6 +41,7 @@ export default {
         id:0,
         loading:false,
         permissions:[],
+        permissionsLoading:false,
         props:{
           children: 'children',
           label: 'displayName'
@@ -83,16 +85,24 @@ export default {
         loadData(){
             var me = this;
             me.loading=true;
-            axios.post(apiConfig.role_get,{ id:me.id}).then(response=>{
+            axios.post(apiConfig.role_get,{ id:me.id})
+            .then(response=>{
                 me.ruleForm = response.data.result;
                 me.$refs.permissionsTree.setCheckedKeys(me.ruleForm.permissions);
+            })
+            .finally(()=>{   
                 me.loading=false;
             });
         },
         loadPermissions(){
             var me = this;
-                axios.get(apiConfig.permission_all_get).then(response=>{
+            me.permissionsLoading=true;
+            axios.get(apiConfig.permission_all_get)
+            .then(response=>{
                 me.permissions = response.data.result;
+            })
+            .finally(()=>{
+                me.loading=false;
             });
         }
     },

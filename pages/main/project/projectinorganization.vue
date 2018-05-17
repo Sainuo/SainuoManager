@@ -171,7 +171,8 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-            }).finally(response=>{
+            })
+            .finally(response=>{
                 me.list.loading=false;
             });
         }

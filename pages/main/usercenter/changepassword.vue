@@ -1,5 +1,5 @@
 <template>
-<div id="ChangePassword" class="padding-xl">
+<div id="ChangePassword" class="padding-xl" v-loading="loading">
     <el-form :model="form" :rules="rules" ref="form" label-width="100px">
         <el-form-item label="密码" prop="password">
             <el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input>
@@ -19,6 +19,7 @@
 <script>
     export default{        
         data:()=> ({
+            loading:false,
             ruleForm: {
                 password: "",
                 newPassword: "",

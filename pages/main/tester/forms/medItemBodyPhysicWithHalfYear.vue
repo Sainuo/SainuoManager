@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>体格检查（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
@@ -148,6 +148,7 @@ export default {
     data() {
         return {
             id:0,
+            loading:true,
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
@@ -208,8 +209,13 @@ export default {
         },
         loadData(){
             var me=this;
-            axios.get(apiConfig.medItemBodyPhysicWithHalfYear_get,{ params:{ id:me.id}}).then(response=>{
+            me.loading=true;
+            axios.get(apiConfig.medItemBodyPhysicWithHalfYear_get,{ params:{ id:me.id}})
+            .then(response=>{
                 me.ruleForm = utility.toClientModel(response.data.result);
+            })
+            .finally(()=>{
+              me.loading=false;
             });
         },
         onConfirm() {
@@ -217,8 +223,13 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
-                    axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.ruleForm)).then(response=>{
+                    me.loading=true;
+                    axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.ruleForm))
+                    .then(response=>{
                         me.$emit("confirm",me.ruleForm);
+                    })
+                    .finally(()=>{
+                        me.loading=false;
                     });
                 }
                 return valid;

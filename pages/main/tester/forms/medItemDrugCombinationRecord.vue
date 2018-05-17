@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>合并用药（肝纤维化检验）</h2></div>
         <div>
             <div>自上次访视以来，是否有新的合并用药？</div>
@@ -44,6 +44,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm: {
         id: 0,
         crfBasicId: 0,
@@ -77,6 +78,7 @@ export default {
     },
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemDrugCombinationRecord_get, { params: { id: me.id } })
         .then(response => {
@@ -88,10 +90,14 @@ export default {
             ];
           });
           me.ruleForm = model;
+        })
+        .finally(()=>{
+              me.loading=false;
         });
     },
     onConfirm() {
       var me = this;
+      me.loading=true;
       axios
         .put(
           apiConfig.medItemDrugCombinationRecord_put,
@@ -99,6 +105,9 @@ export default {
         )
         .then(response => {
           me.$emit("confirm", me.ruleForm);
+        })
+        .finally(()=>{
+              me.loading=false;
         });
     }
   },

@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+    <el-form v-loading="loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="检验项目" prop="medProjectId">
             <biz-select :src="projectgeturl" v-model="ruleForm.medProjectId" :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
         </el-form-item>
@@ -55,6 +55,7 @@
     data() {
       return {
         id:0,
+        loading:false,
         projectgeturl:apiConfig.project_get,
         ruleForm: {
             "medProjectId": null,
@@ -91,8 +92,13 @@
     methods: {
       loadData(){
         var me=this;
-        axios.get(apiConfig.tester_read,{ params:{ demologyId:me.id}}).then(response=>{
+        me.loading=true;
+        axios.get(apiConfig.tester_read,{ params:{ demologyId:me.id}})
+        .then(response=>{
             me.ruleForm = utility.toClientModel(response.data.result);
+        })
+        .finally(()=>{
+            me.loading=false;
         });
       },
       onConfirm() {
@@ -101,13 +107,23 @@
           if (valid) {
               var me = this;
               if(me.id===0){
-                axios.post(apiConfig.tester_create,utility.toServerModel(me.ruleForm)).then(response=>{
+                me.loading=true;
+                axios.post(apiConfig.tester_create,utility.toServerModel(me.ruleForm))
+                .then(response=>{
                   me.$emit("confirm",me.ruleForm);
+                })
+                .finally(()=>{
+                  me.loading=false
                 });
               }
               else{
-                axios.put(apiConfig.tester_update,utility.toServerModel(me.ruleForm)).then(response=>{
+                me.loading = true;
+                axios.put(apiConfig.tester_update,utility.toServerModel(me.ruleForm))
+                .then(response=>{
                   me.$emit("confirm",me.ruleForm);
+                })
+                .finally(()=>{
+                  me.loading=false;
                 });
               }
           }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>既往病史（肝纤维化检验）</h2></div>
         <div>
             <div>在过去一年里，受试者是否存在除乙肝以外的病史或既往史？</div>
@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm: {
         id: 0,
         crfBasicId: 0,
@@ -62,14 +63,19 @@ export default {
     },
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemDiseaseHistory_get, { params: { id: me.id } })
         .then(response => {
           me.ruleForm = utility.toClientModel(response.data.result);
+        })
+        .finally(()=>{
+              me.loading=false;
         });
     },
     onConfirm() {
       var me = this;
+      me.loading=true;
       axios
         .put(
           apiConfig.medItemDiseaseHistory_put,
@@ -77,6 +83,9 @@ export default {
         )
         .then(response => {
           me.$emit("confirm", me.ruleForm);
+        })
+        .finally(()=>{
+              me.loading=false;
         });
     }
   },

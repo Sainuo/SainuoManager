@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div><h2>乙肝病史（肝龙核苷酸检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
@@ -95,6 +95,7 @@ export default {
     data() {
         return {
             id:0,
+            loading:false,
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
@@ -129,10 +130,14 @@ export default {
     methods: {
         loadData(){
             var me=this;
+            me.loading=false;
             axios.get(apiConfig.medItemHepatitisBHistory_get,{ params:{ id:me.id}}).then(response=>{
                 let m=utility.toClientModel(response.data.result);
                 console.log(m);
                 me.ruleForm = me.unwrap(m);
+            })
+            .finally(()=>{
+              me.loading=false;
             });
         },
         onConfirm() {
@@ -140,9 +145,13 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
+                    me.loading=false;
                     let model = utility.toServerModel(me.wrap(Object.assign({},me.ruleForm)));
                     axios.put(apiConfig.medItemHepatitisBHistory_put,model).then(response=>{
                         me.$emit("confirm",me.ruleForm);
+                    })
+                    .finally(()=>{
+                        me.loading=false;
                     });
                 }
                 return valid;
