@@ -74,6 +74,6 @@ const filters = {
     }
 };
 
-for (let props in filters) {
-    Vue.filters(props, filters[props]);
+for (let id in filters) {
+    Vue.filter(id, filters[id]);
 }

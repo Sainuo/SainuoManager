@@ -35,6 +35,10 @@
             <el-table-column prop="creationTime"
                              label="创建时间"
                              width="200">
+                    <template slot-scope="scope">
+                        <el-icon name="time"></el-icon>
+                        <span>{{ scope.row.creationTime|time}}</span>
+                    </template>
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"

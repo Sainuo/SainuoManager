@@ -14,7 +14,8 @@ import { createStore } from './store.js'
 /* Plugins */
 import nuxt_plugin_elementui_a6a1b20a from 'nuxt_plugin_elementui_a6a1b20a' // Source: ..\\plugins\\element-ui
 import nuxt_plugin_loaderwindow_067f0c39 from 'nuxt_plugin_loaderwindow_067f0c39' // Source: ..\\plugins\\loaderwindow
-import nuxt_plugin_axios_3566aa80 from 'nuxt_plugin_axios_3566aa80' // Source: ..\\plugins\\axios
+import nuxt_plugin_axiosglobalerror_4878554b from 'nuxt_plugin_axiosglobalerror_4878554b' // Source: ..\\plugins\\axios-global-error
+import nuxt_plugin_vuefilters_d286ad04 from 'nuxt_plugin_vuefilters_d286ad04' // Source: ..\\plugins\\vue-filters
 
 
 // Component: <no-ssr>
@@ -155,7 +156,8 @@ async function createApp (ssrContext) {
   
   if (typeof nuxt_plugin_elementui_a6a1b20a === 'function') await nuxt_plugin_elementui_a6a1b20a(app.context, inject)
   if (typeof nuxt_plugin_loaderwindow_067f0c39 === 'function') await nuxt_plugin_loaderwindow_067f0c39(app.context, inject)
-  if (typeof nuxt_plugin_axios_3566aa80 === 'function') await nuxt_plugin_axios_3566aa80(app.context, inject)
+  if (typeof nuxt_plugin_axiosglobalerror_4878554b === 'function') await nuxt_plugin_axiosglobalerror_4878554b(app.context, inject)
+  if (typeof nuxt_plugin_vuefilters_d286ad04 === 'function') await nuxt_plugin_vuefilters_d286ad04(app.context, inject)
   
 
   // If server-side, wait for async component to be resolved first
