@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div>人体生命体征体格检查 （肝纤维化检验）</div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <el-form-item label="身高">
@@ -47,6 +47,7 @@ export default {
     data() {
         return {
             id:0,
+            loading:false,
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
@@ -69,8 +70,13 @@ export default {
     methods: {
         loadData(){
             var me=this;
-            axios.get(apiConfig.medItemVitalSign_get,{ params:{ id:me.id}}).then(response=>{
+            me.loading=true;
+            axios.get(apiConfig.medItemVitalSign_get,{ params:{ id:me.id}})
+            .then(response=>{
                 me.ruleForm = utility.toClientModel(response.data.result);
+            })
+            .finally(()=>{
+                me.loading=false;
             });
         },
         onConfirm() {

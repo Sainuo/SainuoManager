@@ -210,7 +210,7 @@ export default{
         loadData () {
             var me=this;
             let s=me.search;
-            me.loading = true;
+            me.list.loading = true;
             axios.get(apiConfig.log_audited_get,{params:
                     {
                         userName:s.userName,
@@ -227,9 +227,8 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-                me.loading=false;
-            }).catch(response=>{
-                me.loading=false;
+            }).finally(response=>{
+                me.list.loading=false;
             });
         }
     },

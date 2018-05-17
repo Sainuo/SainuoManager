@@ -204,9 +204,8 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-                me.loading=false;
-            }).catch(response=>{
-                me.loading=false;
+            }).finally(response=>{
+                me.list.loading=false;
             });
         }
     },

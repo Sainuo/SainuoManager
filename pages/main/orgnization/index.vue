@@ -32,7 +32,7 @@
                 <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加成员</el-button>
             </el-form-item>
         </el-form>
-        <el-table :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
+        <el-table v-loading="list.loading" :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
             <el-table-column prop="userName"
                              label="用户名"
                              sortable
@@ -190,7 +190,7 @@ export default {
     },
     loadData() {
       var me = this;
-      me.loading = true;
+      me.list.loading = true;
       axios.get(apiConfig.organization_user_get, {
           params:{
             organizationId:me.selectedOrgnization.id,
@@ -201,10 +201,10 @@ export default {
         .then(response => {
           me.list.tableData = response.data.result.items;
           me.list.total = response.data.result.totalCount;
-          me.loading = false;
+          me.list.loading = false;
         })
         .catch(response => {
-          me.loading = false;
+          me.list.loading = false;
         });
     },
     filterNode(value, data) {

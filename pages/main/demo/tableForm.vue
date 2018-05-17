@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <div>血生化（肝纤维化检验）</div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
@@ -321,6 +321,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm:{
             "id": 0,
             "crfBasicId": 0,
@@ -383,10 +384,14 @@ export default {
   methods: {
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemBloodBiochemistryTest_get, { params: { id: me.id } })
         .then(response => {
           me.ruleForm = utility.toClientModel(response.data.result);
+        })
+        .finally(()=>{
+            me.loading=false;
         });
     },
     onConfirm() {

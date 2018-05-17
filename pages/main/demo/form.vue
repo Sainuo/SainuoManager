@@ -1,6 +1,6 @@
 <template>
 <div class="padding-l">
-  <el-form ref="ruleForm" :rules="rules" :model="ruleForm" label-width="120px">
+  <el-form v-loading="loading" ref="ruleForm" :rules="rules" :model="ruleForm" label-width="120px">
     <el-form-item label="姓名">
       <el-input v-model="ruleForm.name"></el-input>
     </el-form-item>
@@ -75,6 +75,7 @@ export default {
       }
   },
   data:()=>({
+      loading:false,
       ruleForm: {
         name: '反转的分针',
         birthday: new Date('1985-04-06'),

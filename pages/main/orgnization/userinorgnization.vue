@@ -164,7 +164,7 @@ export default{
         },
         loadData () {
             var me=this;
-            me.loading = true;
+            me.list.loading = true;
             axios.post(apiConfig.user_not_in_organization, {
                 skipCount: me.getSkip(),
                 maxResultCount: me.list.pageSize
@@ -172,9 +172,8 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-                me.loading=false;
-            }).catch(response=>{
-                me.loading=false;
+            }).finally(response=>{
+                me.list.loading=false;
             });
         }
     },

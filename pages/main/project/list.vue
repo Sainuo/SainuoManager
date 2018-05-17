@@ -149,7 +149,7 @@ export default{
         },
         loadData () {
             var me=this;
-            me.loading = true;
+            me.list.loading = true;
             axios.get(apiConfig.project_get, {params:{
                 skipCount: me.getSkip(),
                 maxCount: me.list.pageSize
@@ -157,9 +157,8 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
-                me.loading=false;
-            }).catch(response=>{
-                me.loading=false;
+            }).finally(response=>{
+                me.list.loading=false;
             });
         }
     },

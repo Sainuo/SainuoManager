@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>腹部（肝胆胰脾肾脏）B超（肝纤维化检验）</div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
+        <el-form v-loading="loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <el-radio v-model="ruleForm.checked" :label="false">未检查</el-radio>
                 <el-input  v-model="ruleForm.notCheckReason" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm:{
         "id": 0,
         "crfBasicId": 0,
@@ -54,10 +55,14 @@ export default {
   methods: {
     loadData() {
       var me = this;
+      me.loading=true;
       axios
         .get(apiConfig.medItemBellUltrasound_get, { params: { id: me.id } })
         .then(response => {
           me.ruleForm = utility.toClientModel(response.data.result);
+        })
+        .finally(response=>{
+          me.loading=false;
         });
     },
     onConfirm() {
@@ -65,6 +70,7 @@ export default {
       me.$refs.ruleForm.validate(valid => {
         if (valid) {
           var me = this;
+          me.loading=true;
           axios
             .put(
               apiConfig.medItemBellUltrasound_put,
@@ -72,6 +78,9 @@ export default {
             )
             .then(response => {
               me.$emit("confirm", me.ruleForm);
+            })
+            .finally(response=>{
+              me.loading=false;
             });
         }
         return valid;

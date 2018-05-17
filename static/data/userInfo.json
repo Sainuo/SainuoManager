@@ -127,7 +127,7 @@
             "FunctionName": "病例统计",
             "DisplayName": "病例统计",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/home/welcome",
+            "ActionUrl": "/main/integration/ECharts",
             "FunctionType": "",
             "ChildrenModels": []
           },
