@@ -62,7 +62,7 @@ export default {
       me.$refs.ruleForm.validate(valid => {
         if (valid) {
           var me = this;
-          me.loading:true;
+          me.loading=true;
           axios
             .put(
               apiConfig.medItemHepatocirrhosisTest_put,
