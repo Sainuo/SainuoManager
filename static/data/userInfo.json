@@ -374,6 +374,16 @@
             "ActionUrl": "/main/custom/loaderwindow",
             "FunctionType": "",
             "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "标签",
+            "DisplayName": "标签",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/demo/biztag",
+            "FunctionType": "",
+            "ChildrenModels": []
           }
         ]
       }

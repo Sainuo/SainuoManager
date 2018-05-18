@@ -67,7 +67,6 @@ export default {
   methods: {
     login() {
       var me = this;
-      console.log(me.$refs.form);
       me.$refs.form.validate(valid => {
         if (valid) {
           me.authUser();

@@ -1,11 +1,11 @@
 <template>
-    <el-select v-model="val" clearable filterable :filter-method="filterMethod" ref="select" :remote="remote" :loading="loading" :remote-method="getData" :placeholder="placeholder" @change="handleChange"> 
+    <el-select v-model="val" clearable filterable :disabled="disabled" :filter-method="filterMethod" ref="select" :remote="remote" :loading="loading" :remote-method="getData" :placeholder="placeholder" @change="handleChange"> 
         <el-option v-for="(item,index) in options"
         :key = "index"
         :label = "item[displayField]"
         :value = "getValueField(item)">
         <span style="float: left">{{ item[showColumns[0]] }}</span>
-        <span v-show="showColumns[1]" style="float: right; color: #8492a6; font-size: 13px">{{ item[showColumns[1]] }}</span>
+        <span v-if="showColumns[1]" style="float: right; color: #8492a6; font-size: 13px">{{ item[showColumns[1]] }}</span>
         </el-option>
     </el-select>
 </template>
@@ -30,37 +30,41 @@ import axios from "axios"
  */
 export default {
     props: {
-        "src": {
-            "type": String,
-            "default": ""
+        disabled:{
+          type:Boolean,
+          default:false,
         },
-        "placeholder": {
-            "type": String,
-            "default": "请选择"
+        src: {
+            type: String,
+            default: ""
         },
-        "showColumns": {
-            "type": Array,
-            "default": ["Uid", "Name"]
+        placeholder: {
+            type: String,
+            default: "请选择"
         },
-        "valueField": {
-            "type": String,
-            "default": ""//model:item|fieldName:item.fieldName
+        showColumns: {
+            type: Array,
+            default: ["Uid", "Name"]
         },
-        "displayField": {
-            "type": String,
-            "default": "Name"
+        valueField: {
+            type: String,
+            default: ""//model:item|fieldName:item.fieldName
         },
-        "isDistinct": {
-            "type": Boolean,
-            "default": false
+        displayField: {
+            type: String,
+            default: "Name"
         },
-        "remote": {
-            "type": Boolean,
-            "default": false
+        isDistinct: {
+            type: Boolean,
+            default: false
         },
-        "value": {
-            "type": String|Object,
-            "default": ""
+        remote: {
+            type: Boolean,
+            default: false
+        },
+        value: {
+            type: String|Object,
+            default: ""
         }
     },
     data () {
@@ -120,6 +124,8 @@ export default {
                     me.options = response.data["value"];
                 }
                 me.allOptions = me.options;
+            })
+            .finally(()=>{
                 me.loading = false;
             });
         },

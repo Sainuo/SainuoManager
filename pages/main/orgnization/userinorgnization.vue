@@ -121,7 +121,6 @@ export default{
         },
         onEdit(model) {
             var me = this;
-            console.log(model);
             me.$loaderwindow(`/main/user/edit?id=${model.id}`, "编辑用户")
                 .then(model => {
                     me.$message({ type: "success", message: "编辑用户成功！" });

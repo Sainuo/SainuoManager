@@ -52,8 +52,7 @@ export default {
     onConfirm(){
        let me=this;
        let item= me.menus[me.current];
-       item.validation=true;
-       console.log(item);
+       item.validation=true;       
        me.$message({
             message: `${item.medItemName}保存成功`,
             type: 'success'

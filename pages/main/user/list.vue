@@ -35,7 +35,7 @@
                              sortable
                              width="120">
                     <template slot-scope="scope">
-                    <span>{{scope.row.roles.join(",")}}</span>
+                        <span>{{scope.row.roles.join(",")}}</span>
                     </template>
             </el-table-column>
             <el-table-column prop="emailAddress"

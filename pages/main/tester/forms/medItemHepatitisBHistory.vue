@@ -132,8 +132,7 @@ export default {
             var me=this;
             me.loading=false;
             axios.get(apiConfig.medItemHepatitisBHistory_get,{ params:{ id:me.id}}).then(response=>{
-                let m=utility.toClientModel(response.data.result);
-                console.log(m);
+                let m=utility.toClientModel(response.data.result);                
                 me.ruleForm = me.unwrap(m);
             })
             .finally(()=>{
