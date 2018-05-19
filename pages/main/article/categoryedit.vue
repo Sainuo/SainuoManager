@@ -32,7 +32,7 @@ export default {
             ruleForm:{
                 "id": 0,
                 "name": "",
-                "order": 0,
+                "order": 1,
                 "isShow": 0
             },
             rules:{
@@ -86,8 +86,7 @@ export default {
         if(typeof me.$route.query.id === "string" && me.$route.query.id !== "0"){
             me.id = parseInt(me.$route.query.id);
             me.loadData();
-        }
-        window.vm=this;
+        } 
     }
 }
 </script>

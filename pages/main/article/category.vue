@@ -12,14 +12,20 @@
             <el-form-item>
                 <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
                 <el-button type="primary" icon="el-icon-plus" @click="onAdd">新增</el-button>
+                <el-button type="danger" icon="el-icon-delete"  @click="onBatchDelete()">批量删除</el-button>
             </el-form-item>
         </el-form>
         <el-table :data="list.tableData"
                   border highlight-current-row
                   v-loading="list.loading"
                   @sort-change="handleSortChange"
+                  @selection-change="handleSelectionChange"
+                  ref="multipleTable"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
+            <el-table-column type="selection"
+                             width="55">
+            </el-table-column>
             <el-table-column prop="id"
                              label="栏目ID"
                              sortable
@@ -116,8 +122,12 @@ export default{
             var me = this;
             return (me.list.currentPage - 1) * me.list.pageSize;
         },
+        handleSelectionChange(val) {
+            this.list.multipleSelection = val;
+        },
         handleSizeChange(val) {
             this.list.pageSize = val;
+            this.loadData();
         },
         handleCurrentChange (val) {
             this.list.currentPage = val;
@@ -149,23 +159,42 @@ export default{
                     me.loadData();
                 });
         },
+        onBatchDelete(){
+            let me=this;
+            if(me.list.multipleSelection.length){
+                me.$confirm(`是否永久删除[${me.list.multipleSelection.map(x=>x.name).join("],[")}]?`, '询问', {
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    me.deleteSelect(me.list.multipleSelection.map(x=>x.id));
+                });
+            }
+            else{
+                me.$message({type:"warning",message:"请勾中要删除的栏目"});
+            }
+        },
         onDelete(model) {
             var me = this;
-            me.$confirm('是否永久删除[' + model.name + ']?', '询问', {
+            me.$confirm(`是否永久删除[${model.name}]?`, '询问', {
                 confirmButtonText: '删除',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                me.deleteSelect(model);
-            }).catch(() => {
-
+                me.deleteSelect([model.id]);
             });
         },
-        deleteSelect(model){
+        deleteSelect(arr){
             var me=this;
-            axios.delete(apiConfig.category_delete,{params:{id:model.id}}).then(response=>{
+            axios.delete(apiConfig.category_delete,{params:{input:arr}}).then(response=>{
                 me.$message({ type: "success", message: "删除栏目成功！" });
                 me.loadData();
+            });
+        },
+        checkMultipleSelection(){
+            let me=this;
+            me.list.multipleSelection.forEach(row => {
+                me.$refs.multipleTable.toggleRowSelection(row);
             });
         },
         loadData () {
@@ -178,6 +207,7 @@ export default{
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
+               //me.checkMultipleSelection();
             })
             .finally(response=>{
                 me.list.loading=false;
@@ -187,6 +217,7 @@ export default{
     mounted () {
         var me = this;
         me.loadData();
+        window.vm=this;
     }
 };
 </script>    
