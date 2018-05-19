@@ -2,7 +2,7 @@
 <div class="padding-l">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder"><h1>项目列表</h1></span>
+                <span class="font-weight-blder"><h1>栏目管理</h1></span>
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
@@ -20,25 +20,32 @@
                   @sort-change="handleSortChange"
                   :default-sort="{prop: 'name', order: 'descending'}"
                   class="col-12">
-            <el-table-column type="expand">
-                <template slot-scope="props">
-                    <div v-html="props.row.projectDescription"></div>
-                </template>
-            </el-table-column>
             <el-table-column prop="id"
-                             label="项目ID"
+                             label="栏目ID"
                              sortable
                              width="120">
             </el-table-column>
-            <el-table-column prop="projectName"
-                             label="项目名称"
+            <el-table-column prop="name"
+                             label="栏目名称"
                              sortable
-                             >
+                             width="120">
+            </el-table-column>
+            <el-table-column prop="order"
+                             label="排序值"
+                             sortable
+                             width="120">
+            </el-table-column>
+            <el-table-column prop="isShow"
+                             width="200"
+                             label="启用">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.isShow|boolean}}</span>
+                    </template>
             </el-table-column>
             <el-table-column prop="creationTime"
                              label="创建时间"
                              width="200">
-                     <template slot-scope="scope">
+                    <template slot-scope="scope">
                         <el-icon name="time"></el-icon>
                         <span>{{ scope.row.creationTime|time}}</span>
                     </template>
@@ -48,6 +55,7 @@
                              width="400">
                 <template slot-scope="scope">
                     <el-button size="small" icon="el-icon-edit" @click="onEdit(scope.row)">编辑</el-button>
+                    <el-button size="small" icon="el-icon-view" @click="onToggle(scope.row)">{{scope.row?"禁用":"启用"}}</el-button>
                     <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
@@ -66,22 +74,25 @@
 <script>
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
+
 export default{
-    data:() =>({
-        search: {
-            name: ""
-        },
-        list: {
-            tableData: [],
-            multipleSelection: [],
-            loading: false,
-            currentPage: 1,
-            pageSize: 20,
-            total: 0,
-            sort: {}
-        },
-        currentUserId:0
-    }),
+    data(){ 
+        return {
+            search: {
+                name: ""
+            },
+            list: {
+                tableData: [],
+                multipleSelection: [],
+                loading: false,
+                currentPage: 1,
+                pageSize: 20,
+                total: 0,
+                sort: {}
+            },
+            currentUserId:0
+        };
+    },
     methods: {
         handleSortChange(sort) {
             var me = this;
@@ -112,37 +123,51 @@ export default{
             this.list.currentPage = val;
             this.loadData();
         },
+        onToggle(model) {
+            var me = this;
+             axios.put(apiConfig.category_show,{
+                "id": model.id,
+                "isShow": !model.isShow
+            })
+            .then(response =>{
+                model.isShow=!model.isShow;
+            });
+        },
         onAdd() {
             var me = this;
-            me.$loaderwindow("/main/project/edit?id=0", "创建项目")
+            me.$loaderwindow("/main/article/categoryedit?id=0", "创建栏目")
                 .then( model => {
-                    me.$message({ type: "success", message: "创建项目成功！" });
+                    me.$message({ type: "success", message: "创建栏目成功！" });
                     me.loadData();
                 });
         },
         onEdit(model) {
             var me = this;
-            me.$loaderwindow(`/main/project/edit?id=${model.id}`, `编辑项目${model.projectName}`)
-                .then(m => {
-                    me.$message({ type: "success", message: `编辑项目${model.projectName}成功！`});
+            me.$loaderwindow(`/main/article/categoryedit?id=${model.id}`, "编辑栏目")
+                .then(model => {
+                    me.$message({ type: "success", message: "编辑栏目成功！" });
                     me.loadData();
                 });
         },
         onDelete(model) {
             var me = this;
-            me.$confirm(`是否永久删除【'${model.projectName}】?`, '询问', {
-                confirmButtonText: '删除',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                me.deleteSelect(model);
-            }).catch(() => {
+            if (model) {
+                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
+                    confirmButtonText: '删除',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    me.deleteSelect(model);
+                }).catch(() => {
 
-            });
+                });
+            } else {
+                me.$alert("请勾中要删除的项");
+            }
         },
         deleteSelect(model){
             var me=this;
-            axios.post(apiConfig.project_delete,{id:model.id}).then(response=>{
+            axios.delete(apiConfig.category_delete,{params:{id:model.id}}).then(response=>{
                 me.$message({ type: "success", message: "删除用户成功！" });
                 me.loadData();
             });
@@ -150,9 +175,9 @@ export default{
         loadData () {
             var me=this;
             me.list.loading = true;
-            axios.get(apiConfig.project_get, {params:{
+            axios.get(apiConfig.category_get, {params:{
                 skipCount: me.getSkip(),
-                maxCount: me.list.pageSize
+                maxResultCount: me.list.pageSize
             }})
             .then(response => {
                 me.list.tableData = response.data.result.items;
@@ -168,5 +193,4 @@ export default{
         me.loadData();
     }
 };
-</script>
-    
+</script>    

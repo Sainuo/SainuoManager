@@ -22,7 +22,7 @@ axios.interceptors.response.use(
                 .$message({
                     showClose: true,
                     message: error.response.data.error.message,
-                    duration: 10000,
+                    duration: 5000,
                     type: 'error'
                 });
         }

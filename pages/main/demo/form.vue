@@ -17,6 +17,14 @@
     <el-form-item label="婚否">
       <el-checkbox v-model="ruleForm.isMarried">已婚</el-checkbox>
     </el-form-item>
+    <el-form-item label="工作地点">
+      <el-radio-group v-model="ruleForm.work">
+        <el-radio-button label="上海"></el-radio-button>
+        <el-radio-button label="北京"></el-radio-button>
+        <el-radio-button label="广州"></el-radio-button>
+        <el-radio-button label="深圳"></el-radio-button>
+      </el-radio-group>
+    </el-form-item>
     <el-form-item label="爱好">
       <el-checkbox-group v-model="ruleForm.favorite">
         <el-checkbox label="音乐"></el-checkbox>
@@ -50,6 +58,12 @@
     <el-form-item label="详细说明">
       <el-input  v-model="ruleForm.description" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
     </el-form-item>
+    <el-form-item label="富文本编辑器">
+        <ckeditor v-model="ruleForm.html"></ckeditor>
+    </el-form-item>
+    <el-form-item label="民族" prop="nationality">
+        <biz-select src="/data/nationality.json" v-model="ruleForm.nationality" :modelMap="model=>model.data" valueField="name" displayField="name" :showColumns="['name']"></biz-select>
+    </el-form-item>
     <div>
         <el-radio v-model="ruleForm.score" label="0">优秀</el-radio>
     </div>
@@ -59,6 +73,7 @@
     <div>
         <el-radio v-model="ruleForm.score" label="2">一般</el-radio>
     </div>
+
     <div>
       <el-button @click="onShow">显示数据</el-button>
       <el-button @click="onSave">保存数据</el-button>
@@ -67,7 +82,11 @@
 </div>
 </template>
 <script>
+import CKEditor from "~/components/CKEditor4.vue"
 export default {
+  components:{
+    'ckeditor':CKEditor
+  },
   props:{
       params:{
         type:Object,
@@ -87,10 +106,13 @@ export default {
         language: ['C', 'Java',"C++"],
         description:"",
         score:0,
-        range:null
+        range:null,
+        work:"",
+        html:"",
+        nationality:""
       },
       rules:{
-
+        
       }
   }),
   methods: {

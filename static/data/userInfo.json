@@ -158,7 +158,7 @@
             "FunctionName": "栏目管理",
             "DisplayName": "栏目管理",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/home/welcome",
+            "ActionUrl": "/main/article/category",
             "FunctionType": "",
             "ChildrenModels": []
           },
@@ -168,7 +168,7 @@
             "FunctionName": "文章管理",
             "DisplayName": "文章管理",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/home/welcome",
+            "ActionUrl": "/main/article/",
             "FunctionType": "",
             "ChildrenModels": []
           }
@@ -381,7 +381,17 @@
             "FunctionName": "标签",
             "DisplayName": "标签",
             "Icon": "el-icon-message",
-            "ActionUrl": "/main/demo/biztag",
+            "ActionUrl": "/main/custom/biztag",
+            "FunctionType": "",
+            "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "BizBase64Image",
+            "DisplayName": "BizBase64Image",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/custom/bizbase64image",
             "FunctionType": "",
             "ChildrenModels": []
           }

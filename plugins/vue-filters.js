@@ -71,6 +71,9 @@ const filters = {
         else {
             return webconfig.resourceServerAddress + src;
         }
+    },
+    boolean(val) {
+        return val ? "是" : "否";
     }
 };
 

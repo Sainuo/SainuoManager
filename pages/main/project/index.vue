@@ -1,8 +1,9 @@
 <template>
 <div class="padding-xl">
+  <h1>项目设置</h1>
   <el-row>
     <el-col :span="12" class="padding-m">
-      <div class="padding-m"><h1>组织机构</h1></div>
+      <div class="padding-m"><h2>组织机构</h2></div>
       <el-input
         placeholder="输入关键字进行过滤"
         suffix-icon="el-icon-search"
@@ -23,7 +24,7 @@
       </el-tree>
     </el-col>
     <el-col v-if="selectedOrgnization" :span="12" class="padding-m">
-        <div><h1>{{selectedOrgnization.displayName}}</h1></div>
+        <div><h2>{{selectedOrgnization.displayName}}</h2></div>
          <el-form :inline="true" class="background-color-minor margin-bottom-m padding-m">
             <el-form-item>
                 <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加项目</el-button>

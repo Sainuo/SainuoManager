@@ -2,7 +2,7 @@
 <div class="padding-l">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder"><h1>受试者管理</h1></span>
+                <span class="font-weight-blder"><h1>病例管理</h1></span>
             </el-col>
         </el-row>
         <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
