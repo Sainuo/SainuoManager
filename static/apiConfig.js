@@ -1,13 +1,16 @@
 ﻿import webconfig from "./webConfig"
+
 let settings = {
     article_author:"/api/services/app/article/GetCurrentAuthor",
     article_get:"/api/services/app/article/GetArticlePagedList",
     article_read:"/api/services/app/article/GetArticle",
+    article_create:"/api/services/app/article/AddArticle",
     article_update:"/api/services/app/article/UpdateArticle",
     article_top:"/api/services/app/article/TopArticle",
     article_delete:"/api/services/app/article/DeleteArticle",
     category_get:"/api/services/app/category/GetCategoryPagedList",
     category_read:"/api/services/app/category/GetCategory",
+    category_create:"/api/services/app/category/AddCategory",
     category_update:"/api/services/app/category/UpdateCategory",
     category_show:"/api/services/app/category/ShowCategory",
     category_delete:"/api/services/app/category/DeleteCategory",

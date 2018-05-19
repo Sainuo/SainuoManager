@@ -151,24 +151,20 @@ export default{
         },
         onDelete(model) {
             var me = this;
-            if (model) {
-                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
-                    confirmButtonText: '删除',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    me.deleteSelect(model);
-                }).catch(() => {
+            me.$confirm('是否永久删除[' + model.name + ']?', '询问', {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                me.deleteSelect(model);
+            }).catch(() => {
 
-                });
-            } else {
-                me.$alert("请勾中要删除的项");
-            }
+            });
         },
         deleteSelect(model){
             var me=this;
             axios.delete(apiConfig.category_delete,{params:{id:model.id}}).then(response=>{
-                me.$message({ type: "success", message: "删除用户成功！" });
+                me.$message({ type: "success", message: "删除栏目成功！" });
                 me.loadData();
             });
         },

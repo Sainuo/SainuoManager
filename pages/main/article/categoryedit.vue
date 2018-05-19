@@ -22,7 +22,7 @@
 </template>
 <script>
 import axios from "axios"
-import apiConfig from "~/static/apiConfig"
+import apiConfig from "~/static/apiConfig.js"
 
 export default {
     data(){
@@ -52,14 +52,12 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     if(me.id===0){
-                        console.log(apiConfig.category_create);
                         axios.post(apiConfig.category_create,me.ruleForm).then(response=>{
                             me.$emit("confirm",me.ruleForm);
                         });
                     }
-                    else{
-                        console.log(apiConfig.category_update);
-                        axios.pust(apiConfig.category_update,me.ruleForm).then(response=>{
+                    else{                        
+                        axios.put(apiConfig.category_update,me.ruleForm).then(response=>{
                             me.$emit("confirm",me.ruleForm);
                         });
                     }
@@ -73,7 +71,7 @@ export default {
         loadData(){
             var me = this;
             me.loading=true;
-            axios.get(apiConfig.role_get,{params:{ id:me.id}})
+            axios.get(apiConfig.category_read,{params:{ id:me.id}})
             .then(response=>{
                 me.ruleForm = response.data.result;
                 me.$refs.permissionsTree.setCheckedKeys(me.ruleForm.permissions);

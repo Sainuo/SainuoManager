@@ -90,7 +90,7 @@ export default {
                         });
                     }
                     else{
-                        axios.pust(apiConfig.article_update,me.ruleForm).then(response=>{
+                        axios.put(apiConfig.article_update,me.ruleForm).then(response=>{
                             me.$emit("confirm",me.ruleForm);
                         });
                     }
@@ -104,7 +104,7 @@ export default {
         loadData(){
             var me = this;
             me.loading=true;
-            axios.get(apiConfig.role_get,{params:{ id:me.id}})
+            axios.get(apiConfig.category_read,{params:{ id:me.id}})
             .then(response=>{
                 me.ruleForm = response.data.result;
                 me.$refs.permissionsTree.setCheckedKeys(me.ruleForm.permissions);

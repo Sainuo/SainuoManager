@@ -145,7 +145,7 @@ export default{
         onDelete(model) {
             var me = this;
             if (model) {
-                me.$confirm('是否永久删除[' + model.userName + ']?', '询问', {
+                me.$confirm(`是否永久删除['${model.name}]?`, '询问', {
                     confirmButtonText: '删除',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -161,7 +161,7 @@ export default{
         deleteSelect(model){
             var me=this;
             axios.delete(apiConfig.article_delete,{params:{id:model.id}}).then(response=>{
-                me.$message({ type: "success", message: "删除用户成功！" });
+                me.$message({ type: "success", message: "删除文章成功！" });
                 me.loadData();
             });
         },
