@@ -4,7 +4,16 @@ axios.interceptors.response.use(
     response => response,
     error => {
         let viewModel = $nuxt.$children[0];
-        if (error.response.status === 401) {
+        if(typeof error.message==="string"){
+            viewModel
+            .$message({
+                showClose: true,
+                message: error.message,
+                duration: 5000,
+                type: 'error'
+            });
+        }
+        else if (typeof error.response.status==="numbe" &&  error.response.status === 401) {
             viewModel.$alert('会话过期', {
                 type: "error",
                 showClose: false,
@@ -15,7 +24,6 @@ axios.interceptors.response.use(
                     viewModel.$router.replace("/");
                 }
             });
-
         }
         else {
             viewModel

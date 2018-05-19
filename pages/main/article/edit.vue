@@ -25,8 +25,8 @@
     </el-form>
 </template>
 <script>
-import apiConfig from "~/static/apiConfig"
 import axios from "axios"
+import apiConfig from "~/static/apiConfig"
 import CKEditor from "~/components/CKEditor4.vue"
 import BizBase64Image from "~/components/BizBase64Image.vue"
 import BizSelect from "~/components/BizSelect.vue"
