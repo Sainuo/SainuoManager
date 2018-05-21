@@ -74,6 +74,9 @@ const filters = {
     },
     boolean(val) {
         return val ? "是" : "否";
+    },
+    gender(val){
+        return val ? "男" : "女";
     }
 };
 

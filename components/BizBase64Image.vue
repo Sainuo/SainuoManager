@@ -6,6 +6,12 @@
     </label>
 </template>
 <script>
+/**
+*@author ReversalMinute
+*@datetime  20180521
+*@example
+*<biz-base64-image v-model="ruleForm.image1"></biz-base64-image>
+*/
 export default {
     props:{
         preview:{
@@ -47,7 +53,9 @@ export default {
         }
     },
     mounted(){
-        this.val=this.value;
+        if(this.value){
+            this.val=this.value;
+        }
     }
 }
 </script>

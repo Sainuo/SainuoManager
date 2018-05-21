@@ -1,55 +1,31 @@
 <template>
-<div class="padding-l">
+<div class="padding-l overflow-hidden">
         <el-row class="padding-l">
             <el-col :span="12">
-                <span class="font-weight-blder"><h1>病例管理</h1></span>
+                <span class="font-weight-blder"><h1>受试者CRF列表</h1></span>
             </el-col>
         </el-row>
-        <el-form :inline="true" v-model="search" class="background-color-minor margin-bottom-m padding-m">
-            <el-form-item label="" prop="organizationId">
-                <el-input placeholder="中心号" v-model="search.organizationId" clearable></el-input>
+        <el-form label-width="120px">
+            <el-form-item label="中心号">
+                {{crf.organizationId}}
             </el-form-item>
-            <el-form-item label="" prop="crfNumber">
-                <el-input placeholder="CRF号" v-model="search.crfNumber" clearable></el-input>
+            <el-form-item label="受试者姓名">
+                {{crf.patientName}}
             </el-form-item>
-            <el-form-item label="" prop="visitNumber">
-                <biz-select src="/data/visitnumber.json" v-model="search.visitNumber" placeholder="访视" clearable></biz-select>
+            <el-form-item label="受试项目">
+                {{crf.medProjectName}}
             </el-form-item>
-            <el-form-item label="" prop="visitTime">
-                    <el-date-picker
-                        placeholder="访视日期"
-                        v-model="search.visitTime"
-                        type="daterange"
-                        range-separator="-"
-                        start-placeholder="访视日期开始"
-                        end-placeholder="访视日期结束">
-                    </el-date-picker>
+            <el-form-item label="性别">
+                {{crf.gender|gender}}
             </el-form-item>
-            <el-form-item label="" prop="medProjectId">
-                <biz-select @input="onSelectProject" :src="urls.crf_project_get" placeholder="临床检验项目" v-model="search.medProjectId" clearable :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
+            <el-form-item label="出生日期">
+                {{crf.birthday|date}}
             </el-form-item>
-            <el-form-item label="" prop="medPhaseId">
-                <biz-select ref="bsMedPhaseId" :src="urls.crf_phase_get" placeholder="阶段" v-model="search.medPhaseId" clearable :auto-load=false :modelMap="model=>model.result.items" valueField="id" :params="{medProjectId:search.medProjectId}" displayField="phasesName" :showColumns="['phasesName']"></biz-select>
-            </el-form-item>
-            <el-form-item label="" prop="creatorName">
-                <el-input placeholder="填表人" v-model="search.creatorName"></el-input>
-            </el-form-item>
-            <el-form-item label="" prop="visitTime">
-                    <el-date-picker
-                        placeholder="填表日期"
-                        v-model="search.createTime"
-                        type="daterange"
-                        range-separator="-"
-                        start-placeholder="填表日期开始"
-                        end-placeholder="填表日期结束">
-                    </el-date-picker>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" icon="el-icon-search" @click="loadData">查询</el-button>
-                <el-button type="primary" icon="el-icon-plus" @click="onAdd">添加病例</el-button>
+            <el-form-item label="手机号码">
+                {{crf.phoneNumber}}
             </el-form-item>
         </el-form>
-        <el-table :data="list.tableData"
+       <el-table :data="list.tableData"
                   border highlight-current-row
                   v-loading="list.loading"
                   @sort-change="handleSortChange"
@@ -116,15 +92,6 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination class="clear"
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="list.currentPage"
-                    :page-sizes="[10, 20, 50, 100]"
-                    :page-size="list.pageSize"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="list.total">
-        </el-pagination>
     </div>
 </template>
 <script>
@@ -133,36 +100,27 @@ import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
 
 export default{
+    computed: {
+        crf(){
+            return this.$store.state.modules.crf.crf;
+        }
+    },
     components:{
         'biz-select':BizSelect
     },
-    data:() =>({
-        urls:{
-            crf_phase_get:apiConfig.crf_phase_get,
-            crf_project_get:apiConfig.crf_project_get
-        },
-        search: {
-            crfNumber:"",
-            patientName:"",
-            visitTime:[],
-            visitNumber:null,
-            createTime:[],
-            creatorName:"",
-            medProjectId:null,
-            medPhaseId:null,
-            isValidated:null
-        },
-        list: {
-            tableData: [],
-            multipleSelection: [],
-            loading: false,
-            currentPage: 1,
-            pageSize: 20,
-            total: 0,
-            sort: {}
-        },
-        currentUserId:0
-    }),
+    data(){
+        return {
+            list: {
+                tableData: [],
+                multipleSelection: [],
+                loading: false,
+                currentPage: 1,
+                pageSize: 20,
+                total: 0,
+                sort: {}
+            }
+        };
+    },
     methods: {
         handleSortChange(sort) {
             var me = this;
@@ -212,10 +170,6 @@ export default{
             .then( m => {
                 me.$message({ type: "success", message: "添加病例成功！" });
                 me.loadData();
-                // me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
-                // .then(() => {
-                //     me.$router.push(`/main/tester/forms?id=${m.result}`);
-                // });
             });
         },
         onEdit(model) {
@@ -228,7 +182,7 @@ export default{
         },
         onEditDetail(model) {
             var me = this;
-            me.$store.dispatch("modules/crf/updateCrfInfo",model);
+            me.$store.dispacth("modules/crf/updateCrfInfo",model);
             me.$router.push(`/main/tester/forms?id=${model.id}`);
         },
         onExportWord(model) {
@@ -243,17 +197,7 @@ export default{
             var me = this;
             let s = me.search;
             let d = {
-                crfNumber:s.crfNumber,
-                patientName:s.patientName,
-                visitTimeStart:s.visitTime ?s.visitTime[0] :null,
-                visitTimeEnd:s.visitTime ?s.visitTime[1] :null,
-                visitNumber:s.visitNumber,
-                createTimeStart:s.createTime ?s.createTime[0] :null,
-                createTimeEnd:s.createTime ?s.createTime[1] :null,
-                creatorName:s.creatorName,
-                medProjectId:s.medProjectId,
-                medPhaseId:s.medPhaseId,
-                isValidated:s.isValidated,
+                crfNumber:me.crf.crfNumber,
                 skipCount: me.getSkip(),
                 maxResultCount: me.list.pageSize
             };
@@ -270,7 +214,8 @@ export default{
     },
     mounted () {
         var me = this;
-        me.loadData();
+        //me.loadData();
+        window.vm=me;
     }
-};
+}
 </script>

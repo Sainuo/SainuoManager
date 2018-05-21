@@ -76,7 +76,7 @@
                              label="性别"
                              width="80">
                         <template slot-scope="scope">
-                            {{scope.row.gender?'男':'女'}}
+                            {{scope.row.gender|gender}}
                         </template>
             </el-table-column>
             <el-table-column prop="nationality"
@@ -135,28 +135,30 @@
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 export default{
-    data:() =>({
-        search: {
-            organizationId:null,
-            quit:null,
-            notQualified:null,
-            gender:null,
-            phoneNumber: "",
-            userName:"",
-            crfNumber:"",
-            date:[]
-        },
-        list: {
-            tableData: [],
-            multipleSelection: [],
-            loading: false,
-            currentPage: 1,
-            pageSize: 20,
-            total: 0,
-            sort: {}
-        },
-        currentUserId:0
-    }),
+    data(){
+        return{
+            search: {
+                organizationId:null,
+                quit:null,
+                notQualified:null,
+                gender:null,
+                phoneNumber: "",
+                userName:"",
+                crfNumber:"",
+                date:[]
+            },
+            list: {
+                tableData: [],
+                multipleSelection: [],
+                loading: false,
+                currentPage: 1,
+                pageSize: 20,
+                total: 0,
+                sort: {}
+            },
+            currentUserId:0
+        };
+    },
     methods: {
         handleSortChange(sort) {
             var me = this;
@@ -209,11 +211,9 @@ export default{
         },
         onView(model) {
             var me = this;
-            me.$loaderwindow(`/main/user/edit?id=${model.id}`, `编辑用户`)
-                .then(m => {
-                    me.$message({ type: "success", message: "编辑用户成功！" });
-                    me.loadData();
-                });
+            me.$store.dispatch("modules/crf/updateCrfInfo",model);
+            me.$loaderwindow(`/main/tester/crfdetail?id=${model.id}`, `查看${model.patientName}详情`);
+            //me.$router.push(`/main/tester/crfdetail?id=${model.id}`);
         },
         onNotQualified(model) {
             var me = this;

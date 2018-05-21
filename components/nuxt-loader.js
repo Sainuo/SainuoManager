@@ -1,6 +1,7 @@
 /**
  * @author   : mailzy@vip.qq.com
  * @datetime :20180423
+ * @ref:
  */
 export default {
   name: 'nuxt-loader',
@@ -12,7 +13,7 @@ export default {
     }
   },
   render(_, ref) {
-    
+
     var props = ref.props;
     var children = ref.children;
     var parent = ref.parent;
@@ -35,13 +36,14 @@ export default {
     // attach instance registration hook
     // this will be called in the instance's injected lifecycle hooks
     data.registerRouteInstance = function (vm, val) {
+      vm.$store = window.$nuxt.$store;
       vm._routerRoot = {
         _route: resolved,
         _router: $nuxt.$router
       }
 
-      for(var listenerName in listeners){
-        vm.$on(listenerName, (evt) => {  listeners[listenerName](evt) })
+      for (var listenerName in listeners) {
+        vm.$on(listenerName, (evt) => { listeners[listenerName](evt) })
       }
     }
 

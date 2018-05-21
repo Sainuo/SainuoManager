@@ -34,7 +34,7 @@ import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 
 export default {
-    computed: {
+  computed: {
     ...mapGetters({
       crfInfo: 'modules/crf/getCrfInfo'
     })
@@ -89,6 +89,7 @@ export default {
       me.id = parseInt(me.$route.query.id);
       me.loadMenu();
     }
+    window.vm=this;
   }
 }
 </script>

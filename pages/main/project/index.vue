@@ -11,6 +11,7 @@
       </el-input>
       <el-tree
         ref="tree"
+        v-loading="tree.loading"
         :data="tree.treeData"
         :props="tree.props"
         node-key="id"
@@ -86,6 +87,7 @@ export default {
     selectedOrgnization:null,
     tree: {
       filterText: "",
+      loading:false,
       treeData: [],
       props: {
         label: "displayName",
@@ -170,8 +172,13 @@ export default {
     },
     loadOrgnization() {
       var me = this;
-      axios.get(apiConfig.organization_get_by_name,{params:{organizationName:"赛诺多中心"}}).then(response => {
+      me.tree.loading=true;
+      axios.get(apiConfig.organization_get_by_name,{params:{organizationName:"赛诺多中心"}})
+      .then(response => {
         me.tree.treeData = response.data.result.items;
+      })
+      .finally(()=>{
+        me.tree.loading=false;
       });
     },
     loadData() {

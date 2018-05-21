@@ -3,7 +3,7 @@
     <div><h2>受试者知情同意书（肝纤维化检验）</h2></div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="200px">
         <el-form-item label="上传同意书照片" prop="agreementImgBase64">
-            <input type="file" @change="onChange"/>
+            <biz-base64-image :preview="false" v-model="ruleForm.agreementImgBase64"></biz-base64-image>
         </el-form-item>
         <el-form-item v-if="typeof ruleForm.agreementImgBase64 === 'string'">
             <img :src="ruleForm.agreementImgBase64" style="max-width:100%;"/>
@@ -19,8 +19,12 @@
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 import utility from "~/static/javascript/utility"
+import BizBase64Image from "~/components/BizBase64Image.vue"
 
 export default {
+    components:{
+        "biz-base64-image":BizBase64Image
+    },
     data() {
         return {
             id:0,
