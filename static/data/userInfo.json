@@ -22,6 +22,26 @@
           {
             "FunctionGuid": "00000000-0000-0000-0000-000000000000",
             "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "菜单管理",
+            "DisplayName": "菜单管理",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/menu/",
+            "FunctionType": "",
+            "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "功能管理",
+            "DisplayName": "功能管理",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/function/",
+            "FunctionType": "",
+            "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
             "FunctionName": "组织机构",
             "DisplayName": "组织机构",
             "Icon": "el-icon-message",
