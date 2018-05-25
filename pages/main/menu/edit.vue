@@ -25,11 +25,11 @@ export default {
     onConfirm() {
       var me = this;
       if(me.id === 0){
-        axios.post(apiConfig.menu_create, me.ruleForm).then(response => {
+        axios.post(apiConfig.organization_create, me.ruleForm).then(response => {
           me.$emit("confirm", response.data.result);
         });
       }else{
-        axios.put(apiConfig.menu_update, me.ruleForm).then(response => {
+        axios.put(apiConfig.organization_update, me.ruleForm).then(response => {
           me.$emit("confirm", response.data.result);
         });
       }

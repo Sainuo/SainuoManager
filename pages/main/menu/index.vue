@@ -93,7 +93,7 @@ export default {
     },
     onAdd() {
       var me = this;
-      me.$loaderwindow(`/main/orgnization/userinorgnization?id=${me.selectedOrgnization.id}`, "添加成员").then(model => {
+      me.$loaderwindow(`/main/menu/edit?id=${me.selectedOrgnization.id}`, "添加成员").then(model => {
         axios.post(apiConfig.organization_add_users,{organizationUnitId:me.selectedOrgnization.id,userIds:model.map(x=>x.id)}).then(response=>{
           me.$message({ type: "success", message: "添加成员成功！" });
           me.loadData();
@@ -102,7 +102,7 @@ export default {
     },
     onEdit(model) {
       var me = this;
-      me.$loaderwindow(`/main/role/edit?id=${model.id}`, "编辑角色")
+      me.$loaderwindow(`/main/menu/edit?id=${model.id}`, "编辑角色")
         .then(model => {
           me.$message({ type: "success", message: "编辑角色成功！" });
           me.loadData();
@@ -126,7 +126,7 @@ export default {
     },
     deleteSelect(model) {
       var me = this;
-      axios.delete(apiConfig.organization_delete_user_by_organizationiduserid, 
+      axios.delete(apiConfig.menu_delete, 
       {params:{ organizationId:me.selectedOrgnization.id,userId: model.id }})
       .then(response => {
         me.$message({ type: "success", message: "成功移除用户！" });
@@ -146,7 +146,7 @@ export default {
     loadData() {
       var me = this;
       me.list.loading = true;
-      axios.get(apiConfig.organization_user_get, {
+      axios.get(apiConfig.menu_get, {
           params:{
             organizationId:me.selectedOrgnization.id,
             skipCount: me.getSkip(),
