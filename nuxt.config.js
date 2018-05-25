@@ -38,7 +38,8 @@ module.exports = {
     '~/plugins/element-ui',
     '~/plugins/loaderwindow',
     "~/plugins/axios-global-error",
-    "~/plugins/vue-filters"
+    "~/plugins/vue-filters",
+    "~/plugins/v-permission"
   ],
   /*
   ** Build configuration

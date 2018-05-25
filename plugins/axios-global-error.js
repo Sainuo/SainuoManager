@@ -3,7 +3,7 @@ import axios from "axios"
 axios.interceptors.response.use(
     response => response,
     error => {
-        let viewModel = $nuxt.$children[0];
+        let viewModel = window.$nuxt;
         if (typeof error.response.status==="number" &&  error.response.status === 401) {
             viewModel.$alert('会话过期', {
                 type: "error",
