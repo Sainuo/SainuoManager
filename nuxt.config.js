@@ -49,30 +49,10 @@ module.exports = {
     ** Run ESLint on save
     */
     extend(config, { isDev, isClient }) {
+      config.entry.babelpolyfill="babel-polyfill";
       if (isDev && isClient) {
-        // config.externals={
-        //   "amap":'AMap'
-        // };
-        //config.mode = "spa";
         config.devtool = "inline-source-map";
-        config.entry.babelpolyfill="babel-polyfill";
         config.entry.eventsourcepolyfill="eventsource-polyfill";
-        /*         config.optimization = {
-                  minimize: true,
-                  //https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693?utm_source=aotu_io&utm_medium=liteo2_web
-                  //https://blog.csdn.net/qq_16559905/article/details/79404173
-                  splitChunks: {
-                    minSize: 0,
-                    minChunks: 2,
-                    cacheGroups: {
-                      commons: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: "vendor",
-                        reuseExistingChunk: true
-                      }
-                    }
-                  }
-                }; */
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
