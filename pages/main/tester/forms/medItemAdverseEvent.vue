@@ -10,6 +10,13 @@
                 <el-radio v-model="ruleForm.anyAdverseEvent" :label="true">是</el-radio>
             </div>
             <template v-if="ruleForm.anyAdverseEvent">
+            <div>严重？</div>
+            <div>
+                <el-radio v-model="ruleForm.anySeriousEvent" :label="false">否</el-radio>
+            </div>
+            <div>
+                <el-radio v-model="ruleForm.anySeriousEvent" :label="true">是</el-radio>
+            </div>
             <div v-for="(item,index) in ruleForm.adEvents" :key="index" >
                 <el-form-item label="不良事件名称">
                     <el-input  v-model="item.adverseEventName" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
@@ -87,6 +94,7 @@ export default {
       ruleForm: {
             "crfBasicId": 0,
             "anyAdverseEvent": false,
+            "anySeriousEvent":false,
             "adEvents": [],
             "id": 0
         },

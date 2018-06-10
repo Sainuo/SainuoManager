@@ -2,6 +2,13 @@
 <div v-loading="loading">
     <div><h2>受试者知情同意书（肝纤维化检验）</h2></div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="200px">
+        <el-form-item label="签署日期" prop="signTime">
+            <el-date-picker
+            v-model="ruleForm.signTime"
+            type="date"
+            placeholder="选择日期">
+            </el-date-picker>
+        </el-form-item>
         <el-form-item label="上传同意书照片" prop="agreementImgBase64">
             <biz-base64-image :preview="false" v-model="ruleForm.agreementImgBase64"></biz-base64-image>
         </el-form-item>
@@ -32,11 +39,15 @@ export default {
             ruleForm: {
                 "id": 0,
                 "crfBasicId": 0,
-                "agreementImgBase64": null
+                "agreementImgBase64": null,
+                "signTime":new Date()
             },
             rules: {
                 agreementImgBase64: [
                     { required: true, message: '请上传同意书照片', trigger: 'change' }
+                ],
+                signTime:[
+                    { required: true, message: '请选择签署日期', trigger: 'change' }
                 ]
             }
         };

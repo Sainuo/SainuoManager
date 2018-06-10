@@ -4,7 +4,7 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <h2>乙肝病史</h2>
-                患者确诊患有慢性乙肝的日期<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.hepatitisBDignoseConfirmedDate"></el-date-picker>
+                患者确诊患有慢性乙肝的日期<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.ConfirmedDate"></el-date-picker>
             </div>
             <div>
                 <el-alert show-icon title="排除标准" type="info" description="Fibro-Touch检测值＞17.5kPa的患者（如肝组织活检证实为非肝硬化者除外）；或病理组织学检查为肝硬化的患者。"></el-alert>
@@ -25,22 +25,26 @@
                         <el-checkbox v-model="ruleForm.etkw">恩替卡韦</el-checkbox>
                         <el-checkbox v-model="ruleForm.lfmd">拉米夫定</el-checkbox>
                         <el-checkbox v-model="ruleForm.adfw">阿德福韦</el-checkbox>
+                        <el-checkbox v-model="ruleForm.tnfw">替诺福韦</el-checkbox>
                         <el-checkbox v-model="ruleForm.tbfd">替比夫定</el-checkbox>
                     </div>
                 </div>
-                <div v-if="ruleForm.etkw || ruleForm.lfmd || ruleForm.adfw || ruleForm.tbfd">
+                <div>
                     <div>目前使用核苷类似物的种类和持续时间：</div>
-                    <div v-if="ruleForm.etkw">
-                        恩替卡韦<el-date-picker v-model="ruleForm.etkwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                    <div>
+                         <el-checkbox v-model="ruleForm.cetkw">恩替卡韦</el-checkbox><el-date-picker v-model="ruleForm.etkwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.lfmd">
-                        拉米夫定<el-date-picker v-model="ruleForm.lfmdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-checkbox v-model="ruleForm.clfmd">拉米夫定</el-checkbox><el-date-picker v-model="ruleForm.lfmdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.adfw">
-                        阿德福韦<el-date-picker v-model="ruleForm.adfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-checkbox v-model="ruleForm.cadfw">阿德福韦</el-checkbox><el-date-picker v-model="ruleForm.adfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.tbfd">
-                        替比夫定<el-date-picker v-model="ruleForm.tbfdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-checkbox v-model="ruleForm.ctnfw">替诺福韦</el-checkbox><el-date-picker v-model="ruleForm.tnfwdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                    </div>
+                    <div v-if="ruleForm.tbfd">
+                        <el-checkbox v-model="ruleForm.ctbfd">替比夫定</el-checkbox><el-date-picker v-model="ruleForm.tbfdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </div>
                 <div>其他抗病毒药物？</div>
@@ -99,24 +103,33 @@ export default {
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
-                "hepatitisBDignoseConfirmedDate": new Date(),
+                "ConfirmedDate": new Date(),
                 "hasHepatocirrhosis": true,
                 "etkw": false,
+                "cetkw": false,
                 "etkwDate":[new Date(),new Date()],
                 "etkwBeginDate": new Date(),
                 "etkwEndDate": new Date(),
                 "lfmd": false,
+                "clfmd": false,
                 "lfmdDate":[new Date(),new Date()],
                 "lfmdBeginDate": new Date(),
                 "lfmdEndDate": new Date(),
                 "adfw": false,
+                "cadfw": false,
                 "adfwDate":[new Date(),new Date()],
                 "adfwBeginDate": new Date(),
                 "adfwEndDate": new Date(),
                 "tbfd": false,
+                "ctbfd": false,
                 "tbfdDate":[new Date(),new Date()],
                 "tbfdBeginDate": new Date(),
                 "tbfdEndDate": new Date(),
+                "tnfw":false,
+                "ctnfw":false,
+                "tnfwDate":[new Date(),new Date()],
+                "tnfwBeginDate":new Date(),
+                "tnfwEndDate":new Date(),
                 "otherMed": false,
                 "otherMedNames": "",
                 "familyInfected": true,
@@ -163,6 +176,8 @@ export default {
             model.lfmdEndDate=model.lfmdDate[1];
             model.adfwBeginDate=model.adfwDate[0];
             model.adfwEndDate=model.adfwDate[1];
+            model.tnfwBeginDate=model.tnfwDate[0];
+            model.tnfwEndDate=model.tnfwDate[1]
             model.tbfdBeginDate=model.tbfdDate[0];
             model.tbfdEndDate=model.tbfdDate[1];
             return model;
@@ -182,11 +197,17 @@ export default {
                 model.adfwDate[0]=model.adfwBeginDate;
                 model.adfwDate[1]=model.adfwEndDate;
             }
-    
+
+            if(model.tnfwBeginDate && model.tnfwEndDate){
+                model.tnfwDate[0]=model.tnfwBeginDate;
+                model.tnfwDate[1]=model.tnfwEndDate;
+            }
+
             if(model.tbfdBeginDate && model.tbfdEndDate){
                 model.tbfdDate[0]=model.tbfdBeginDate;
                 model.tbfdDate[1]=model.tbfdEndDate;
             }
+
             return model;
         }
     },

@@ -9,61 +9,37 @@
             <div>
                <table>
                    <thead>
-                       <tr><th>检查项目</th><th>检查</th><th>结果</th><th>单位</th><th>临床意义（如超出正常值范围）</th></tr>
+                       <tr><th>检查项目</th><th colspan="3">检查结果</th><th>单位</th></tr>
                    </thead>
                     <tbody>
                         <tr>
                             <td>抗-HIV</td>
                             <td>
-                                <el-radio class="radio" v-model="ruleForm.hivCheck" :label="false">未查</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.hivCheck" :label="true">已查</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.hivCheck" :label="1">阳性</el-radio>
                             </td>
                             <td>
-                                <el-input-number v-model="ruleForm.hivResult"></el-input-number>
+                                <el-radio class="radio" v-model="ruleForm.hivCheck" :label="2">阴性</el-radio>
                             </td>
                             <td>
-                                &nbsp;
-                            </td>
-                            <td>
-                                <el-radio class="radio" v-model="ruleForm.hivMeaning" :label="null">未填写</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.hivMeaning" :label="false">无</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.hivMeaning" :label="true">有</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.hivCheck" :label="0">未查</el-radio>
                             </td>
                         </tr>
                         <tr>
                             <td>抗核抗体（ANA）</td>
-                            <td>
-                                <el-radio class="radio" v-model="ruleForm.anaCheck" :label="false">未查</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.anaCheck" :label="true">已查</el-radio>
-                            </td>
-                            <td>
+                            <td colspan="2">
                                 <el-input-number v-model="ruleForm.anaResult"></el-input-number>
                             </td>
                             <td>
-                                &nbsp;
-                            </td>
-                            <td>
-                                <el-radio class="radio" v-model="ruleForm.anaMeaning" :label="null">未填写</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.anaMeaning" :label="false">无</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.anaMeaning" :label="true">有</el-radio>
+                                <el-radio class="radio" v-model="ruleForm.anaCheck" :true-label="false" :false-label="true">未查</el-radio>
                             </td>
                         </tr>
                         <tr>
                             <td>甲胎蛋白（AFP）</td>
-                            <td>
-                                <el-radio class="radio" v-model="ruleForm.afpCheck" :label="false">未查</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.afpCheck" :label="true">已查</el-radio>
+                            <td colspan="2">
+                                <el-input-number v-model="ruleForm.afpResult"></el-input-number>ng/ml
                             </td>
-                            <td>
-                                <el-input-number v-model="ruleForm.afpResult"></el-input-number>
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                            <td>
-                                <el-radio class="radio" v-model="ruleForm.afpMeaning" :label="null">未填写</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.afpMeaning" :label="false">无</el-radio>
-                                <el-radio class="radio" v-model="ruleForm.afpMeaning" :label="true">有</el-radio>
+                                <td>
+                                <el-radio class="radio" v-model="ruleForm.afpCheck" :true-label="false" :false-label="true">未查</el-radio>
                             </td>
                         </tr>
                     </tbody>
@@ -91,13 +67,9 @@ export default {
             "crfBasicId": 0,
             "testDate": new Date(),
             "hivCheck": true,
-            "hivMeaning": true,
-            "hivResult": 0,
             "anaCheck": true,
-            "anaMeaning": true,
             "anaResult": 0,
             "afpCheck": true,
-            "afpMeaning": true,
             "afpResult": 0
         },
         rules: {}
