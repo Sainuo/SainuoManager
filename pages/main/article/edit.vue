@@ -104,7 +104,7 @@ export default {
         loadData(){
             var me = this;
             me.loading=true;
-            axios.get(apiConfig.category_read,{params:{ id:me.id}})
+            axios.get(apiConfig.article_read,{params:{ id:me.id}})
             .then(response=>{
                 me.ruleForm = response.data.result;
                 me.$refs.permissionsTree.setCheckedKeys(me.ruleForm.permissions);
