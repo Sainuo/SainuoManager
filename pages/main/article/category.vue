@@ -181,12 +181,12 @@ export default{
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                me.deleteSelect([model.id]);
+                me.deleteSelect(model.id);
             });
         },
-        deleteSelect(arr){
+        deleteSelect(id){
             var me=this;
-            axios.delete(apiConfig.category_delete,{params:{input:arr}}).then(response=>{
+            axios.delete(apiConfig.category_delete,{params:{id:id}}).then(response=>{
                 me.$message({ type: "success", message: "删除栏目成功！" });
                 me.loadData();
             });
