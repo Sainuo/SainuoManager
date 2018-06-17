@@ -1,6 +1,6 @@
 <template>
 <div class="padding-xl">
-      <div class="padding-m"><h1>菜单管理</h1></div>
+      <div class="padding-m"><h1>菜单管理</h1>
       <el-input
         placeholder="输入关键字进行过滤"
         suffix-icon="el-icon-search"
@@ -23,6 +23,7 @@
           <i class="el-icon-remove-outline margin-m" @click="remove(node, data)"></i>
         </span>
       </el-tree>
+      </div>
 </div>
 </template>
 <script>
@@ -41,8 +42,8 @@ export default {
       loading:false,
       treeData: [],
       props: {
-        label: "displayName",
-        children: "children"
+        label: "name",
+        children: "items"
       }
     },
     list: {
@@ -94,7 +95,7 @@ export default {
     onAdd() {
       var me = this;
       me.$loaderwindow(`/main/menu/edit?id=${me.selectedOrgnization.id}`, "添加成员").then(model => {
-        axios.post(apiConfig.organization_add_users,{organizationUnitId:me.selectedOrgnization.id,userIds:model.map(x=>x.id)}).then(response=>{
+        axios.post(apiConfig.menu_create,{organizationUnitId:me.selectedOrgnization.id,userIds:model.map(x=>x.id)}).then(response=>{
           me.$message({ type: "success", message: "添加成员成功！" });
           me.loadData();
         });
@@ -133,33 +134,18 @@ export default {
         me.loadData();
       });
     },
-    loadOrgnization() {
+    loadTree() {
       var me = this;
       me.tree.loading=true;
-      axios.get(apiConfig.organization_get_by_name,{params:{organizationName:"赛诺多中心"}}).then(response => {
+      axios.get(apiConfig.menu_get,{params:{
+                    parentId:0,
+                    name: ""
+      }}).then(response => {
         me.tree.treeData = response.data.result.items;
       })
       .finally(()=>{
         me.tree.loading=false;
       });
-    },
-    loadData() {
-      var me = this;
-      me.list.loading = true;
-      axios.get(apiConfig.menu_get, {
-          params:{
-            organizationId:me.selectedOrgnization.id,
-            skipCount: me.getSkip(),
-            maxCount: me.list.pageSize
-          }
-        })
-        .then(response => {
-          me.list.tableData = response.data.result.items;
-          me.list.total = response.data.result.totalCount;
-        })
-        .finally(() => {
-          me.list.loading = false;
-        });
     },
     filterNode(value, data) {
       if (!value) return true;
@@ -192,12 +178,12 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
       }).then(() => {
-        axios.delete(apiConfig.organization_delete,{params:{organizationId:data.id}}).then(response=>{
+        axios.delete(apiConfig.menu_delete,{params:{Id:data.id}}).then(response=>{
           const parent = node.parent;
           const children = parent.data.children || parent.data;
           const index = children.findIndex(d => d.id === data.id);
           children.splice(index, 1);
-          me.$message({ type: "success", message: "组织机构删除成功" });
+          me.$message({ type: "success", message: "菜单删除成功" });
           me.selectedOrgnization=null;
         });
       }).catch(() => {
@@ -235,7 +221,7 @@ export default {
   },
   mounted() {
     var me = this;
-    me.loadOrgnization();    
+    me.loadTree();    
   }
 };
 </script>
