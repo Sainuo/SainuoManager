@@ -17,7 +17,7 @@ axios.interceptors.response.use(
             });
         }
         else if(typeof error.response.error.message==="string"){
-            viewModel.$dialog.alert({
+            viewModel.$alert({
                 showClose: true,
                 message: error.response.error.message,
                 duration: 5000,

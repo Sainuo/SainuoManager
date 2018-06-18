@@ -236,9 +236,21 @@ export default{
         },
         onExportWord(model) {
             var me = this;
-             download(apiConfig.crf_export_word,{
-                 crfBaseId:model.id
-             });
+             download(`${apiConfig.crf_export_word}`
+              ,{crfBaseId:model.id}
+             ,"POST"
+             ,`CRF${new Date().format("yyyy-MM-ddTHH:mm:ss")}`
+             ,()=>{}
+             ,()=>{}
+             ,(xhr)=>{
+                 me.$alert({
+                    showClose: true,
+                    message: JSON.parse(xhr.responseText).error.message,
+                    duration: 5000,
+                    type: 'error'
+                });
+             }
+             );
         },
         loadData () {
             var me = this;

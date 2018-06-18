@@ -78,17 +78,7 @@
                              fixed="right"
                              width="80">
                 <template slot-scope="scope">
-                    <el-dropdown @command="handleCommand" trigger="click">
-                    <span class="el-dropdown-link">
-                        操作<i class="el-icon-arrow-down el-icon--right"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item :command="{name:'onEditDetail',model:scope.row}">查看详情</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onEdit',model:scope.row}">编辑病例</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onEditDetail',model:scope.row}">编辑详情</el-dropdown-item>
-                        <el-dropdown-item :command="{name:'onExportWord',model:scope.row}">导出word</el-dropdown-item>
-                    </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-button type="primary" @click="onEditDetail(scope.row)">查看详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -182,7 +172,8 @@ export default{
         },
         onEditDetail(model) {
             var me = this;
-            me.$store.dispacth("modules/crf/updateCrfInfo",model);
+            //me.$store.dispacth("modules/crf/updateCrfInfo",model);
+            me.$emit("confirm",{target:me});
             me.$router.push(`/main/tester/forms?id=${model.id}`);
         },
         onExportWord(model) {
@@ -214,8 +205,7 @@ export default{
     },
     mounted () {
         var me = this;
-        //me.loadData();
-        window.vm=me;
+        me.loadData();
     }
 }
 </script>
