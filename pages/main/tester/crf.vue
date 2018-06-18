@@ -131,6 +131,7 @@
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
+import download from "~/static/javascript/download"
 
 export default{
     components:{
@@ -201,7 +202,9 @@ export default{
             var me=this;
             if(val){
                 me.$nextTick(()=>me.$refs.bsMedPhaseId.loadData())
-            }else{
+            }
+            else
+            {
                 me.search.medPhaseId=null;
                 me.$refs.bsMedPhaseId.options=[];
             }
@@ -212,19 +215,19 @@ export default{
             .then( m => {
                 me.$message({ type: "success", message: "添加病例成功！" });
                 me.loadData();
-                // me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
-                // .then(() => {
-                //     me.$router.push(`/main/tester/forms?id=${m.result}`);
-                // });
+                me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
+                 .then(() => {
+                     me.$router.push(`/main/tester/forms?id=${m.result}`);
+                });
             });
         },
         onEdit(model) {
             var me = this;
             me.$loaderwindow(`/main/tester/editcrf?id=${model.id}`, `编辑病例`)
-                .then( m => {
-                    me.$message({ type: "success", message: "编辑病例成功！" });
-                    me.loadData();
-                });
+            .then( m => {
+                me.$message({ type: "success", message: "编辑病例成功！" });
+                me.loadData();
+            });
         },
         onEditDetail(model) {
             var me = this;
@@ -233,11 +236,9 @@ export default{
         },
         onExportWord(model) {
             var me = this;
-            me.$loaderwindow(`/main/tester/notqualified?id=${model.id}`, `剔除`)
-                .then(m => {
-                    me.$message({ type: "success", message: "剔除成功！" });
-                    me.loadData();
-                });
+             download(apiConfig.crf_export_word,{
+                 crfBaseId:model.id
+             });
         },
         loadData () {
             var me = this;

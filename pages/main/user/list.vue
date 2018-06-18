@@ -30,13 +30,10 @@
                              sortable
                              width="120">
             </el-table-column>
-            <el-table-column prop="roles"
+            <el-table-column prop="roleName"
                              label="角色"
                              sortable
                              width="120">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.roles.join(",")}}</span>
-                    </template>
             </el-table-column>
             <el-table-column prop="emailAddress"
                              width="200"

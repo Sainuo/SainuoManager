@@ -88,3 +88,5 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
     xhr.responseType = "blob";
     xhr.send(setting.postData ? JSON.stringify(setting.postData) : setting.postData);
 }
+
+export default download

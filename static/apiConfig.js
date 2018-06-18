@@ -85,6 +85,7 @@ let settings = {
     crf_project_get:"/api/services/app/cRF/GetSearchMedProjectDropDownList",
     crf_phase_get:"/api/services/app/cRF/GetSearchMedPhaseDropDownList",
     crf_phases_get:"/api/services/app/cRF/GetPhases",
+    crf_export_word:"/api/services/app/cRF/ExportToWord",
     menu_get:"/api/services/app/menu/GetItemsTree",
     menu_read:"/api/services/app/menu/GetMenu",
     menu_create:"/api/services/app/menu/AddMenu",
