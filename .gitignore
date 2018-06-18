@@ -59,6 +59,6 @@ typings/
 
 .vscode
 
-.nuxt
+.nuxt/
 
 dist/
