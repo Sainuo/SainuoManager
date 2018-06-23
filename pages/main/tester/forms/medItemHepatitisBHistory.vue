@@ -4,11 +4,12 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <h2>乙肝病史</h2>
-                患者确诊患有慢性乙肝的日期<el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.ConfirmedDate"></el-date-picker>
+                患者确诊患有慢性乙肝的日期
+                <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.ConfirmedDate"></el-date-picker>
             </div>
             <div>
                 <el-alert show-icon title="排除标准" type="info" description="Fibro-Touch检测值＞17.5kPa的患者（如肝组织活检证实为非肝硬化者除外）；或病理组织学检查为肝硬化的患者。"></el-alert>
-                <h2>肝硬化史</h2>
+                <h2>患者是否确诊患有肝硬化</h2>
                 <div>
                     <el-radio v-model="ruleForm.hasHepatocirrhosis" :label="true">是</el-radio>
                     <el-alert title="若“是”不符合入选标准" type="error" center show-icon></el-alert>
@@ -31,20 +32,35 @@
                 </div>
                 <div>
                     <div>目前使用核苷类似物的种类和持续时间：</div>
-                    <div>
-                         <el-checkbox v-model="ruleForm.cetkw">恩替卡韦</el-checkbox><el-date-picker v-model="ruleForm.etkwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                    <div v-if="ruleForm.etkw">
+                        <el-checkbox v-model="ruleForm.cetkw">
+                        <span>恩替卡韦</span>
+                        </el-checkbox>
+                        <el-date-picker class="margin-left-xl" v-model="ruleForm.etkwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.lfmd">
-                        <el-checkbox v-model="ruleForm.clfmd">拉米夫定</el-checkbox><el-date-picker v-model="ruleForm.lfmdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-checkbox v-model="ruleForm.clfmd">
+                        <span>拉米夫定</span>
+                        </el-checkbox>
+                        <el-date-picker class="margin-left-xl" v-model="ruleForm.lfmdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.adfw">
-                        <el-checkbox v-model="ruleForm.cadfw">阿德福韦</el-checkbox><el-date-picker v-model="ruleForm.adfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-checkbox v-model="ruleForm.cadfw">
+                        <span>阿德福韦</span>
+                        </el-checkbox>
+                        <el-date-picker class="margin-left-xl" v-model="ruleForm.adfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                    </div>
+                    <div v-if="ruleForm.tnfw">
+                        <el-checkbox v-model="ruleForm.ctnfw">
+                        <span>替诺福韦</span>
+                        </el-checkbox>
+                        <el-date-picker class="margin-left-xl" v-model="ruleForm.tnfwdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.tbfd">
-                        <el-checkbox v-model="ruleForm.ctnfw">替诺福韦</el-checkbox><el-date-picker v-model="ruleForm.tnfwdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-                    </div>
-                    <div v-if="ruleForm.tbfd">
-                        <el-checkbox v-model="ruleForm.ctbfd">替比夫定</el-checkbox><el-date-picker v-model="ruleForm.tbfdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-checkbox v-model="ruleForm.ctbfd">
+                        <span>替比夫定</span>
+                        </el-checkbox>
+                        <el-date-picker class="margin-left-xl" v-model="ruleForm.tbfdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                 </div>
                 <div>其他抗病毒药物？</div>
@@ -170,16 +186,31 @@ export default {
             });
         },
         wrap(model){
-            model.etkwBeginDate=model.etkwDate[0];
-            model.etkwEndDate=model.etkwDate[1];
-            model.lfmdBeginDate=model.lfmdDate[0];
-            model.lfmdEndDate=model.lfmdDate[1];
-            model.adfwBeginDate=model.adfwDate[0];
-            model.adfwEndDate=model.adfwDate[1];
-            model.tnfwBeginDate=model.tnfwDate[0];
-            model.tnfwEndDate=model.tnfwDate[1]
-            model.tbfdBeginDate=model.tbfdDate[0];
-            model.tbfdEndDate=model.tbfdDate[1];
+            if(model.etkwDate){
+                model.etkwBeginDate=model.etkwDate[0];
+                model.etkwEndDate=model.etkwDate[1];
+            }
+            
+            if(model.lfmdDate){
+                model.lfmdBeginDate=model.lfmdDate[0];
+                model.lfmdEndDate=model.lfmdDate[1];
+            }
+            
+            if(model.adfwDate){
+                model.adfwBeginDate=model.adfwDate[0];
+                model.adfwEndDate=model.adfwDate[1];
+            }
+            
+            if(model.tnfwDate){
+                model.tnfwBeginDate=model.tnfwDate[0];
+                model.tnfwEndDate=model.tnfwDate[1];
+            }
+            
+            if(model.tbfdDate){
+                model.tbfdBeginDate=model.tbfdDate[0];
+                model.tbfdEndDate=model.tbfdDate[1];
+            }
+            
             return model;
         },
         unwrap(model){
