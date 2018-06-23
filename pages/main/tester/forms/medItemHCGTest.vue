@@ -19,7 +19,7 @@
                 <span>女性受试者注明原因</span>
                 <el-input v-model="ruleForm.notCheckReason" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
             </div>
-            <div class="text-align-right">
+            <div class="text-align-right margin-top-xl">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
             </div>
@@ -53,7 +53,7 @@ export default {
     methods: {
         loadData(){
             var me=this;
-            me.loading=false;
+            me.loading=true;
             axios.get(apiConfig.medItemHCGTest_get,{ params:{ id:me.id}})
             .then(response=>{
                 me.ruleForm = utility.toClientModel(response.data.result);
@@ -67,7 +67,7 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
-                    me.loading=false;
+                    me.loading=true;
                     axios.put(apiConfig.medItemHCGTest_put,utility.toServerModel(me.ruleForm))
                     .then(response=>{
                         me.$emit("confirm", response.data.result);

@@ -11,7 +11,7 @@
                 <div class="color-gray">请输入数字，只保留小数点后一位</div>
             </el-form-item>
             <el-form-item label="BMI">
-                <span>{{ruleForm.weight/ruleForm.height}}</span>kg/m2
+                <span><el-input-number v-model="ruleForm.bmi" :min="1" label="请输入体重"></el-input-number></span>kg/m2
                 <div class="color-gray">体重/身高2</div>
             </el-form-item>
             <el-form-item label="体温">
@@ -43,7 +43,7 @@
                 <el-radio v-model="ruleForm.isChanged" :label="2">是</el-radio>
                 <el-input  v-model="ruleForm.changedHow" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入内容"></el-input>
             </div>
-            <div class="text-align-right">
+            <div class="text-align-right margin-top-xl">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
             </div>
@@ -79,7 +79,18 @@ export default {
             }
         };
     },
+    watch:{
+        "ruleForm.weight"(){
+            this.setbmi();
+        },
+        "ruleForm.height"(){
+            this.setbmi();
+        }
+    },
     methods: {
+        setbmi(){
+            this.ruleForm.bmi=this.ruleForm.weight/this.ruleForm.height;
+        },
         loadData(){
             var me=this;
             me.loading=true;

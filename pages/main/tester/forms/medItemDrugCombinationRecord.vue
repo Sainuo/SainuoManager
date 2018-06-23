@@ -6,9 +6,9 @@
             <el-radio class="radio" v-model="ruleForm.combinedDrugUse" :label="false">否</el-radio>
             <el-radio class="radio" v-model="ruleForm.combinedDrugUse" :label="true">是</el-radio>
         </div>
-        <el-form v-if="ruleForm.combinedDrugUse" label-width="120px">
+        <el-form v-if="ruleForm.combinedDrugUse" label-width="120px" class="margin-top-xl">
             <div><span>请在下面详述</span></div>
-            <div v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index">
+            <div v-for="(item,index) in ruleForm.combinedDrugUserRecord" :key="index">
                 <el-form-item label="药物名称">
                     <el-input v-model="item.drugName" placeholder="请输入药物名称"></el-input>
                 </el-form-item>
@@ -19,7 +19,7 @@
                     <el-date-picker v-model="item.range" @change="onUseTimeChange(item)" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="其它备注">
-                  <el-input  v-model="ruleForm.otherNote" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入其它备注"></el-input>
+                  <el-input  v-model="item.otherNote" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入其它备注"></el-input>
                 </el-form-item>
                 <el-form-item label="操作">
                     <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
@@ -94,6 +94,19 @@ export default {
         .finally(()=>{
               me.loading=false;
         });
+    },
+    warp(model){
+      for(var i,item;item=model.combinedDrugUserRecord[i];i++){
+        if(item.useTime instanceof Array){
+          item.startUseTime=item.useTime[0];
+          item.endUseTime=item.useTime[1];
+        }
+      }
+    },
+    unwrap(model){
+        for(var i,item;item=model.combinedDrugUserRecord[i];i++){
+          item.useTime=[item.startUseTime,item.endUseTime];
+      }
     },
     onConfirm() {
       var me = this;

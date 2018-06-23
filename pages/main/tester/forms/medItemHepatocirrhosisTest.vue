@@ -5,18 +5,17 @@
             <el-form-item label="检查">
                 <el-radio class="radio" v-model="ruleForm.checked" :label="true">已查</el-radio>
                 <el-radio class="radio" v-model="ruleForm.checked" :label="false">未查</el-radio>
-                <el-input v-if="!ruleForm.checked" v-model="ruleForm.notCheckReason" placeholder="请填写未查原因"></el-input>
             </el-form-item>
-            <el-form-item label="检查日期">
-                <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="检查结果">
-                <el-input v-if="ruleForm.checked"  v-model="ruleForm.testResult" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入检查的结果"></el-input>
-                <template v-else>
-                    &nbsp;
-                </template>
-            </el-form-item>
-            <div class="text-align-right">
+            <el-input v-if="!ruleForm.checked" v-model="ruleForm.notCheckReason" placeholder="请填写未查原因"></el-input>
+            <template  v-if="ruleForm.checked">
+              <el-form-item label="检查日期">
+                  <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
+              </el-form-item>
+              <el-form-item label="检查结果">
+                  <el-input   v-model="ruleForm.testResult" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入检查的结果"></el-input>
+              </el-form-item>
+            </template>
+            <div class="text-align-right margin-top-xl">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
             </div>

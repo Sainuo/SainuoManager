@@ -6,7 +6,7 @@
                 <span>检查日期</span>
                 <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
             </div>
-            <div>
+            <div class="margin-top-xl">
                <table>
                    <thead>
                        <tr><th>检查项目</th><th>检查</th><th>结果</th><th>单位</th><th>临床意义（如超出正常值范围）</th></tr>

@@ -134,9 +134,10 @@
                         <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
                     </el-form-item>
                 </div>
-                <el-button size="large" @click="onAdd" icon="el-icon-plus">添加药物</el-button>
+                <el-button size="large" @click="onAdd" icon="el-icon-plus" class="col-12">添加药物</el-button>
             </div>
-            <div class="text-align-right">
+            <div class="clear"></div>
+            <div class="text-align-right margin-top-xl">
                 <el-button @click="$emit('cancel')">取消</el-button>
                 <el-button @click="onConfirm" type="primary">保存</el-button>
             </div>

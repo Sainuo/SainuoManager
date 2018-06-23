@@ -70,12 +70,13 @@
                     <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
                 </el-form-item>
             </div>
-            <div>
-                <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加病史</el-button>
+            <div class="margin-top-xl">
+                <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加不良事件</el-button>
             </div>
         </template>
         </el-form>
-        <div class="text-align-right">
+        <div class="clear"></div>
+        <div class="text-align-right margin-top-xl">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
         </div>

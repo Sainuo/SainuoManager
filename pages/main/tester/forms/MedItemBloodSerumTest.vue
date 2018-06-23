@@ -6,7 +6,7 @@
                 <span>检查日期</span>
                 <el-date-picker class="margin-left-xl" v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
             </div>
-            <div>
+            <div class="margin-top-xl">
                <table>
                    <thead>
                        <tr><th>检查项目</th><th>检查结果</th><th>单位</th><th>&nbsp;</th></tr>
@@ -96,6 +96,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm:{
         "id": 0,
         "crfBasicId": 0,

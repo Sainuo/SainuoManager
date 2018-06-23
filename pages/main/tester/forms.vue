@@ -49,14 +49,23 @@ export default {
     };
   },
   methods:{
-    onConfirm(){
-       let me=this;
-       let item= me.menus[me.current];
-       item.validation=true;       
-       me.$message({
+    onConfirm(validated){
+      let me=this;
+      let item= me.menus[me.current];
+      if(validated){
+        item.validation=true;       
+        me.$message({
             message: `${item.medItemName}保存成功`,
             type: 'success'
-        })
+        });
+      }
+      else
+      {
+        me.$message({
+            message: `请检查${item.medItemName}的有效性`,
+            type: 'warn'
+        });
+      }
     },
     findMedItem(id){
       let me=this;

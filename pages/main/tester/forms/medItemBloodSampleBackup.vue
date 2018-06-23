@@ -9,7 +9,7 @@
             <div>
                 <el-radio v-model="ruleForm.collected" :label="true">是</el-radio>
             </div>
-            <el-form-item label="采样日期">
+            <el-form-item v-if="ruleForm.collected" label="采样日期">
                 <el-date-picker v-model="ruleForm.collectedDate" type="date" placeholder="选择日期"></el-date-picker>
             </el-form-item>
             <div class="text-align-right">

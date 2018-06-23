@@ -7,22 +7,25 @@
             <el-radio class="radio" v-model="ruleForm.hadPastYearDiseaseHistory" :label="true">是</el-radio>
             <span>如果“是”请在下面详述</span>
         </div>
-        <el-form v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index" :inline="true" label-width="120px">
-            <el-form-item :label="(index+1)+'疾病名称'">
-                <el-input v-model="item.dieaseName" placeholder="请输入疾病名称"></el-input>
-            </el-form-item>
-            <el-form-item label="正在治疗">
-                <el-radio class="radio" v-model="item.isTreating" :label="true">是</el-radio>
-                <el-radio class="radio" v-model="item.isTreating" :label="false">否</el-radio>
-            </el-form-item>
-            <el-form-item label="">
-                <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
-            </el-form-item>
-        </el-form>
-        <div>
+        <div v-if="ruleForm.hadPastYearDiseaseHistory" class="margin-top-xl">
+          <el-form v-for="(item,index) in ruleForm.pastDiseaseHistoryFromJson" :key="index" :inline="true" label-width="120px">
+              <el-form-item :label="(index+1)+'疾病名称'">
+                  <el-input v-model="item.dieaseName" placeholder="请输入疾病名称"></el-input>
+              </el-form-item>
+              <el-form-item label="正在治疗">
+                  <el-radio class="radio" v-model="item.isTreating" :label="true">是</el-radio>
+                  <el-radio class="radio" v-model="item.isTreating" :label="false">否</el-radio>
+              </el-form-item>
+              <el-form-item label="">
+                  <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
+              </el-form-item>
+          </el-form>
+        </div>
+        <div class="margin-top-xl">
             <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加病史</el-button>
         </div>
-        <div class="text-align-right">
+        <div class="clear"></div>
+        <div class="text-align-right margin-top-xl">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
         </div>

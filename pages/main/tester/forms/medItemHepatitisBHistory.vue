@@ -159,7 +159,7 @@ export default {
     methods: {
         loadData(){
             var me=this;
-            me.loading=false;
+            me.loading=true;
             axios.get(apiConfig.medItemHepatitisBHistory_get,{ params:{ id:me.id}}).then(response=>{
                 let m=utility.toClientModel(response.data.result);                
                 me.ruleForm = me.unwrap(m);
@@ -173,7 +173,7 @@ export default {
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
-                    me.loading=false;
+                    me.loading=true;
                     let model = utility.toServerModel(me.wrap(Object.assign({},me.ruleForm)));
                     axios.put(apiConfig.medItemHepatitisBHistory_put,model).then(response=>{
                         me.$emit("confirm", response.data.result);
