@@ -16,8 +16,8 @@ axios.interceptors.response.use(
                 }
             });
         }
-        else if(typeof error.response.error.message==="string"){
-            viewModel.$alert({
+        else if(typeof error.response.data.error.message==="string"){
+            viewModel.$notify({
                 showClose: true,
                 message: error.response.error.message,
                 duration: 5000,
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
         }
         else if(typeof error.message==="string"){
             viewModel
-            .$message({
+            .$notify({
                 showClose: true,
                 message: error.message,
                 duration: 5000,
@@ -35,7 +35,7 @@ axios.interceptors.response.use(
         }
         else {
             viewModel
-                .$message({
+                .$notify({
                     showClose: true,
                     message: error.response.data.error.message,
                     duration: 5000,

@@ -63,7 +63,7 @@ export default {
       {
         me.$message({
             message: `请检查${item.medItemName}的有效性`,
-            type: 'warn'
+            type: 'warning'
         });
       }
     },

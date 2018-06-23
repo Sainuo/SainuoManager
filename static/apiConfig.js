@@ -146,7 +146,8 @@ let settings = {
     medItemAdverseEvent_get:"/api/services/app/medItemAdverseEvent/GetOne",
     medItemAdverseEvent_put:"/api/services/app/medItemAdverseEvent/Update",
     medItemIfPatientContinueResearch_get:"/api/services/app/medItemIfPatientContinueResearch/GetOne",
-    medItemIfPatientContinueResearch_put:"/api/services/app/medItemIfPatientContinueResearch/Update"
+    medItemIfPatientContinueResearch_put:"/api/services/app/medItemIfPatientContinueResearch/Update",
+    ping:"/api/services/app/account/Ping"
 }
 
 for (var p in settings) {

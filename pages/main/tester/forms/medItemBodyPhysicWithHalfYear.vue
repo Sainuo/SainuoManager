@@ -127,8 +127,8 @@
                         <el-date-picker v-model="item.time" @change="onTimeChange(item)" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </el-form-item>
                     <el-form-item label="正在应用">
-                        <el-radio v-model="item.apply" class="radio" :label="true">是</el-radio>
-                        <el-radio v-model="item.apply" class="radio" :label="false">否</el-radio>
+                        <el-radio v-model="item.isCurrentlyUsed" class="radio" :label="true">是</el-radio>
+                        <el-radio v-model="item.isCurrentlyUsed" class="radio" :label="false">否</el-radio>
                     </el-form-item>
                     <el-form-item label="操作">
                         <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
@@ -199,7 +199,7 @@ export default {
             me.ruleForm.halfYearMedObjectFromJson.push({
                     "commonName": "",
                     "userFor": "",
-                    "apply":false,
+                    "isCurrentlyUsed":false,
                     "time":new Date(),
                     "startTime": new Date(),
                     "endTime": new Date()
@@ -238,7 +238,7 @@ export default {
             return model;
         },
         onConfirm() {
-            var me=this;
+            var me = this;
             me.$refs.ruleForm.validate((valid) => {
                 if (valid) {
                     var me = this;
@@ -261,7 +261,6 @@ export default {
             me.id = parseInt(me.$route.query.id);
             me.loadData();
         }
-        window.vm=me;
     }
 }
 </script>

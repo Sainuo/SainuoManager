@@ -97,6 +97,9 @@
             <el-table-column prop="isCRFValidated"
                              label="完备"
                              >
+                    <template slot-scope="scope">
+                        {{scope.row.isCRFValidated|boolean}}
+                    </template>
             </el-table-column>
             <el-table-column label="操作"
                              fixed="right"
@@ -216,7 +219,7 @@ export default{
                 me.$message({ type: "success", message: "添加病例成功！" });
                 me.loadData();
                 me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
-                 .then(() => {
+                .then(() => {
                      me.$router.push(`/main/tester/forms?id=${m.result}`);
                 });
             });

@@ -54,7 +54,7 @@
                         <el-checkbox v-model="ruleForm.ctnfw">
                         <span>替诺福韦</span>
                         </el-checkbox>
-                        <el-date-picker class="margin-left-xl" v-model="ruleForm.tnfwdDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                        <el-date-picker class="margin-left-xl" v-model="ruleForm.tnfwDate" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
                     </div>
                     <div v-if="ruleForm.tbfd">
                         <el-checkbox v-model="ruleForm.ctbfd">

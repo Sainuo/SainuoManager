@@ -87,6 +87,7 @@ export default {
       axios.post(apiConfig.user_login,postData).then(response => {
         me.loading=false;
         axios.defaults.headers.common['authorization'] =`Bearer ${response.data.result}`;
+        me.$store.dispatch("modules/client/startPing");
         me.$router.push("/main");
       })
       .catch(response=>{
