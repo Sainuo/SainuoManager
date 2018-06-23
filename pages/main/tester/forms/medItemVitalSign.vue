@@ -11,7 +11,7 @@
                 <div class="color-gray">请输入数字，只保留小数点后一位</div>
             </el-form-item>
             <el-form-item label="BMI">
-                <span>{{ruleForm.weight/ruleForm.height}}</span>kg/m2
+                <el-input-number v-model="ruleForm.bmi" :min="1" label="请输入BMI"></el-input-number>kg/m2
                 <div class="color-gray">体重/身高2</div>
             </el-form-item>
             <el-form-item label="体温">
@@ -64,7 +64,18 @@ export default {
             }
         };
     },
+    watch:{
+        "ruleForm.weight"(val,oldVal){
+            this.setbmi();
+        },
+        "ruleForm.height"(val,oldVal){
+            this.setbmi()
+        }
+    },
     methods: {
+        setbmi(){
+           this.ruleForm.bmi = this.ruleForm.weight/this.ruleForm.height;
+        },
         loadData(){
             var me=this;
             me.loading=true;
@@ -84,7 +95,7 @@ export default {
                     me.loading=true;
                     axios.put(apiConfig.medItemVitalSign_put,utility.toServerModel(me.ruleForm))
                     .then(response=>{
-                        me.$emit("confirm",me.ruleForm);
+                        me.$emit("confirm",response.data.result);
                     })
                     .finally(()=>{
                         me.loading=false;
