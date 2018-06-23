@@ -4,7 +4,7 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <span>检查日期</span>
-                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
+                <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
             </div>
             <div>
                 <el-radio v-model="ruleForm.testResult" :label="0">阴性</el-radio>
@@ -70,7 +70,7 @@ export default {
                     me.loading=false;
                     axios.put(apiConfig.medItemHCGTest_put,utility.toServerModel(me.ruleForm))
                     .then(response=>{
-                        me.$emit("confirm",me.ruleForm);
+                        me.$emit("confirm", response.data.result);
                     })
                     .finally(()=>{
                         me.loading=false;

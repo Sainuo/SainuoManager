@@ -1,10 +1,10 @@
 <template>
-    <div v-loading="true">
+    <div v-loading="loading">
         <div><h2>甲状腺功能检查（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
-                <span></span>
-                <el-date-picker v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
+                <span>检查日期</span>
+                <el-date-picker class="margin-left-xl" v-model="ruleForm.testDate" type="date" placeholder="选择日期"></el-date-picker>
             </div>
             <div>
                <table>
@@ -170,7 +170,7 @@ export default {
               utility.toServerModel(me.ruleForm)
             )
             .then(response => {
-              me.$emit("confirm", me.ruleForm);
+              me.$emit("confirm", response.data.result);
             })
             .finally(()=>{
               me.loading=false;

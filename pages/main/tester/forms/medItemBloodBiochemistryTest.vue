@@ -4,7 +4,7 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
                 <span>检查日期</span>
-                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
+                <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
             </div>
             <div>
                <table>
@@ -337,6 +337,7 @@ export default {
   data() {
     return {
       id: 0,
+      loading:false,
       ruleForm:{
             "id": 0,
             "crfBasicId": 0,
@@ -399,7 +400,7 @@ export default {
   methods: {
     loadData() {
       var me = this;
-      me.loading=true;
+      me.loading=false;
       axios
         .get(apiConfig.medItemBloodBiochemistryTest_get, { params: { id: me.id } })
         .then(response => {
@@ -421,7 +422,7 @@ export default {
               utility.toServerModel(me.ruleForm)
             )
             .then(response => {
-              me.$emit("confirm", me.ruleForm);
+              me.$emit("confirm", response.data.result);
             })
             .finally(()=>{
                 me.loading=false;

@@ -1,6 +1,8 @@
 <template>
 <div class="padding-xl">
-      <div class="padding-m"><h1>菜单管理</h1>
+ <el-row>
+    <el-col :span="12" class="padding-m">
+      <div class="padding-m"><h1>菜单管理</h1></div>
       <el-input
         placeholder="输入关键字进行过滤"
         suffix-icon="el-icon-search"
@@ -23,7 +25,56 @@
           <i class="el-icon-remove-outline margin-m" @click="remove(node, data)"></i>
         </span>
       </el-tree>
-      </div>
+    </el-col>
+    <el-col v-if="selectedOrgnization" :span="12" class="padding-m">
+        <div><h1>{{selectedOrgnization.displayName}}</h1></div>
+         <el-form :inline="true" class="background-color-minor margin-bottom-m padding-m">
+            <el-form-item>
+                <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加成员</el-button>
+            </el-form-item>
+        </el-form>
+        <el-table v-loading="list.loading" :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
+            <el-table-column prop="userName"
+                             label="用户名"
+                             sortable
+                             width="180">
+            </el-table-column>
+            <el-table-column prop="name"
+                             label="姓名"
+                             sortable
+                             width="160">
+            </el-table-column>
+            <el-table-column prop="phoneNumber"
+                             label="手机号"
+                             sortable
+                             width="180">
+            </el-table-column>
+            <el-table-column prop="addedTime"
+                             label="添加时间"
+                             width="180">
+            </el-table-column>
+            <el-table-column label="操作"
+                             fixed="right"
+                             width="100">
+                <template slot-scope="scope">
+                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">移除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination class="clear"
+                       @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"
+                       :current-page="list.currentPage"
+                       :page-sizes="[100, 200, 300, 400]"
+                       :page-size="100"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="400">
+        </el-pagination>
+    </el-col>
+    <el-col v-else :span="12" class="padding-m">
+      <div style="margin-top:200px;">&lt;=请点击左边的组织机构进行操作。</div>
+    </el-col>
+  </el-row>
 </div>
 </template>
 <script>
@@ -221,7 +272,7 @@ export default {
   },
   mounted() {
     var me = this;
-    me.loadTree();    
+    //me.loadTree();
   }
 };
 </script>

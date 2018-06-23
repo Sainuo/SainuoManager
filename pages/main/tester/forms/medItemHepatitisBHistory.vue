@@ -176,7 +176,7 @@ export default {
                     me.loading=false;
                     let model = utility.toServerModel(me.wrap(Object.assign({},me.ruleForm)));
                     axios.put(apiConfig.medItemHepatitisBHistory_put,model).then(response=>{
-                        me.$emit("confirm",me.ruleForm);
+                        me.$emit("confirm", response.data.result);
                     })
                     .finally(()=>{
                         me.loading=false;

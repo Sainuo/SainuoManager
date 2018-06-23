@@ -3,13 +3,14 @@
         <div><h2>体格检查（肝纤维化检验）</h2></div>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px">
             <div>
-                <h2>体格检查</h2>
+                <h3>体格检查</h3>
                 <div>
-                    <span>检查日期</span><el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
+                    <span>检查日期</span>
+                    <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
                 </div>   
             </div>
             <div>
-                <h2>全身各系统</h2>
+                <h3>全身各系统</h3>
                 <el-form-item label="1、五官">
                     <el-radio v-model="ruleForm.wg" :label="0">未做</el-radio>
                     <el-radio v-model="ruleForm.wg" :label="1">正常</el-radio>
@@ -107,7 +108,7 @@
                     <el-input v-model="ruleForm.otherDes" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="异常情况描述（如有异常，尽可能写出诊断）" ></el-input>  
                 </div>
             </div>
-            <div>过去六个月内是否用过与治疗慢性乙型肝炎无关的药物？</div>
+            <h3>过去六个月内是否用过与治疗慢性乙型肝炎无关的药物？</h3>
             <div>
                 <el-radio v-model="ruleForm.halfYearMedTake" :label="false">否</el-radio>
             </div>
@@ -243,7 +244,7 @@ export default {
                     me.loading=true;
                     axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.warp(me.ruleForm)))
                     .then(response => {
-                        me.$emit("confirm",me.ruleForm);
+                        me.$emit("confirm", response.data.result);
                     })
                     .finally(() => {
                         me.loading = false;

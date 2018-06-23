@@ -176,7 +176,7 @@ export default {
                     me.loading=true;
                     axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.ruleForm))
                     .then(response=>{
-                        me.$emit("confirm",me.ruleForm);
+                        me.$emit("confirm", response.data.result);
                     })
                     .finally(()=>{
                         me.loading=false;
