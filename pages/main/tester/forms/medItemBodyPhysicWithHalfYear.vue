@@ -109,28 +109,31 @@
             </div>
             <div>过去六个月内是否用过与治疗慢性乙型肝炎无关的药物？</div>
             <div>
-                <el-radio v-model="ruleForm.halfYearMedTake" :label="true">是</el-radio>
-            </div>
-            <div>
                 <el-radio v-model="ruleForm.halfYearMedTake" :label="false">否</el-radio>
             </div>
-            <div v-if="ruleForm.halfYearMedTake" v-for="(item,index) in ruleForm.halfYearMedObjectFromJson" :key="index">
-                <el-form-item label="通用名称">
-                    <el-input  v-model="item.commonName" placeholder="请输入药物通用名称"></el-input>
-                </el-form-item>
-                <el-form-item label="适应症">
-                    <el-input  v-model="item.userFor" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入适应症"></el-input>
-                </el-form-item>
-                <el-form-item label="发生与结束日期">
-                    <el-date-picker v-model="item.time" @change="onTimeChange(item)" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="正在应用">
-                    <el-radio class="radio" :label="true">是</el-radio>
-                    <el-radio class="radio" :label="false">否</el-radio>
-                </el-form-item>
-                <el-form-item label="操作">
-                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
-                </el-form-item>
+            <div>
+                <el-radio v-model="ruleForm.halfYearMedTake" :label="true">是</el-radio>
+            </div>
+            <div v-if="ruleForm.halfYearMedTake">
+                <div v-for="(item,index) in ruleForm.halfYearMedObjectFromJson" :key="index">
+                    <el-form-item label="通用名称">
+                        <el-input  v-model="item.commonName" placeholder="请输入药物通用名称"></el-input>
+                    </el-form-item>
+                    <el-form-item label="适应症">
+                        <el-input  v-model="item.userFor" type="textarea" :rows="2" :autosize="{ minRows: 2}" placeholder="请输入适应症"></el-input>
+                    </el-form-item>
+                    <el-form-item label="发生与结束日期">
+                        <el-date-picker v-model="item.time" @change="onTimeChange(item)" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="正在应用">
+                        <el-radio v-model="item.apply" class="radio" :label="true">是</el-radio>
+                        <el-radio v-model="item.apply" class="radio" :label="false">否</el-radio>
+                    </el-form-item>
+                    <el-form-item label="操作">
+                        <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(item,index)">删除</el-button>
+                    </el-form-item>
+                </div>
+                <el-button size="large" @click="onAdd" icon="el-icon-plus">添加药物</el-button>
             </div>
             <div class="text-align-right">
                 <el-button @click="$emit('cancel')">取消</el-button>
@@ -177,9 +180,8 @@ export default {
                 "gmmyDes": "string",
                 "other": 0,
                 "otherDes": "string",
-                "halfYearMedTake": 0,
-                "halfYearMedObjectFromJson": [
-                ]
+                "halfYearMedTake": false,
+                "halfYearMedObjectFromJson": []
             },
             rules: {
             }
@@ -187,12 +189,12 @@ export default {
     },
     methods: {
         onTimeChange(item){
-        item.startTime=item.time[0];
-        item.endTime=item.time[1];
+            item.startTime=item.time[0];
+            item.endTime=item.time[1];
         },
         onAdd() {
             let me = this;
-            me.ruleForm.halfYearMedTake.push({
+            me.ruleForm.halfYearMedObjectFromJson.push({
                     "commonName": "",
                     "userFor": "",
                     "apply":false,
@@ -204,7 +206,7 @@ export default {
         onDelete(item,index){
             let me=this;
             me.$confirm(`确定删除${item.commonName}?`).then(response=>{
-                me.ruleForm.halfYearMedTake.splice(index,1);
+                me.ruleForm.halfYearMedObjectFromJson.splice(index,1);
             });
         },
         loadData(){
@@ -212,11 +214,26 @@ export default {
             me.loading=true;
             axios.get(apiConfig.medItemBodyPhysicWithHalfYear_get,{ params:{ id:me.id}})
             .then(response=>{
-                me.ruleForm = utility.toClientModel(response.data.result);
+                me.ruleForm = utility.toClientModel(me.unwrap(response.data.result));
             })
             .finally(()=>{
-              me.loading=false;
+                me.loading=false;
             });
+        },
+        unwrap(model){
+            for(var i=0,item;item=model.halfYearMedObjectFromJson[i];i++){
+                item.time=[item.startTime,item.endTime];   
+            }
+            return model;
+        },
+        warp(model){
+            for(var i=0,item;item=model.halfYearMedObjectFromJson[i];i++){
+                if(item.time instanceof Array){
+                    item.startTime=item.time[0],
+                    item.endTime=item.time[1]
+                }
+            }
+            return model;
         },
         onConfirm() {
             var me=this;
@@ -224,12 +241,12 @@ export default {
                 if (valid) {
                     var me = this;
                     me.loading=true;
-                    axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.ruleForm))
-                    .then(response=>{
+                    axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.warp(me.ruleForm)))
+                    .then(response => {
                         me.$emit("confirm",me.ruleForm);
                     })
-                    .finally(()=>{
-                        me.loading=false;
+                    .finally(() => {
+                        me.loading = false;
                     });
                 }
                 return valid;
@@ -242,6 +259,7 @@ export default {
             me.id = parseInt(me.$route.query.id);
             me.loadData();
         }
+        window.vm=me;
     }
 }
 </script>

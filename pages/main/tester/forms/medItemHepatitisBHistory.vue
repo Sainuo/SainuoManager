@@ -5,7 +5,7 @@
             <div>
                 <h2>乙肝病史</h2>
                 患者确诊患有慢性乙肝的日期
-                <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.ConfirmedDate"></el-date-picker>
+                <el-date-picker class="margin-left-xl" type="date" placeholder="选择日期" v-model="ruleForm.confirmedDate"></el-date-picker>
             </div>
             <div>
                 <el-alert show-icon title="排除标准" type="info" description="Fibro-Touch检测值＞17.5kPa的患者（如肝组织活检证实为非肝硬化者除外）；或病理组织学检查为肝硬化的患者。"></el-alert>
@@ -119,7 +119,7 @@ export default {
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
-                "ConfirmedDate": new Date(),
+                "confirmedDate": new Date(),
                 "hasHepatocirrhosis": true,
                 "etkw": false,
                 "cetkw": false,
@@ -215,28 +215,23 @@ export default {
         },
         unwrap(model){
             if(model.etkwBeginDate && model.etkwEndDate){
-                model.etkwDate[0]=model.etkwBeginDate;
-                model.etkwDate[1]=model.etkwEndDate;
+                model.etkwDate=[model.etkwBeginDate,model.etkwEndDate];
             }
             
             if(model.lfmdBeginDate && model.lfmdEndDate){
-                model.lfmdDate[0]=model.lfmdBeginDate;
-                model.lfmdDate[1]=model.lfmdEndDate;
+                model.lfmdDate=[model.lfmdBeginDate,model.lfmdEndDate];
             }
 
             if(model.adfwBeginDate && model.adfwEndDate){
-                model.adfwDate[0]=model.adfwBeginDate;
-                model.adfwDate[1]=model.adfwEndDate;
+                model.adfwDate=[model.adfwBeginDate,model.adfwEndDate];
             }
 
             if(model.tnfwBeginDate && model.tnfwEndDate){
-                model.tnfwDate[0]=model.tnfwBeginDate;
-                model.tnfwDate[1]=model.tnfwEndDate;
+                model.tnfwDate=[model.tnfwBeginDate,model.tnfwEndDate];
             }
 
             if(model.tbfdBeginDate && model.tbfdEndDate){
-                model.tbfdDate[0]=model.tbfdBeginDate;
-                model.tbfdDate[1]=model.tbfdEndDate;
+                model.tbfdDate=[model.tbfdBeginDate,model.tbfdEndDate];
             }
 
             return model;
