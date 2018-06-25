@@ -2,8 +2,12 @@
 <div class="padding-xl">
  <el-row>
     <el-col :span="12" class="padding-m">
-      <div class="padding-m"><h1>菜单管理</h1></div>
+      <div class="padding-m">
+        <span class="font-size-xl">菜单管理</span>
+        <el-button class="float-right" @click="appendTopMenu" type="primary" icon="el-icon-plus">添加一级菜单</el-button>
+      </div>
       <el-input
+        class="margin-top-xl"
         placeholder="输入关键字进行过滤"
         suffix-icon="el-icon-search"
         v-model="tree.filterText">
@@ -15,7 +19,7 @@
         :props="tree.props"
         node-key="id"
         default-expand-all
-        @node-click="onSelectedOrganization"
+        @node-click="onSelected"
         :filter-node-method="filterNode"
         :expand-on-click-node="false">
         <span slot-scope="{ node, data }">
@@ -26,53 +30,8 @@
         </span>
       </el-tree>
     </el-col>
-    <el-col v-if="selectedOrgnization" :span="12" class="padding-m">
-        <div><h1>{{selectedOrgnization.displayName}}</h1></div>
-         <el-form :inline="true" class="background-color-minor margin-bottom-m padding-m">
-            <el-form-item>
-                <el-button @click="onAdd" type="primary" icon="el-icon-plus">添加成员</el-button>
-            </el-form-item>
-        </el-form>
-        <el-table v-loading="list.loading" :data="list.tableData" border highlight-current-row :default-sort="{prop: 'name', order: 'descending'}" class="col-12">
-            <el-table-column prop="userName"
-                             label="用户名"
-                             sortable
-                             width="180">
-            </el-table-column>
-            <el-table-column prop="name"
-                             label="姓名"
-                             sortable
-                             width="160">
-            </el-table-column>
-            <el-table-column prop="phoneNumber"
-                             label="手机号"
-                             sortable
-                             width="180">
-            </el-table-column>
-            <el-table-column prop="addedTime"
-                             label="添加时间"
-                             width="180">
-            </el-table-column>
-            <el-table-column label="操作"
-                             fixed="right"
-                             width="100">
-                <template slot-scope="scope">
-                    <el-button size="small" type="danger" icon="el-icon-delete"  @click="onDelete(scope.row)">移除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-        <el-pagination class="clear"
-                       @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="list.currentPage"
-                       :page-sizes="[100, 200, 300, 400]"
-                       :page-size="100"
-                       layout="total, sizes, prev, pager, next, jumper"
-                       :total="400">
-        </el-pagination>
-    </el-col>
-    <el-col v-else :span="12" class="padding-m">
-      <div style="margin-top:200px;">&lt;=请点击左边的组织机构进行操作。</div>
+    <el-col :span="12" class="padding-m">
+      <div style="margin-top:200px;">&lt;=请点击左边的菜单进行操作。</div>
     </el-col>
   </el-row>
 </div>
@@ -87,7 +46,7 @@ export default {
       }
   },
   data: () => ({
-    selectedOrgnization:null,
+    selected:null,
     tree: {
       filterText: "",
       loading:false,
@@ -138,52 +97,9 @@ export default {
       this.list.currentPage = val;
       this.loadData();
     },
-    onSelectedOrganization(node){
-      var me=this;
-      me.selectedOrgnization=node;
-      me.loadData();
-    },
-    onAdd() {
+    onSelected(node){
       var me = this;
-      me.$loaderwindow(`/main/menu/edit?id=${me.selectedOrgnization.id}`, "添加成员").then(model => {
-        axios.post(apiConfig.menu_create,{organizationUnitId:me.selectedOrgnization.id,userIds:model.map(x=>x.id)}).then(response=>{
-          me.$message({ type: "success", message: "添加成员成功！" });
-          me.loadData();
-        });
-      });
-    },
-    onEdit(model) {
-      var me = this;
-      me.$loaderwindow(`/main/menu/edit?id=${model.id}`, "编辑角色")
-        .then(model => {
-          me.$message({ type: "success", message: "编辑角色成功！" });
-          me.loadData();
-        });
-    },
-    onDelete(model) {
-      var me = this;
-      if (model) {
-        me.$confirm("是否移除[" + model.name + "]?", "询问", {
-            confirmButtonText: "删除",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            me.deleteSelect(model);
-          })
-          .catch(() => {});
-      } else {
-        me.$alert("请勾中要删除的项");
-      }
-    },
-    deleteSelect(model) {
-      var me = this;
-      axios.delete(apiConfig.menu_delete, 
-      {params:{ organizationId:me.selectedOrgnization.id,userId: model.id }})
-      .then(response => {
-        me.$message({ type: "success", message: "成功移除用户！" });
-        me.loadData();
-      });
+      me.selected = node;
     },
     loadTree() {
       var me = this;
@@ -192,7 +108,7 @@ export default {
                     parentId:0,
                     name: ""
       }}).then(response => {
-        me.tree.treeData = response.data.result.items;
+        me.tree.treeData = response.data.result;
       })
       .finally(()=>{
         me.tree.loading=false;
@@ -204,22 +120,28 @@ export default {
     },
     eidt(node, data){
         var me=this;
-        me.$loaderwindow(`/main/orgnization/edit?id=${data.id}`,`编辑${data.displayName}`).then(model=>{
+        me.$loaderwindow(`/main/menu/edit?id=${data.id}`,`编辑${data.name}`).then(model=>{
             for(var p in model){
               data[p]=model[p];
             }
-            me.$message({ type: "success", message: "组织机构编辑成功" });
+            me.$message({ type: "success", message: "菜单编辑成功" });
         });
     },
     append(node, data) {
       var me=this;
-      me.$loaderwindow(`/main/orgnization/edit?id=0&parentId=${node.data.id}`,`创建组织`).then(model=>{
+      me.$loaderwindow(`/main/menu/edit?id=0&parentId=${node.data.id}`,`创建菜单`).then(model=>{
           const newChild = model;
           if (!data.children) {
             this.$set(data, "children", []);
           }
           data.children.push(newChild);
-          me.$message({ type: "success", message: "组织机构添加成功" });
+          me.$message({ type: "success", message: "添加成功" });
+      });
+    },
+    appendTopMenu(){
+      var me=this;
+      me.$loaderwindow(`/main/menu/edit?id=0&parentId=0`,`创建顶级菜单`).then(model=>{
+          me.loadTree();
       });
     },
     remove(node, data) {
@@ -229,13 +151,13 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
       }).then(() => {
-        axios.delete(apiConfig.menu_delete,{params:{Id:data.id}}).then(response=>{
+        axios.delete(apiConfig.menu_delete,{params:{id:data.id}}).then(response=>{
           const parent = node.parent;
           const children = parent.data.children || parent.data;
           const index = children.findIndex(d => d.id === data.id);
           children.splice(index, 1);
           me.$message({ type: "success", message: "菜单删除成功" });
-          me.selectedOrgnization=null;
+          me.selected=null;
         });
       }).catch(() => {
 
@@ -272,7 +194,7 @@ export default {
   },
   mounted() {
     var me = this;
-    //me.loadTree();
+    me.loadTree();
   }
 };
 </script>

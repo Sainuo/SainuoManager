@@ -1,7 +1,16 @@
 <template>
     <el-form ref="form" :model="ruleForm" v-loading="loading" label-width="80px">
-        <el-form-item label="组织名称">
-            <el-input v-model="ruleForm.displayName" placeholder="输入组织名称200字以内" :max=200 autofocus></el-input>
+        <el-form-item label="名称">
+            <el-input v-model="ruleForm.name" placeholder="输入组织名称200字以内" :max=200 autofocus></el-input>
+        </el-form-item>
+        <el-form-item label="路径">
+            <el-input v-model="ruleForm.url" placeholder="页面路径" ></el-input>
+        </el-form-item>
+        <el-form-item label="图标">
+            <biz-select src="/data/icons.json" placeholder="选择图标" v-model="ruleForm.icon" :modelMap="model=>model" valueField="id" displayField="name" :showColumns="['name','id']"></biz-select>
+        </el-form-item>
+        <el-form-item label="权限">
+            <biz-select :src="urls.category_get" placeholder="选择权限" v-model="ruleForm.perm" :modelMap="model=>model.result.items" valueField="id" displayField="name" :showColumns="['name','id']"></biz-select>
         </el-form-item>
         <div class="text-align-right">
           <el-button @click="$emit('cancel')">取消</el-button>
@@ -12,13 +21,25 @@
 <script>
 import axios from "axios";
 import apiConfig from "~/static/apiConfig";
+import BizSelect from "~/components/BizSelect.vue"
+
 export default {
+  components:{
+    'biz-select':BizSelect
+  },
   data: () => ({
     id: 0,
     loading:false,
+    urls:apiConfig,
     ruleForm: {
-      parentId: 0,
-      displayName: ""
+      "parentId": 0,
+      "name": "",
+      "icon": "",
+      "perm": "",
+      "url": ""
+    },
+    rules:{
+
     }
   }),
   methods: {
