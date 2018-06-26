@@ -19,8 +19,8 @@
     </el-form>
 </template>
 <script>
-import axios from "axios";
-import apiConfig from "~/static/apiConfig";
+import axios from "axios"
+import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
 
 export default {

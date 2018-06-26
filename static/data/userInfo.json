@@ -292,6 +292,26 @@
             "ActionUrl": "/main/demo/fontawesome",
             "FunctionType": "",
             "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "单选树",
+            "DisplayName": "单选树",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/demo/bizselecttree",
+            "FunctionType": "",
+            "ChildrenModels": []
+          },
+          {
+            "FunctionGuid": "00000000-0000-0000-0000-000000000000",
+            "ParentGuid": "00000000-0000-0000-0000-000000000000",
+            "FunctionName": "图标选择",
+            "DisplayName": "图标选择",
+            "Icon": "el-icon-message",
+            "ActionUrl": "/main/demo/bizselecticon",
+            "FunctionType": "",
+            "ChildrenModels": []
           }
         ]
       },

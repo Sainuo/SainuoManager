@@ -73,10 +73,9 @@
     <div>
         <el-radio v-model="ruleForm.score" label="2">一般</el-radio>
     </div>
-
     <div>
-      <el-button @click="onShow">显示数据</el-button>
-      <el-button @click="onSave">保存数据</el-button>
+      <el-button @click="onGet">显示数据</el-button>
+      <el-button @click="onSet">设置数据</el-button>
     </div>
   </el-form>
 </div>
@@ -116,11 +115,26 @@ export default {
       }
   }),
   methods: {
-    onShow () {
+    onGet() {
       this.$alert(JSON.stringify(this.ruleForm))
     },
-    onSave(){
-      this.$emit("confirm",this.ruleForm);
+    onSet(){
+      this.ruleForm={
+        name: '反转的分针',
+        birthday: new Date('1985-04-06'),
+        stature: 173,
+        gender: 'male',
+        isMarried: false,
+        favorite: ['音乐'],
+        region: 'chenggong',
+        language: ['C', 'Java',"C++"],
+        description:"",
+        score:0,
+        range:null,
+        work:"",
+        html:"",
+        nationality:""
+      };
     }
   },
   mounted(){
