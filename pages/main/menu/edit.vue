@@ -7,10 +7,10 @@
             <el-input v-model="ruleForm.url" placeholder="页面路径" ></el-input>
         </el-form-item>
         <el-form-item label="图标">
-            <biz-select src="/data/icons.json" placeholder="选择图标" v-model="ruleForm.icon" :modelMap="model=>model" valueField="id" displayField="name" :showColumns="['name','id']"></biz-select>
+            <biz-select-icon src="/data/icons.json" value-field="name" display-field="name" icon-field="name" v-model="ruleForm.icon" placeholder="选择图标"/>
         </el-form-item>
         <el-form-item label="权限">
-            <biz-select :src="urls.category_get" placeholder="选择权限" v-model="ruleForm.perm" :modelMap="model=>model.result.items" valueField="id" displayField="name" :showColumns="['name','id']"></biz-select>
+            <biz-select-tree :src="urls.permission_get" v-model="ruleForm.perm" placeholder="选择权限" value-field="name" display-field="displayName" :show-columns="['displayName']" children-field="_children" :modelMap="m=>m.result"/>
         </el-form-item>
         <div class="text-align-right">
           <el-button @click="$emit('cancel')">取消</el-button>
@@ -22,10 +22,14 @@
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
+import BizSelectIcon from "~/components/BizSelectIcon.vue"
+import BizSelectTree from "~/components/BizSelectTree.vue"
 
 export default {
   components:{
-    'biz-select':BizSelect
+    'biz-select':BizSelect,
+    'biz-select-icon':BizSelectIcon,
+    'biz-select-tree':BizSelectTree
   },
   data: () => ({
     id: 0,

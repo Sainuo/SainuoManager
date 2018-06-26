@@ -1,5 +1,5 @@
 <template>
-    <el-select v-model="val" ref="select" :clearable="clearable" :disabled="disabled" :loading="loading" :placeholder="placeholder" @change="handleChange">
+    <el-select v-loading="loading" v-model="val" ref="select" :clearable="clearable" :disabled="disabled" :loading="loading" :placeholder="placeholder" @change="handleChange">
         <el-option v-for="(item,index) in options"
             :key = "index"
             :label = "item[displayField]"

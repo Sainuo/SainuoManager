@@ -37,9 +37,7 @@
         </el-form>
     </el-tab-pane>
     <el-tab-pane label="组织机构" name="orgnization">
-          <el-select v-model="ruleForm.organizationId" filterable placeholder="请选择所属组织">
-            <el-option v-for="orgnization in orgnizationList" :key="orgnization.id" :label="orgnization.displayName" :value="orgnization.id"></el-option>
-          </el-select>
+        <biz-select-tree :src="urls.organization_get_by_name" :params="{organizationName:'赛诺多中心'}" value-field="id" display-field="displayName" :show-columns="['displayName']" v-model="ruleForm.organizationId" placeholder="选择组织" :modelMap="m=>m.result.items"/>
     </el-tab-pane>
     <div class="text-align-right">
       <el-button @click="onCancel">取消</el-button>
@@ -56,6 +54,7 @@ export default {
   data: () => ({
     id:0,
     loading:false,
+    urls:apiConfig,
     activeName:"basic",
     rolescheck:[],
     orgnizationList:[],
@@ -132,19 +131,6 @@ export default {
                 me.loading=false;
         });
       },
-      loadOrgnizationtree(){
-        var me=this;
-        me.loading=true;
-        axios.get(apiConfig.organization_get_by_name,{params: 
-          {organizationName:'赛诺多中心'}
-          })
-        .then(response=>{
-            me.orgnizationList = me.treeToList(response.data.result.items,0);
-        })
-        .finally(()=>{
-                me.loading=false;
-        });
-      },
       loadRoles(){
         var me=this;
         me.loading=true;
@@ -166,7 +152,6 @@ export default {
       me.id = parseInt(me.$route.query.id);
       me.loadData();
     }
-    me.loadOrgnizationtree();
     me.loadRoles();
   }
 };
