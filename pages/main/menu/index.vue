@@ -39,7 +39,12 @@
 <script>
 import axios from "axios";
 import apiConfig from "~/static/apiConfig";
+import BizSelectTree from "~/components/BizSelectTree.vue"
+
 export default {
+  components:{
+      'biz-select-tree':BizSelectTree
+  },
   watch: {
       "tree.filterText"(val) {
         this.$refs.tree.filter(val);
@@ -140,7 +145,7 @@ export default {
     },
     appendTopMenu(){
       var me=this;
-      me.$loaderwindow(`/main/menu/edit?id=0&parentId=0`,`创建顶级菜单`).then(model=>{
+      me.$loaderwindow(`/main/menu/edit?id=0&parentId=-1`,`创建顶级菜单`).then(model=>{
           me.loadTree();
       });
     },
