@@ -84,14 +84,14 @@ export default {
           "password": me.form.passwords
       };
       me.loading=true;
-      axios.post(apiConfig.user_login,postData).then(response => {
-        me.loading=false;
-        axios.defaults.headers.common['authorization'] =`Bearer ${response.data.result}`;
-        me.$store.dispatch("modules/client/start");
-        me.$router.push("/main");
-      })
-      .catch(response=>{
-        me.loading = false;
+      me.$store.dispatch("login",{
+          data:postData,
+          callback(success){
+            me.loading = false;
+            if(success){
+              me.$router.push("/main");//转到主页
+            }
+          }
       });
     }
   },
