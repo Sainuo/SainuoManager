@@ -1,5 +1,5 @@
 <template>
-    <el-select v-loading="loading" v-model="val" ref="select" :clearable="clearable" :disabled="disabled" :loading="loading" :placeholder="placeholder" @change="handleChange"> 
+    <el-select v-loading="loading" v-model="val" ref="select" filterable :clearable="clearable" :disabled="disabled" :loading="loading" :placeholder="placeholder" @change="handleChange"> 
         <el-option v-for="(item,index) in options"
         :key = "index"
         :label = "item[displayField]"
@@ -45,6 +45,10 @@ export default {
             type:Boolean,
             default:false
         },
+        "filterable":{
+            type:Boolean,
+            default:false
+        },
         "placeholder": {
             "type": String,
             "default": "请选择"
@@ -73,14 +77,6 @@ export default {
         "iconField":{
             "type":String,
             "default":null
-        },
-        "isDistinct": {
-            "type": Boolean,
-            "default": false
-        },
-        "remote": {
-            "type": Boolean,
-            "default": false
         },
         "value": {
             "type": String|Object,

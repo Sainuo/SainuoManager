@@ -4,7 +4,6 @@
     <el-col :span="12" class="padding-m">
       <div class="padding-m">
         <span class="font-size-xl">菜单管理</span>
-        <el-button class="float-right" @click="appendTopMenu" type="primary" icon="el-icon-plus">添加一级菜单</el-button>
       </div>
       <el-input
         class="margin-top-xl"
@@ -142,13 +141,7 @@ export default {
           data.children.push(newChild);
           me.$message({ type: "success", message: "添加成功" });
       });
-    },
-    appendTopMenu(){
-      var me=this;
-      me.$loaderwindow(`/main/menu/edit?id=0&parentId=-1`,`创建顶级菜单`).then(model=>{
-          me.loadTree();
-      });
-    },
+    },    
     remove(node, data) {
       var me=this;
       me.$confirm(`是否永久删除[${data.displayName}]?`, '询问', {

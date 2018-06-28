@@ -4,7 +4,7 @@
             :key = "index"
             :label = "item[displayField]"
             :value = "getValueField(item)">
-            <span style="float: left">{{ item[showColumns[0]] }}</span>
+            <span style="float: left" v-html="item.indent"></span>
             <span v-show="showColumns[1]" style="float: right; color: #8492a6; font-size: 13px">{{ item[showColumns[1]] }}</span>
         </el-option>
     </el-select>
@@ -67,6 +67,10 @@ export default {
         "value": {
             "type": String|Object,
             "default": ""
+        },
+        "indentChar":{
+            "type":String,
+            "default":"-"
         }
     },
     data () {
@@ -74,7 +78,17 @@ export default {
             "loading": false,
             "val": "",
             "options": [],
-            "allOptions": []
+            "allOptions": [],
+            "symbols":{//https://www.w3schools.com/charsets/ref_utf_box.asp
+                "vertical":"&#9475;",       //┃	
+                "verticalRight":"&#9500;",  //┣
+                "downRight":"&#9484;",      //┏
+                "upRight":"&#9492;",        //┗
+                "horizontal":"&#9473;",     //━
+                "downHorizontal":"&#9523",  //┳
+                "dashVertical":"&#9476;",   //┋
+                "dashHorizontal":"&#9480;", //┉
+            }
         };
     },
     watch: {
@@ -175,12 +189,48 @@ export default {
 
           if(!(nodes instanceof Array))return list;
           for(var i=0,node;node=nodes[i];i++){
+            let position=me.testPosition(i,nodes.length);
+            node["indent"]=`${me.pushIndent(level,position)}${node[me.displayField]}`;
             list.push(node);
             if(node[me.childrenField].length){
-              list = list.concat(me.treeToList(node[me.childrenField],level++));
+              list = list.concat(me.treeToList(node[me.childrenField],level+1));
             }
           }
           return list;
+        },
+        testPosition(index,count){
+            var position="center";
+            if(index===count-1){
+                position="last";
+            }
+            else if(index===0)
+            {
+                position= "first";
+            }
+            return position;
+        },
+        pushIndent(count,position){
+            var me=this;
+            var indent=[];
+            var blank="&nbsp;";
+            for(var i=0;i<count;i++){
+                indent.push(blank);
+                indent.push(blank);
+            }
+            if(position==="first" && count===0){
+                indent.push(me.symbols.downRight);
+                indent.push(me.symbols.dashHorizontal);
+            }
+            else if(position==="last"){
+                indent.push(me.symbols.upRight);
+                indent.push(me.symbols.dashHorizontal);
+            }
+            else{
+                indent.push(me.symbols.verticalRight);
+                indent.push(me.symbols.dashHorizontal);
+            }
+            indent.push(blank);
+            return indent.join("");
         }
     },
     components: {
