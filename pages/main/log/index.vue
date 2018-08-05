@@ -54,6 +54,9 @@
             <el-table-column prop="executionTime"
                              label="创建时间"
                              width="200">
+                <template slot-scope="scope">
+                    {{scope.row.executionTime|time}}
+                </template>
             </el-table-column>
             <el-table-column prop="userName"
                              label="用户名"

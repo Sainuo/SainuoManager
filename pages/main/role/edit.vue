@@ -43,7 +43,7 @@ export default {
         permissions:[],
         permissionsLoading:false,
         props:{
-          children: 'children',
+          children: '_children',
           label: 'displayName'
         },
         ruleForm: {

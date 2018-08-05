@@ -68,7 +68,7 @@
                        :page-sizes="[100, 200, 300, 400]"
                        :page-size="100"
                        layout="total, sizes, prev, pager, next, jumper"
-                       :total="400">
+                       :total="list.total">
         </el-pagination>
     </el-col>
     <el-col v-else :span="12" class="padding-m">
@@ -188,7 +188,7 @@ export default {
     loadOrgnization() {
       var me = this;
       me.tree.loading=true;
-      axios.get(apiConfig.organization_get_by_name,{params:{organizationName:"赛诺多中心"}}).then(response => {
+      axios.get(apiConfig.organization_get_by_name).then(response => {
         me.tree.treeData = response.data.result.items;
       })
       .finally(()=>{
