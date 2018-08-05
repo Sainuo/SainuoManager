@@ -1,15 +1,15 @@
 <template>
-    <el-form ref="form" :model="ruleForm" v-loading="loading" label-width="80px">
-        <el-form-item label="名称">
+    <el-form ref="ruleForm" :rules="rules" :model="ruleForm" v-loading="loading" label-width="80px">
+        <el-form-item label="名称" prop="name">
             <el-input v-model="ruleForm.name" placeholder="输入组织名称200字以内" :max=200 autofocus></el-input>
         </el-form-item>
-        <el-form-item label="路径">
+        <el-form-item label="路径" prop="url">
             <el-input v-model="ruleForm.url" placeholder="页面路径" ></el-input>
         </el-form-item>
-        <el-form-item label="图标">
-            <biz-select-icon src="/data/icons.json" value-field="name" display-field="name" icon-field="name" v-model="ruleForm.icon" placeholder="选择图标"/>
+        <el-form-item label="图标" prop="icon">
+            <icon-select v-model="ruleForm.icon" :width="400"></icon-select>
         </el-form-item>
-        <el-form-item label="权限">
+        <el-form-item label="权限" prop="perm">
             <biz-select-tree :src="urls.permission_get" v-model="ruleForm.perm" placeholder="选择权限" value-field="name" display-field="displayName" :show-columns="['displayName']" children-field="_children" :modelMap="m=>m.result"/>
         </el-form-item>
         <div class="text-align-right">
@@ -22,13 +22,13 @@
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
-import BizSelectIcon from "~/components/BizSelectIcon.vue"
+import IconSelectIcon from "~/components/IconSelect.vue"
 import BizSelectTree from "~/components/BizSelectTree.vue"
 
 export default {
   components:{
     'biz-select':BizSelect,
-    'biz-select-icon':BizSelectIcon,
+    'icon-select':IconSelectIcon,
     'biz-select-tree':BizSelectTree
   },
   data: () => ({
@@ -40,22 +40,43 @@ export default {
       "name": "",
       "icon": "",
       "perm": "",
-      "url": ""
+      "url": "",
+      "order":0
     },
     rules:{
-
+          name: [
+            { required: true, message: '请输入菜单名称', trigger: 'blur' },
+            { min: 1, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          ],
+          perm: [
+            { required: true, message: '请选择对应权限', trigger: 'change' }
+          ]
     }
   }),
   methods: {
     onConfirm() {
       var me = this;
+      me.$refs.ruleForm.validate((valid) => {
+        if(valid){
+          me.onSubmit();
+        }
+        else{
+          me.$message.error("请检查数据完整性");
+        }
+        return valid;
+      });
+    },
+    onSubmit(){
+      var me=this;
       if(me.id === 0){
         axios.post(apiConfig.menu_create, me.ruleForm).then(response => {
           me.$emit("confirm", response.data.result);
         });
-      }else{
+      }
+      else{
+        delete me.ruleForm.order;
         axios.put(apiConfig.menu_update, me.ruleForm).then(response => {
-          me.$emit("confirm", response.data.result);
+          me.$emit("confirm", me.ruleForm);
         });
       }
     },
@@ -80,6 +101,9 @@ export default {
     }
     if (typeof q.parentId === "string" && q.parentId !== "0") {
       me.ruleForm.parentId = parseInt(me.$route.query.parentId);
+    }
+    if (typeof q.maxorder === "string" && q.maxorder !== "0") {
+      me.ruleForm.order = parseInt(me.$route.query.maxorder)+1;
     }
   }
 };

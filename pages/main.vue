@@ -4,8 +4,11 @@
             <div class="logo">
                 <logo></logo>
             </div>
-            <el-tabs v-model="activeName"  class="nav-menu">
-                <el-tab-pane name="1">
+            <el-tabs v-model="navIndex"  class="nav-menu">
+                <el-tab-pane :name="index.toString()" v-for="(nav,index) in topNavigation" :key="index">
+                    <span slot="label" class="padding-left-right-xl" @click="selectedNav = nav"><i :class="[nav.icon]" class="margin-right-m"></i>{{nav.name}}</span>
+                </el-tab-pane>
+                <!-- <el-tab-pane name="1">
                     <span slot="label"><i class="fa fa-medkit"></i> 肝多龙中心</span>
                 </el-tab-pane>
                 <el-tab-pane name="2">
@@ -22,13 +25,13 @@
                 </el-tab-pane>
                 <el-tab-pane name="6">
                     <span slot="label"><i class="fa fa-group"></i> 专家资源库</span>
-                </el-tab-pane>
+                </el-tab-pane> -->
             </el-tabs>
             <nav class="color-white">
                 <div class="padding-left-right-xl">
                     <el-dropdown @command="handleCommand" trigger="click">
                         <span class="el-dropdown-link color-white">
-                            <span>{{userName}}<img class="avatar margin-left-l" src="images/avatar.jpg" /></span>
+                            <span><img class="avatar margin-left-l" src="images/avatar.jpg" /><span v-if="user" class="margin-left-l color-blue">{{user.name}}</span></span>
                         </span>
                         <el-dropdown-menu slot="dropdown">
                             <el-dropdown-item command="ChangePassword">修改密码</el-dropdown-item>
@@ -41,7 +44,26 @@
         </header>
         <aside class="menu">
             <el-col :span="24">
-                <el-menu :default-active="menuIndex" ref="elMenu"  background-color="#001529" text-color="#a5acb3" active-text-color="#ffd04b">
+                <el-menu :default-active="menuIndex" ref="elMenu" :collapse="isCollapse" background-color="#001529" text-color="#a5acb3" active-text-color="#ffd04b">
+                    <template v-if="leftMenus.length" v-for="(menu,i) in leftMenus"  >
+                        <el-submenu v-if="menu.items.length" :index="i.toString()" :key="i">
+                            <template slot="title">
+                                <i :class="[menu.icon]"></i>
+                                <span slot="title">{{menu.name}}</span>
+                            </template>
+                            <el-menu-item v-for="(child,j) in menu.items" :index="i+'-'+j" :key="j" @click="nav(child)">
+                                {{child.name}}
+                            </el-menu-item>
+                        </el-submenu>
+                        <el-menu-item v-else :index="i.toString()" :key="i" @click="nav(menu)">
+                            <i :class="[menu.icon]"></i>
+                            <template slot="title">
+                                <span slot="title">{{menu.name}}</span>
+                            </template>
+                        </el-menu-item>
+                    </template>
+                </el-menu>
+                <!-- <el-menu :default-active="menuIndex" ref="elMenu"  background-color="#001529" text-color="#a5acb3" active-text-color="#ffd04b">
                     <template v-if="menus.length" v-for="(menu,i) in menus">
                         <el-submenu v-if="menu.ChildrenModels.length" :index="i.toString()" :key="i">
                             <template slot="title">
@@ -53,7 +75,7 @@
                         </el-submenu>
                         <el-menu-item v-else :index="i.toString()" :key="i"><i :class="[menu.Icon]"></i>{{menu.DisplayName}}</el-menu-item>
                     </template>
-                </el-menu>
+                </el-menu> -->
             </el-col>
         </aside>
         <div class="subPage">
@@ -68,47 +90,154 @@ import Logo from "~/components/Logo.vue"
 import axios from "axios"
 
 export default {
+    computed:{
+        user(){
+            if(this.$store.getters.user.model.information){
+                return this.$store.getters.user.model.information.user;
+            }
+            return null;
+        },
+        theme(){
+            return this.$store.state.modules.user.model.theme;
+        },
+        menus(){
+           return this.$store.getters.user.model.menus;
+        },
+        topNavigation(){
+            if(this.menus.length){
+                return this.menus[0].items;
+            }
+            return [];
+        },
+        leftMenus(){
+            if(this.selectedNav){
+                return this.selectedNav.items;
+            }
+            else{
+                return [];
+            }
+        }
+    },
     components:{
         logo:Logo
     },
     data() {
         return {
-            activeName:"1",
-            userName: "",
-            menus: [],
-            menuIndex: "",
-            history: []
+            isCollapse:false,
+            navIndex:"0",    //顶部菜单默认选中
+            menuIndex: "0-0",//左则菜单默认选中
+            selectedNav:null
         };
+        // return {
+        //     activeName:"1",
+        //     userName: "",
+        //     menus: [],
+        //     menuIndex: "",
+        //     history: []
+        // };
+    },
+    beforeMount(){
+        let me=this;
+        me.$store.dispatch("restore");
     },
     mounted() {
-        this.loadMenu();
+        this.defaultSelect();
     },
     methods: {
-        loadMenu () {
-            var me = this;
-            axios.get("/data/userinfo.json").then(response=> {
-                me.menus = response.data.Data.UserMenuModels;
-                me.selectMenuByUrl(me.$route.path);
-            });
+        defaultSelect(){
+            let me = this;
+            //直接进入主页面
+            if(me.$route.path==="/main"){
+                me.navToFirst();
+            }else{//进入子页面
+                me.navToSubPage();
+            }
+        },
+        navToFirst(){
+            let me = this;
+            let path = me.getFirstPath(me.menus,0,"items");
+            if(path.length>1){
+                me.selectedNav = me.menus[0].items[0];
+            }
+            let last = path[path.length-1].menu;
+            if(last && typeof last.url==="string" && last.url!=="#" && last.url!==""){
+                me.nav(last);
+            }
+        },
+        navToSubPage(){
+            let me = this;
+            var ps=me.$route.path.split('/');ps.pop();
+            let ppath=ps.join('/');
+            let path = me.getMenuPath(me.$route.path,me.menus,0,"url","items");
+            path=path.length?path:me.getMenuPath(ppath,me.menus,0,"url","items");
+            if(path.length){
+                me.selectedNav = path[1].menu;
+                me.navIndex = path[1].index.toString();//跳过第一层
+                path.shift();path.shift();
+                me.menuIndex = path.map(p=>p.index).join("-");
+            }
         },
         nav(model){
-            this.$router.push(model.ActionUrl);
+            if(typeof model.url==="string" && model.url!=="#" && model.url!==""){
+                this.$router.push(model.url);
+            }
         },
-        getMenuIndexByUrl (url, menus,index) {
+        //递归菜单路径
+        getMenuPath (url, menus,level,pathField,childrenField) {
             var me = this;
+            var path = [];
             for (var i = 0, m; m = menus[i];i++) {
-                var idx= index.length=== 0 ? `${i}` : `${index}-${i}`;
-                if(url===m.ActionUrl)return idx;
-                if (m.ChildrenModels.length) {
-                   var path= me.getMenuIndexByUrl(url, m.ChildrenModels,idx);
-                   if(path!=="") return path;
+                
+                if(me.testEqual(m[pathField],url)){
+                    path.push({
+                        index:i,
+                        level:level,
+                        menu:m,
+                    });
+                }
+
+                if(m[childrenField].length){
+                    let ps = me.getMenuPath(url,m[childrenField],level + 1,pathField,childrenField);
+                    if(ps.length){
+                        path = path.concat([
+                            {
+                                index:i,
+                                level:level,
+                                menu:m,
+                            }
+                        ],ps);
+                    }
                 }
             }
-            return "";
+            return path;
         },
-        selectMenuByUrl (url) {
-            var index=this.getMenuIndexByUrl(url,this.menus,"");
-            this.menuIndex=index;
+        //获取第一级的叶子路径
+        getFirstPath(menus,level,childrenField){
+            var me = this;
+            var path = [];
+            for(var i=0,menu;menu = menus[i];i++){
+                if(i===0){
+                    path.push({
+                        index:i,
+                        level:level,
+                        menu:menu
+                    });
+
+                    if(menu[childrenField].length){
+                        path = path.concat(me.getFirstPath(menu[childrenField],level+1,childrenField));
+                    }
+                }
+            }
+            return path;
+        },
+        testEqual(a,b){
+            if(typeof a === "string" && typeof b==="string"){
+                return this.removeLastSlash(a)===this.removeLastSlash(b);
+            }
+            return false;
+        },
+        removeLastSlash(txt){
+            return txt[txt.length-1]==="/" ? txt.slice(0,-1):txt;
         },
         handleCommand (command) {
             var me=this;

@@ -89,7 +89,8 @@ export default {
           callback(success){
             me.loading = false;
             if(success){
-              me.$router.push("/main");//转到主页
+              let {returnUrl}=me.$route.query;
+              me.$router.push(returnUrl ? returnUrl:"/main");//转到主页
             }
           }
       });

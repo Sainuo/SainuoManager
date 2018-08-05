@@ -5,6 +5,7 @@
  */
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
+import utility from "~/static/javascript/utility"
 
 //https://github.com/axios/axios
 //加载用户的权限
@@ -23,37 +24,43 @@ const loadUser = () => {
 }
 
 const state = () => ({
-    information: null,//用户信息
-    menus: null,        //菜单
-    permissions: null,  //权限
-    timer: null       //时钟id
+    model:{
+        information: null,//用户信息
+        menus: [],        //菜单
+        permissions: [],  //权限
+        timer: 0,       //时钟id
+        authorization: ""
+    }
 })
 
 // getters
 const getters = {
-    information: state => state.information,
-    menus: state => state.menus,
-    permissions: state => state.permissions,
+    information: state => state.model.information,
+    menus: state => state.model.menus,
+    permissions: state => state.model.permissions,
     permissionsContains: state => value => {
-        return !!state.list.find(x => x === value);
+        return !!state.model.permissions.find(permission => permission === value);
     }
 }
 
 // actions
 const actions = {
     login({ commit }, model) {
-        console.log(arguments);
         axios.post(apiConfig.user_login, model.data)
             .then(response => {
                 commit("onOnline");  //让客户端保持在线
                 //修改全局请求头
-                axios.defaults.headers.common["authorization"] = `Bearer ${response.data.result}`;
+                let authorization = `Bearer ${response.data.result}`;
+                axios.defaults.headers.common["authorization"] = authorization;
+                commit("setAuthorization", authorization)
+                //axios.defaults.headers.common["authorization"] = `Bearer ${response.data.result}`;
                 //同步用户、菜单、权限到客户端
                 axios.all([loadUser(), loadMenu(), loadPermission()])
                     .then(axios.spread((user, menus, permissons) => {
                         commit("setInformation", user.data.result);
                         commit("setMenus", menus.data.result);
                         commit("setPermissions", permissons.data.result);
+                        commit("onSaveToSession");
                         model.callback(true);
                     }))
                     .catch(response => {
@@ -66,32 +73,67 @@ const actions = {
     },
     logout({ commit }) {
         commit("onLogout");
-    }
+        commit("onOffline");
+    },
+    save({ commit }) {
+        commit("onSave");
+    },
+    restore({ commit, state }) {
+        if (sessionStorage["user"] === undefined) {
+            let vm = window.$nuxt;
+            vm.$alert('会话过期，请重新登录！', {
+                type: "error",
+                showClose: false,
+                closeOnClickModal: false,
+                closeOnPressEscape: false,
+                confirmButtonText: '确定',
+                callback: action => {
+                    vm.$router.replace({ path: "/", query: { returnUrl: vm.$route.path } });
+                }
+            });
+        }
+        else if (state.model.information === null) {
+            let model = JSON.parse(sessionStorage["user"]);
+            commit("onRestore", model);
+            commit("onOffline");
+            commit("onOnline");
+        }
+    },
 }
 
 // mutations
 const mutations = {
     //保持在线
     onOnline(state) {
-        if (state.timer === null) {
-            state.timer = setInterval(() => {
+        if (state.model.timer === null) {
+            state.model.timer = setInterval(() => {
                 axios.get(apiConfig.ping);
-            }, 15 * 60 * 1000);
+            }, 10 * 60 * 1000);
         }
     },
     //退出在线
     onOffline(state) {
-        clearInterval(state.timer);
-        state.timer = null;
+        clearInterval(state.model.timer);
+        state.model.timer = 0;
     },
     setInformation(state, information) {
-        state.information = information;
+        state.model.information = information;
     },
     setMenus(state, menus) {
-        state.menus = menus;
+        state.model.menus = menus;
     },
     setPermissions(state, permissions) {
-        state.permissions = permissions;
+        state.model.permissions = permissions;
+    },
+    setAuthorization(state, authorization) {
+        state.model.authorization = authorization;
+    },
+    onSaveToSession(state) {
+        sessionStorage["user"] = JSON.stringify(utility.toServerModel(state.model));
+    },
+    onRestore(state, model) {
+        state.model = model;
+        axios.defaults.headers.common["authorization"] = model.authorization;
     },
     /**
      * 用户退出登录
