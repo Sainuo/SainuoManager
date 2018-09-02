@@ -7,7 +7,9 @@ export default async (context) => {
     if (process.server){
         const authorization = getUserAuthorizationFromCookie(context.req);//从cookie还原会话
         if(!authorization){
-            context.redirect("/login");
+            if(!(/^\/login/ig).test(context.route.path)){
+                context.redirect("/login");
+            }
             return;
         }
         const instance = axios.create({            
