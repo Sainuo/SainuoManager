@@ -1,22 +1,7 @@
 import axios from "axios"
-import Utility from "~/static/javascript/utility"
-axios.interceptors.request.use(
-    request=>{
-        request.params=Utility.toServerModel(request.params);
-        if((/^application\/json/i).test(request.headers['content-type'])){
-            request.data=Utility.toServerModel(request.data);
-        }
-        return request;
-    },
-    error=>error
-);
+
 axios.interceptors.response.use(
-    response => {
-        if((/^application\/json/i).test(response.headers['content-type'])){
-            response.data=Utility.toClientModel(response.data);
-        }
-        return response
-    },
+    response => response,
     error => {
         let viewModel = window.$nuxt;
         if (typeof error.response.status === "number" && error.response.status === 401) {
@@ -27,7 +12,7 @@ axios.interceptors.response.use(
                 closeOnPressEscape: false,
                 confirmButtonText: '重新登录',
                 callback: action => {
-                    viewModel.$router.replace("/");
+                    viewModel.$router.replace("/login");
                 }
             });
         }

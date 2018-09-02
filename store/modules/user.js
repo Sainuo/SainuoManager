@@ -5,7 +5,8 @@
  */
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
-import utility from "~/static/javascript/utility"
+import cookie from "js-cookie"
+
 
 //https://github.com/axios/axios
 //加载用户的权限
@@ -24,12 +25,12 @@ const loadUser = () => {
 }
 
 const state = () => ({
-    model:{
+    model: {
         information: null,//用户信息
-        menus: [],        //菜单
-        permissions: [],  //权限
-        timer: 0,       //时钟id
-        authorization: ""
+        menus: null,        //菜单
+        permissions: null,  //权限
+        authorization:"", 
+        timer: null       //时钟id
     }
 })
 
@@ -39,82 +40,67 @@ const getters = {
     menus: state => state.model.menus,
     permissions: state => state.model.permissions,
     permissionsContains: state => value => {
-        return !!state.model.permissions.find(permission => permission === value);
+        return !!state.model.permissions.find(x => x === value);
     }
 }
 
 // actions
 const actions = {
-    login({ commit }, model) {
-        axios.post(apiConfig.user_login, model.data)
-            .then(response => {
-                commit("onOnline");  //让客户端保持在线
-                //修改全局请求头
-                let authorization = `Bearer ${response.data.result}`;
-                axios.defaults.headers.common["authorization"] = authorization;
-                commit("setAuthorization", authorization)
-                //axios.defaults.headers.common["authorization"] = `Bearer ${response.data.result}`;
-                //同步用户、菜单、权限到客户端
-                axios.all([loadUser(), loadMenu(), loadPermission()])
-                    .then(axios.spread((user, menus, permissons) => {
-                        commit("setInformation", user.data.result);
-                        commit("setMenus", menus.data.result);
-                        commit("setPermissions", permissons.data.result);
-                        commit("onSaveToSession");
-                        model.callback(true);
-                    }))
-                    .catch(response => {
-                        model.callback(false);
-                    });
-            })
-            .catch(response => {
-                model.callback(false);
-            });
+    async login({ commit, dispatch }, model) {
+        let response = await axios.post(apiConfig.user_login, model.data);
+        commit("onOnline");  //让客户端保持在线
+        let authorization = `Bearer ${response.data.result}`;
+        try{
+            await dispatch("loadUser", authorization);
+            if(model.callback)model.callback(true);
+        }
+        catch(ex){
+            if(model.callback)model.callback(false);
+        }
+    },
+    async loadUser({ commit }, authorization) {
+
+        //修改全局请求头
+        commit("setAuthorization", authorization);
+        //同步用户、菜单、权限到客户端
+        
+        let user = await loadUser();
+        let menus = await loadMenu();
+        let permissions = await loadPermission();
+
+        commit("setInformation", user.data.result);
+        commit("setMenus", menus.data.result);
+        commit("setPermissions", permissions.data.result);
+        commit("save");
     },
     logout({ commit }) {
         commit("onLogout");
-        commit("onOffline");
-    },
-    save({ commit }) {
-        commit("onSave");
-    },
-    restore({ commit, state }) {
-        if (sessionStorage["user"] === undefined) {
-            let vm = window.$nuxt;
-            vm.$alert('会话过期，请重新登录！', {
-                type: "error",
-                showClose: false,
-                closeOnClickModal: false,
-                closeOnPressEscape: false,
-                confirmButtonText: '确定',
-                callback: action => {
-                    vm.$router.replace({ path: "/", query: { returnUrl: vm.$route.path } });
-                }
-            });
-        }
-        else if (state.model.information === null) {
-            let model = JSON.parse(sessionStorage["user"]);
-            commit("onRestore", model);
-            commit("onOffline");
-            commit("onOnline");
-        }
-    },
+    }
 }
 
 // mutations
 const mutations = {
     //保持在线
     onOnline(state) {
-        if (state.model.timer === null) {
-            state.model.timer = setInterval(() => {
+        if (state.timer === null) {
+            state.timer = setInterval(() => {
                 axios.get(apiConfig.ping);
-            }, 10 * 60 * 1000);
+            }, 15 * 60 * 1000);
+        }
+    },
+    save(state) {
+        window.localStorage["user"] = JSON.stringify(state.model);
+    },
+    //还原会话
+    restore(state, user) {
+        if (user) {
+            state.model = user;
         }
     },
     //退出在线
     onOffline(state) {
-        clearInterval(state.model.timer);
-        state.model.timer = 0;
+        clearInterval(state.timer);
+        state.model.timer = null;
     },
     setInformation(state, information) {
         state.model.information = information;
@@ -126,22 +112,25 @@ const mutations = {
         state.model.permissions = permissions;
     },
     setAuthorization(state, authorization) {
+        axios.defaults.headers.common["authorization"] = authorization;
         state.model.authorization = authorization;
-    },
-    onSaveToSession(state) {
-        sessionStorage["user"] = JSON.stringify(utility.toServerModel(state.model));
-    },
-    onRestore(state, model) {
-        state.model = model;
-        axios.defaults.headers.common["authorization"] = model.authorization;
+        cookie.set("authorization", authorization);
     },
     /**
-     * 用户退出登录
-     * @param {object} state 
+     * 用户退出登录     
      */
     onLogout(state) {
-        axios.defaults.headers.common["authorization"] = "";
-        state.commit("/moduels/menu/clear");
+        axios.defaults.headers.common["authorization"] = undefined;
+        cookie.remove("authorization");
+        state.commit("onOffline");
+        localStorage.clear();
+        state.model = {
+            information: null,//用户信息
+            menus: null,        //菜单
+            permissions: null,  //权限
+            timer: null,      //时钟id
+            authorization:""
+        }
     }
 }
 

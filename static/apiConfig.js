@@ -90,8 +90,6 @@ let settings = {
     menu_read: "/api/services/app/menu/GetMenu",
     menu_create: "/api/services/app/menu/AddMenu",
     menu_update: "/api/services/app/menu/UpdateMenu",
-    //移动菜单
-    menu_move:"/api/services/app/menu/MoveMenu",
     menu_delete: "/api/services/app/menu/DeleteMenu",
     menu_my_tree_get: "/api/services/app/menu/MyMenuTree",
     medItemPatientAgreement_get: "/api/services/app/medItemPatientAgreement/GetOne",
