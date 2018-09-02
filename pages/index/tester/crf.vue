@@ -235,7 +235,7 @@ export default{
         onEditDetail(model) {
             var me = this;
             me.$store.dispatch("modules/crf/updateCrfInfo",model);
-            me.$router.push(`/main/tester/forms?id=${model.id}`);
+            me.$router.push(`/tester/forms?id=${model.id}`);
         },
         onExportWord(model) {
             var me = this;

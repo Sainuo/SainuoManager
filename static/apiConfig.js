@@ -148,6 +148,7 @@ let settings = {
     medItemAdverseEvent_put: "/api/services/app/medItemAdverseEvent/Update",
     medItemIfPatientContinueResearch_get: "/api/services/app/medItemIfPatientContinueResearch/GetOne",
     medItemIfPatientContinueResearch_put: "/api/services/app/medItemIfPatientContinueResearch/Update",
+    my_org:"/api/services/app/organizationUnit/GetCurrentAdminUserOrgId",
     ping: "/api/services/app/account/Ping"
 }
 
