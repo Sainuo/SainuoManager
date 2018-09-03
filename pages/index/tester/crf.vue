@@ -220,7 +220,7 @@ export default{
                 me.loadData();
                 me.$confirm(`转到病例详情?`, '提示', {confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'})
                 .then(() => {
-                     me.$router.push(`/main/tester/forms?id=${m.result}`);
+                     me.$router.push(`/tester/forms?id=${m.result}`);
                 });
             });
         },
@@ -235,7 +235,7 @@ export default{
         onEditDetail(model) {
             var me = this;
             me.$store.dispatch("modules/crf/updateCrfInfo",model);
-            me.$router.push(`/main/tester/forms?id=${model.id}`);
+            me.$router.push(`/tester/forms?id=${model.id}`);
         },
         onExportWord(model) {
             var me = this;

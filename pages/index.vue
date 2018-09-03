@@ -309,5 +309,9 @@ export default {
     .el-main {
         padding: 0;
     }
+
+    .sub-page {
+        position: relative;
+    }
 }
 </style>

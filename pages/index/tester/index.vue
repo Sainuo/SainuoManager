@@ -213,7 +213,7 @@ export default{
             var me = this;
             me.$store.dispatch("modules/crf/updateCrfInfo",model);
             me.$loaderwindow(`/tester/crfdetail?id=${model.id}`, `查看${model.patientName}详情`);
-            //me.$router.push(`/main/tester/crfdetail?id=${model.id}`);
+            //me.$router.push(`/tester/crfdetail?id=${model.id}`);
         },
         onNotQualified(model) {
             var me = this;
