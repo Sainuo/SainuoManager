@@ -4,5 +4,6 @@ export default {
     systemName: "Sainuo",
     isOfficalData,
     apiServerAddress: isOfficalData?"http://220.165.143.68:55555":"",
-    resourceServerAddress: "http://localhost:65533/wwwroot/Upload/"
+    resourceServerAddress: "http://localhost:65533/wwwroot/Upload/",
+    wxAddress:isOfficalData?"http://mailzy.tunnel.qydev.com":""
 }
