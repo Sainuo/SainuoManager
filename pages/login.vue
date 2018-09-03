@@ -97,9 +97,6 @@ export default {
                 me.loading = false;   
             }});
         }
-    },
-    mounted() {
-        document.title = webConfig.systemName;
     }
 }
 </script>

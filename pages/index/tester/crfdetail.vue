@@ -172,9 +172,9 @@ export default{
         },
         onEditDetail(model) {
             var me = this;
-            //me.$store.dispacth("modules/crf/updateCrfInfo",model);
+            me.$store.dispacth("modules/crf/updateCrfInfo",model);
             me.$emit("confirm",{target:me});
-            me.$router.push(`/tester/forms?id=${model.id}`);
+            me.$router.push(`/tester/forms`);
         },
         onExportWord(model) {
             var me = this;

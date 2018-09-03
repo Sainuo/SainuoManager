@@ -29,7 +29,7 @@
                 <el-button icon="el-icon-plus" @click="onAdd" class="col-12">添加合并用药记录</el-button>
             </div>
         </el-form>
-        <div class="text-align-right">
+        <div class="text-align-right margin-top-xl">
             <el-button @click="$emit('cancel')">取消</el-button>
             <el-button @click="onConfirm" type="primary">保存</el-button>
         </div>

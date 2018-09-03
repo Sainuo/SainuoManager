@@ -134,9 +134,9 @@
 <script>
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
-export default{
+export default {
     data(){
-        return{
+        return {
             search: {
                 organizationId:null,
                 quit:null,

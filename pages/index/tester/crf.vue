@@ -136,7 +136,7 @@ import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
 import download from "~/static/javascript/download"
 
-export default{
+export default {
     components:{
         'biz-select':BizSelect
     },
