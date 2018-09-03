@@ -32,7 +32,7 @@
         <el-tab-pane label="角色" name="role">
             <el-form label-width="80px">
                 <el-checkbox-group v-model="ruleForm.roles">
-                    <el-checkbox v-for="role in rolescheck" :key="role.name" :label="role.name" :checked="ruleForm.roles.includes(role.id)" >{{role.name}}</el-checkbox>
+                    <el-checkbox v-for="role in rolescheck" :key="role.name" :label="role.name" :checked="ruleForm.roles.includes(role.id)" >{{role.displayName}}</el-checkbox>
                 </el-checkbox-group>
             </el-form>
         </el-tab-pane>

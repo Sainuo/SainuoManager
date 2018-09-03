@@ -70,94 +70,94 @@ export default {
     }),
     methods: {
         handleSortChange(sort) {
-        var me = this;
-        me.list.sort = {};
-        if (sort.column !== null) {
-            me.list.sort[sort.prop] = sort.order === "ascending" ? "asc" : "desc";
-        }
-        me.loadData();
+            var me = this;
+            me.list.sort = {};
+            if (sort.column !== null) {
+                me.list.sort[sort.prop] = sort.order === "ascending" ? "asc" : "desc";
+            }
+            me.loadData();
         },
         getSort() {
-        var me = this;
-        var sort = me.list.sort;
-        var sorts = [];
-        for (var p in sort) {
-            sorts.push(p + " " + sort[p]);
-        }
-        var r = sorts.join(",");
-        return r === "" ? undefined : r;
+            var me = this;
+            var sort = me.list.sort;
+            var sorts = [];
+            for (var p in sort) {
+                sorts.push(p + " " + sort[p]);
+            }
+            var r = sorts.join(",");
+            return r === "" ? undefined : r;
         },
         getSkip() {
-        var me = this;
-        return (me.list.currentPage - 1) * me.list.pageSize;
+            var me = this;
+            return (me.list.currentPage - 1) * me.list.pageSize;
         },
         handleSizeChange(val) {
-        this.list.pageSize = val;
-        this.loadData();
+            this.list.pageSize = val;
+            this.loadData();
         },
         handleCurrentChange(val) {
-        this.list.currentPage = val;
-        this.loadData();
+            this.list.currentPage = val;
+            this.loadData();
         },
         onSelected(node){
-        var me = this;
-        me.selected = node;
+            var me = this;
+            me.selected = node;
         },
         loadTree() {
-        var me = this;
-        me.tree.loading=true;
-        axios.get(apiConfig.menu_get,{params:{
-                        parentId:0,
-                        name: ""
-        }}).then(response => {
-            me.tree.treeData = response.data.result;
-        })
-        .finally(()=>{
-            me.tree.loading=false;
-        });
+            var me = this;
+            me.tree.loading=true;
+            axios.get(apiConfig.menu_get,{params:{
+                            parentId:0,
+                            name: ""
+            }}).then(response => {
+                me.tree.treeData = response.data.result;
+            })
+            .finally(()=>{
+                me.tree.loading=false;
+            });
         },
         filterNode(value, data) {
-        if (!value) return true;
-            return data.displayName.indexOf(value) !== -1;
-        },
+            if (!value) return true;
+                return data.displayName.indexOf(value) !== -1;
+            },
         eidt(node, data){
             var me=this;
             me.$loaderwindow(`/menu/edit?id=${data.id}`,`编辑${data.name}`).then(model=>{
                 for(var p in model){
-                data[p]=model[p];
+                    data[p]=model[p];
                 }
                 me.$message({ type: "success", message: "菜单编辑成功" });
             });
         },
         append(node, data) {
-        var me=this;
-        me.$loaderwindow(`/menu/edit?id=0&parentId=${node.data.id}`,`创建菜单`).then(model=>{
-            const newChild = model;
-            if (!data.children) {
-                this.$set(data, "children", []);
-            }
-            data.children.push(newChild);
-            me.$message({ type: "success", message: "添加成功" });
-        });
+            var me=this;
+            me.$loaderwindow(`/menu/edit?id=0&parentId=${node.data.id}`,`创建菜单`).then(model=>{
+                const newChild = model;
+                if (!data.items) {
+                    this.$set(data, "items", []);
+                }
+                data.items.push(newChild);
+                me.$message({ type: "success", message: "添加成功" });
+            });
         },    
         remove(node, data) {
-        var me=this;
-        me.$confirm(`是否永久删除[${data.displayName}]?`, '询问', {
-            confirmButtonText: '删除',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => {
-            axios.delete(apiConfig.menu_delete,{params:{id:data.id}}).then(response=>{
-            const parent = node.parent;
-            const children = parent.data.children || parent.data;
-            const index = children.findIndex(d => d.id === data.id);
-            children.splice(index, 1);
-            me.$message({ type: "success", message: "菜单删除成功" });
-            me.selected=null;
-            });
-        }).catch(() => {
+            var me=this;
+            me.$confirm(`是否永久删除[${data.name}]?`, '询问', {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                axios.delete(apiConfig.menu_delete,{params:{id:data.id}}).then(response=>{
+                const parent = node.parent;
+                const children = parent.data.items || parent.data;
+                const index = children.findIndex(d => d.id === data.id);
+                children.splice(index, 1);
+                me.$message({ type: "success", message: "菜单删除成功" });
+                me.selected=null;
+                });
+            }).catch(() => {
 
-        });
+            });
         },
         handleDragStart(node, ev) {
         console.log("drag start", node);

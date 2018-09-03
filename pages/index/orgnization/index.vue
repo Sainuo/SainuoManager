@@ -49,6 +49,10 @@
                                 sortable
                                 width="180">
                 </el-table-column>
+                <el-table-column prop="roleName"
+                                label="角色"
+                                >
+                </el-table-column>
                 <el-table-column prop="addedTime"
                                 label="添加时间"
                                 width="180">
