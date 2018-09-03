@@ -56,7 +56,8 @@
                     <el-radio class="radio" v-model="item.result" :label="4">致命的</el-radio>
                     <el-radio class="radio" v-model="item.result" :label="5">未知的</el-radio>
                 </el-form-item>
-                <el-form-item label="受试者是否因为此不良事件而退出治疗或研究">
+                <div>受试者是否因为此不良事件而退出治疗或研究</div>
+                <el-form-item label="">
                     <el-radio class="radio" v-model="item.patientQuit" :label="0">是</el-radio>
                     <el-radio class="radio" v-model="item.patientQuit" :label="1">否</el-radio>
                 </el-form-item>

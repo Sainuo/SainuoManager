@@ -72,6 +72,9 @@
             <el-table-column prop="visitTime"
                              width="120"
                              label="访视日期">
+                    <template slot-scope="scope">
+                        {{scope.row.visitTime|date}}
+                    </template>
             </el-table-column>
             <el-table-column prop="visitNumber"
                              label="访视"
@@ -80,7 +83,7 @@
             <el-table-column prop="medicalProjectName"
                              label="临床检验项目"
                              sortable
-                             width="120">
+                             width="160">
             </el-table-column>
             <el-table-column prop="medicalPhaseName"
                              label="阶段"

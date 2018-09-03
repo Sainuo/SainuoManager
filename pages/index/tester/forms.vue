@@ -4,7 +4,7 @@
             <div class="title"><h1>病例详情</h1></div>
             <div v-if="crfInfo" class="info">
                 <div><h3>CRF:{{crfInfo.crfNumber}}姓名:{{crfInfo.patientName}}</h3></div>
-                <div><h3>访视日期：{{crfInfo.visitTime}}</h3></div>
+                <div><h3>访视日期：{{crfInfo.visitTime|date}}</h3></div>
             </div>
         </div>
         <div class="forms-content">
