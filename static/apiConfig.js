@@ -104,6 +104,8 @@ let settings = {
     medItemAlcoholHistory_put: "/api/services/app/medItemAlcoholHistory/Update",
     medItemHepatitisBHistory_get: "/api/services/app/medItemHepatitisBHistory/GetOne",
     medItemHepatitisBHistory_put: "/api/services/app/medItemHepatitisBHistory/Update",
+    medItemBodyPhysic_get:"/api/services/app/medItemBodyPhysic/GetOne",
+    medItemBodyPhysic_put:"/api/services/app/medItemBodyPhysic/Update",
     medItemBodyPhysicWithHalfYear_get: "/api/services/app/medItemBodyPhysicWithHalfYear/GetOne",
     medItemBodyPhysicWithHalfYear_put: "/api/services/app/medItemBodyPhysicWithHalfYear/Update",
     medItemDiseaseHistory_get: "/api/services/app/medItemDiseaseHistory/GetOne",
@@ -148,6 +150,8 @@ let settings = {
     medItemAdverseEvent_put: "/api/services/app/medItemAdverseEvent/Update",
     medItemIfPatientContinueResearch_get: "/api/services/app/medItemIfPatientContinueResearch/GetOne",
     medItemIfPatientContinueResearch_put: "/api/services/app/medItemIfPatientContinueResearch/Update",
+    medItemChestXRay_get:"/api/services/app/medItemChestXRay/GetOne",
+    medItemChestXRay_put:"/api/services/app/medItemChestXRay/Update",
     my_org:"/api/services/app/organizationUnit/GetCurrentAdminUserOrgId",
     ping: "/api/services/app/account/Ping"
 }

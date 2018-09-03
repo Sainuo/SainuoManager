@@ -5,7 +5,7 @@
             <div>
                 <h2>体格检查</h2>
                 <div>
-                    <span>检查日期</span><el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
+                    <span class="margin-right-xl">检查日期</span><el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.testDate"></el-date-picker>
                 </div>
             </div>
             <div>
@@ -123,6 +123,7 @@ export default {
     data() {
         return {
             id:0,
+            loading:false,
             ruleForm:{
                 "id": 0,
                 "crfBasicId": 0,
@@ -160,11 +161,12 @@ export default {
         loadData(){
             var me=this;
             me.loading=true;
-            axios.get(apiConfig.medItemBodyPhysicWithHalfYear_get,{ params:{ id:me.id}})
+            axios.get(apiConfig.medItemBodyPhysic_get,{ params:{ id:me.id}})
             .then(response=>{
                 me.ruleForm = utility.toClientModel(response.data.result);
+                me.loading=false;
             })
-            .finally(()=>{
+            .catch(()=>{
               me.loading=false;
             });
         },
@@ -174,7 +176,7 @@ export default {
                 if (valid) {
                     var me = this;
                     me.loading=true;
-                    axios.put(apiConfig.medItemBodyPhysicWithHalfYear_put,utility.toServerModel(me.ruleForm))
+                    axios.put(apiConfig.medItemBodyPhysic_put,utility.toServerModel(me.ruleForm))
                     .then(response=>{
                         me.$emit("confirm", response.data.result);
                     })
