@@ -3,8 +3,14 @@
         <div class="forms-head padding-xl">
             <div class="title"><h1>病例详情</h1></div>
             <div v-if="crfInfo" class="info">
-                <div><h3>CRF:{{crfInfo.crfNumber}}姓名:{{crfInfo.patientName}}</h3></div>
-                <div><h3>访视日期：{{crfInfo.visitTime|date}}</h3></div>
+                <div><h3>CRF：{{crfInfo.crfNumber}}&nbsp;姓名：{{crfInfo.patientName}}</h3></div>                
+                <div>
+                    <h3>
+                    临床检验项目：{{crfInfo.medicalProjectName}}&nbsp;
+                    阶段：{{crfInfo.medicalPhaseName}}&nbsp;
+                    访视:V{{crfInfo.visitNumber}}&nbsp;
+                    访视日期：{{crfInfo.visitTime|date}}
+                    </h3></div>
             </div>
         </div>
         <div class="forms-content">
@@ -15,7 +21,7 @@
                     <el-menu-item class="elmenuitem" :index="i.toString()" :key="i" @click="nav(menu,i)">
                         <span class="name">{{menu.medItemName}}</span>
                         <span>
-                        <i v-if="menu.validation" class="el-icon-success" style="color:green;"></i>
+                            <i v-if="menu.validation" class="el-icon-success" style="color:green;"></i>
                         </span>
                     </el-menu-item>
                     </el-tooltip>

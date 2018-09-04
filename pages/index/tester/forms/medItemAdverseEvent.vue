@@ -1,7 +1,7 @@
 <template>
     <div v-loading="loading">
         <div><h2>不良事件（肝纤维化检验）</h2></div>
-        <el-form label-width="120px">
+        <el-form label-width="200px">
             <div>有不良事件？</div>
             <div>
                 <el-radio v-model="ruleForm.anyAdverseEvent" :label="false">否</el-radio>
