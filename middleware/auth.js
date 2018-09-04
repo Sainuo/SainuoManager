@@ -24,6 +24,7 @@ export default async (context) => {
                 information: user.data.result,//用户信息
                 menus: menus.data.result,        //菜单
                 permissions: permissons.data.result,  //权限
+                authorization:authorization,
                 timer: null       //时钟id
             };
     

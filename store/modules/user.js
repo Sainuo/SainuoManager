@@ -39,6 +39,7 @@ const getters = {
     information: state => state.model.information,
     menus: state => state.model.menus,
     permissions: state => state.model.permissions,
+    authorization:state => state.model.authorization,
     permissionsContains: state => value => {
         return !!state.model.permissions.find(x => x === value);
     }

@@ -138,8 +138,12 @@ import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
 import download from "~/static/javascript/download"
+import {mapGetters} from "vuex"
 
 export default {
+    computed:{
+        ...mapGetters("modules/user",["authorization"])
+    },
     components:{
         'biz-select':BizSelect
     },
@@ -242,7 +246,12 @@ export default {
         },
         onExportWord(model) {
             var me = this;
-            axios.post(`${apiConfig.crf_export_word}?crfBaseId=${model.id}`).then(response=>{
+            axios.get(`${apiConfig.crf_export_word}`,{
+                    params:{
+                        crfBaseId:model.id,
+                        token:me.authorization.replace("Bearer ","")
+                    }
+                }).then(response=>{
                 download(response.data.result
                 ,null
                 ,"GET"
