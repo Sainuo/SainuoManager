@@ -12,21 +12,26 @@ export default async (context) => {
             }
             return;
         }
-        const instance = axios.create({            
-            headers: {'authorization':authorization}
-        });
-        const user = await instance.post(apiConfig.session_get);
-        const menus = await instance.get(apiConfig.menu_my_tree_get);
-        const permissons = await instance.get(apiConfig.user_permission_get);        
-
-        const u = {
-            information: user.data.result,//用户信息
-            menus: menus.data.result,        //菜单
-            permissions: permissons.data.result,  //权限
-            timer: null       //时钟id
-        };
-
-        if(u)context.store.commit("modules/user/restore", u);
+        try{
+            const instance = axios.create({            
+                headers: {'authorization':authorization}
+            });
+            const user = await instance.post(apiConfig.session_get);
+            const menus = await instance.get(apiConfig.menu_my_tree_get);
+            const permissons = await instance.get(apiConfig.user_permission_get);        
+    
+            const u = {
+                information: user.data.result,//用户信息
+                menus: menus.data.result,        //菜单
+                permissions: permissons.data.result,  //权限
+                timer: null       //时钟id
+            };
+    
+            if(u)context.store.commit("modules/user/restore", u);
+        }
+        catch(ex){
+            return ;
+        }
     }
 
     //客户端
