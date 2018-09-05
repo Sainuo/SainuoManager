@@ -4,16 +4,16 @@
 */
 function anchor(url, name) {
     let filename = Date.now();
-    if (typeof filename === "undefined") {
+    if (typeof name === "undefined") {
         let f = url.split("/").pop();
         if (f) {
-            fileName = f;
+            filename = f;
         }
     }
 
     var anchor = document.createElement("a");
     anchor.href = url;
-    anchor.setAttribute("download", name);
+    anchor.setAttribute("download", filename);
     anchor.text = "下载";
     anchor.style.visibility = "hidden";
     anchor.addEventListener("load", function (loadEvent) {
