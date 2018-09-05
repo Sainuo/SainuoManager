@@ -246,7 +246,6 @@ export default {
         },
         onExportWord(model) {
             var me = this;
-            //window.open(`${apiConfig.crf_export_word}?crfBaseId=${model.id}&token=${me.authorization.replace("Bearer ","")}`,"blank");
             anchor(`${apiConfig.crf_export_word}?crfBaseId=${model.id}&token=${me.authorization.replace("Bearer ","")}`,`${model.patientName}${model.visitTime}${model.medicalPhaseName}V${model.visitNumber}`);
         },
         loadData () {
