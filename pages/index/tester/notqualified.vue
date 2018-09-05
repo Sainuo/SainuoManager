@@ -59,7 +59,7 @@
       loadData(){
         var me=this;
         me.loading=true;
-        axios.get(apiConfig.tester_not_qualified_reason_read,{ demologyId:me.id})
+        axios.get(apiConfig.tester_not_qualified_reason_read,{ params:{ demologyId:me.ruleForm.demologyId}})
         .then(response=>{
           if(response.data.result!==null)
           {
@@ -97,10 +97,10 @@
     mounted(){
         var me = this;
         if(typeof me.$route.query.id === "string" && me.$route.query.id!=="0"){
-          me.ruleForm.demologyId=me.$route.query.id;
+          me.ruleForm.demologyId = me.$route.query.id;
         }
         me.loadData();
-        me.loadOptions();
+        me.loadOptions();        
     }
   }
 </script>

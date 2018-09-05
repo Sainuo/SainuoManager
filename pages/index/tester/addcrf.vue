@@ -1,10 +1,13 @@
 <template>
-    <el-form v-loading="loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-        <el-form-item v-if="id===0" label="CRF号" prop="crfNumber">
-          <el-input-number v-model="crfNumber" :min="1"></el-input-number>
+    <el-form v-loading="loading" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
+        <el-form-item label="临床检验项目" prop="medProjectId">
+          <biz-select @input="getTestByCRF" :src="urls.crf_project_get" placeholder="临床检验项目" v-model="ruleForm.medProjectId" clearable :modelMap="model=>model.result.items" valueField="id" displayField="projectName" :showColumns="['projectName']"></biz-select>
         </el-form-item>
         <el-form-item label="检验阶段" prop="medicalExamPhaseId">
-          <biz-select :disabled="id>0" ref="bs" :src="urls.crf_phases_get" :auto-load="false" :params={userId:ruleForm.userId} v-model="ruleForm.medicalExamPhaseId" :modelMap="x=>x.result.items" valueField="id" displayField="phasesName" :showColumns="['phasesName']"></biz-select>
+          <biz-select :disabled="id>0" ref="bs" :src="urls.crf_phases_get" :auto-load="false" :params="{userId:ruleForm.userId}" v-model="ruleForm.medicalExamPhaseId" :modelMap="x=>x.result.items" valueField="id" displayField="phasesName" :showColumns="['phasesName']"></biz-select>
+        </el-form-item>
+        <el-form-item v-if="id===0" label="CRF号" prop="crfNumber">
+          <el-input-number v-model="crfNumber" :min="1"></el-input-number>
         </el-form-item>
         <el-form-item label="访视日期" prop="visitTime">
             <el-date-picker v-model="ruleForm.visitTime" type="date" placeholder="选择访视日期"></el-date-picker>
@@ -23,7 +26,7 @@
             <span>{{tester.gender?"男":"女"}}</span>
           </el-form-item>
           <el-form-item label="出生日期" prop="birthday">
-            <span>{{tester.birthday}}</span>
+            <span>{{tester.birthday|date}}</span>
           </el-form-item>
         </div>
         <div class="text-align-right">
@@ -46,10 +49,12 @@
       return {
         id:0,
         crfNumber:1,
+        medProjectId:0,
         loading:false,
         testerLoading:false,
         urls:{
-          crf_phases_get:apiConfig.crf_phases_get
+          crf_phases_get:apiConfig.crf_phases_get,
+          crf_project_get:apiConfig.crf_project_get
         },
         tester:{
             "id":0,
@@ -75,6 +80,9 @@
         rules: {
           medicalExamPhaseId: [
             { required: true, message: '请选择检验阶段', trigger: 'change' }
+          ],
+          medProjectId:[
+            { required: true, message: '请选择临床检验项目', trigger: 'change' }
           ]
         }
       };
@@ -107,13 +115,13 @@
       getTestByCRF(){
         var me=this;
         me.testerLoading=true;
-        axios.get(apiConfig.tester_read_by_crf,{ params:{ crfNumber:me.crfNumber}})
+        axios.get(apiConfig.tester_read_by_crf,{ params:{ crfNumber:me.crfNumber ,projectId:me.ruleForm. medProjectId}})
         .then(response=>{
             me.tester=response.data.result;
             me.ruleForm.userId=me.tester.userId;
             me.ruleForm.medProjectId=me.tester.medProjectId;
-            me.$nextTick(()=>{
-              me.$refs.bs.loadData();
+            me.$nextTick(()=>{   
+              me.$refs.bs.loadData();           
             });
         })
         .finally(()=>{
@@ -153,10 +161,6 @@
         if(typeof me.$route.query.id === "string" && me.$route.query.id!=="0"){
             me.id = parseInt(me.$route.query.id);
             me.loadData();
-        }
-        else
-        {
-            me.getTestByCRF();
         }
     }
   }

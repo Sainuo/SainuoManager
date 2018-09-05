@@ -112,7 +112,8 @@ export default {
         if(typeof me.$route.query.id === "string" && me.$route.query.id!=="0"){
             me.id = parseInt(me.$route.query.id);
             me.loadMenu();
-        }            
+        }         
+        window.vm=this;   
     }
 }
 </script>

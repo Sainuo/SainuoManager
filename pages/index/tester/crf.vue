@@ -221,7 +221,7 @@ export default {
         },
         onAdd() {
             var me = this;
-            me.$loaderwindow("/tester/editcrf?id=0", "添加病例")
+            me.$loaderwindow("/tester/addcrf?id=0", "添加病例")
             .then( m => {
                 me.$message({ type: "success", message: "添加病例成功！" });
                 me.loadData();

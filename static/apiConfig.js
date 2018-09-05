@@ -79,6 +79,7 @@ let settings = {
     tester_read_by_crf: "/api/services/app/cRF/GetTesterByCRFNumber",
     crf_create: "/api/services/app/cRF/Create",
     crf_get: "/api/services/app/cRF/GetCRFBaseInfoList",
+    crf_tester_get: "/api/services/app/testerProject/GetTestersAllCRFs",
     crf_read: "/api/services/app/cRF/GetCRFBaseInfo",
     crf_update: "/api/services/app/cRF/UpdateCRFBaseInfo",
     crf_navigation_get: "/api/services/app/cRF/GetCRFNavigation",

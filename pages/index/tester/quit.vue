@@ -25,50 +25,50 @@
         "button-cooldown":ButtonCooldown
     },
     data() {
-      return {
-        isEdit:false,
-        loading:false,
-        options:[],
-        ruleForm: {
-          "demologyId":0,
-          "reasonId": 0,
-          "otherReason": ""
-        },
-        rules: {
-          medProjectId: [
-            { required: true, message: '请选择检验项目', trigger: 'change' }
-          ],
-          patientName: [
-            { required: true, message: '请输入患者姓名', trigger: 'blur' },
-            { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
-          ],
-          phoneNumber: [
-            { required: true, message: '请输入手机号码', trigger: 'blur' },
-            { min: 11, max: 11, message: '长度在11个字符', trigger: 'blur' }
-          ],
-          birthday: [
-            { type: 'date', required: true, message: '请选择出生日期', trigger: 'change' }
-          ],
-          nationality: [
-            { required: true, message: '请选择检验项目', trigger: 'change' }
-          ]
-        }
-      };
+        return {
+            isEdit:false,
+            loading:false,
+            options:[],
+            ruleForm: {
+            "demologyId":0,
+            "reasonId": 0,
+            "otherReason": ""
+            },
+            rules: {
+            medProjectId: [
+                { required: true, message: '请选择检验项目', trigger: 'change' }
+            ],
+            patientName: [
+                { required: true, message: '请输入患者姓名', trigger: 'blur' },
+                { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
+            ],
+            phoneNumber: [
+                { required: true, message: '请输入手机号码', trigger: 'blur' },
+                { min: 11, max: 11, message: '长度在11个字符', trigger: 'blur' }
+            ],
+            birthday: [
+                { type: 'date', required: true, message: '请选择出生日期', trigger: 'change' }
+            ],
+            nationality: [
+                { required: true, message: '请选择检验项目', trigger: 'change' }
+            ]
+            }
+        };
     },
     methods: {
       loadData(){
-        var me=this;
-        me.loading=true;
-        axios.get(apiConfig.tester_quit_reason_read,{ demologyId:me.id})
-        .then(response=>{
-          if(response.data.result!==null)
-          {
-            me.ruleForm = response.data.result;
-          } 
-        })
-        .finally(()=>{
-                me.loading=false;
-        });
+            var me=this;
+            me.loading=true;
+            axios.get(apiConfig.tester_quit_reason_read,{ params:{ demologyId:me.ruleForm.demologyId}})
+            .then(response=>{
+            if(response.data.result!==null)
+            {
+                me.ruleForm = response.data.result;
+            } 
+            })
+            .finally(()=>{
+                    me.loading=false;
+            });
       },
       loadOptions(){
         let me=this;

@@ -172,9 +172,9 @@ export default{
         },
         onEditDetail(model) {
             var me = this;
-            me.$store.dispacth("modules/crf/updateCrfInfo",model);
+            me.$store.dispatch("modules/crf/updateCrfInfo",model);
             me.$emit("confirm",{target:me});
-            me.$router.push(`/tester/forms`);
+            me.$router.push(`/tester/forms?id=${model.id}`);
         },
         onExportWord(model) {
             var me = this;
@@ -188,12 +188,13 @@ export default{
             var me = this;
             let s = me.search;
             let d = {
+                demologyId:me.$route.query.id,
                 crfNumber:me.crf.crfNumber,
                 skipCount: me.getSkip(),
                 maxResultCount: me.list.pageSize
             };
             me.list.loading = true;
-            axios.get(apiConfig.crf_get,{params:d})
+            axios.get(apiConfig.crf_tester_get,{params:d})
             .then(response => {
                 me.list.tableData = response.data.result.items;
                 me.list.total = response.data.result.totalCount;
