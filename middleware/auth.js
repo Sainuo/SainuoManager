@@ -1,6 +1,7 @@
 import { getUserAuthorizationFromCookie,getUserFromLocalStorage } from '~/utils/auth'
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
+import cookies from "js-cookie"
 
 export default async (context) => { 
     //服务端
@@ -38,8 +39,9 @@ export default async (context) => {
     //客户端
     else if(process.client){
         //客户端不关心是否有cookie
-        const user = getUserFromLocalStorage();      
-        if (user){
+        const user = getUserFromLocalStorage();
+        const authorization = cookies.get("authorization");
+        if (user && authorization){
             //直接还原用户
             if(!axios.defaults.headers.common["authorization"]){
                 axios.defaults.headers.common["authorization"] = user.authorization;
