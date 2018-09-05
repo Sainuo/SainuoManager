@@ -1,7 +1,30 @@
 ﻿/*
 * author  : zhy
-* version : 1.2 
+* version : 1.3
 */
+function anchor(url, name) {
+    let filename = Date.now();
+    if (typeof filename === "undefined") {
+        let f = url.split("/").pop();
+        if (f) {
+            fileName = f;
+        }
+    }
+
+    var anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.setAttribute("download", name);
+    anchor.text = "下载";
+    anchor.style.visibility = "hidden";
+    anchor.addEventListener("load", function (loadEvent) {
+        loadEvent.stopPropagation();
+    });
+
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+}
+
 /**
  * @method download
  * @param {String} url
@@ -15,6 +38,7 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
     var setting = {
         url: "",
         postData: null,
+        anchor: false,
         method: "GET",
         fileName: "1.txt",
         fnProgress: function (e) { },
@@ -61,18 +85,7 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
             if (navigator.msSaveBlob) {
                 navigator.msSaveBlob(me.response, setting.fileName);
             } else {
-                var anchor = document.createElement("a");
-                anchor.href = URL.createObjectURL(me.response);
-                anchor.setAttribute("download", setting.fileName);
-                anchor.text = "下载";
-                anchor.style.visibility = "hidden";
-                anchor.addEventListener("load", function (loadEvent) {
-                    loadEvent.stopPropagation();
-                });
-
-                document.body.appendChild(anchor);
-                anchor.click();
-                document.body.removeChild(anchor);
+                anchor(URL.createObjectURL(me.response), setting.fileName);
                 setting.fuSuccess(me);
             }
         }
@@ -85,8 +98,7 @@ function download(url, postData, method, fileName, fnProgress, fnSuccess, fnErro
     });
     xhr.open(setting.method, setting.url);
     xhr.setRequestHeader("content-type", "application/json");
-    xhr.responseType = "blob";
     xhr.send(setting.postData ? JSON.stringify(setting.postData) : setting.postData);
 }
 
-export default download
+export { download, anchor }

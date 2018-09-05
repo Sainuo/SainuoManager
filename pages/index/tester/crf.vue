@@ -137,7 +137,7 @@
 import axios from "axios"
 import apiConfig from "~/static/apiConfig"
 import BizSelect from "~/components/BizSelect.vue"
-import download from "~/static/javascript/download"
+import {download,anchor} from "~/static/javascript/download"
 import {mapGetters} from "vuex"
 
 export default {
@@ -246,28 +246,8 @@ export default {
         },
         onExportWord(model) {
             var me = this;
-            axios.get(`${apiConfig.crf_export_word}`,{
-                    params:{
-                        crfBaseId:model.id,
-                        token:me.authorization.replace("Bearer ","")
-                    }
-                }).then(response=>{
-                download(response.data.result
-                ,null
-                ,"GET"
-                ,`CRF${new Date().format("yyyy-MM-ddTHH:mm:ss")}`
-                ,()=>{}
-                ,()=>{}
-                ,(xhr)=>{
-                    me.$alert({
-                        showClose: true,
-                        message: JSON.parse(xhr.responseText).error.message,
-                        duration: 5000,
-                        type: 'error'
-                    });
-                }
-                );   
-            });
+            //window.open(`${apiConfig.crf_export_word}?crfBaseId=${model.id}&token=${me.authorization.replace("Bearer ","")}`,"blank");
+            anchor(`${apiConfig.crf_export_word}?crfBaseId=${model.id}&token=${me.authorization.replace("Bearer ","")}`);
         },
         loadData () {
             var me = this;
