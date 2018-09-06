@@ -44,7 +44,6 @@ export default (selector) => {
             img.src = canvas.toDataURL();
         }
 
-
         //https://developer.mozilla.org/en-US/docs/Web/API/Document/importNode
         printDoc.body.appendChild(document.importNode(element, true));//将要打印的区域插入窗口中
         printWindow.focus();
@@ -52,8 +51,11 @@ export default (selector) => {
         printWindow.addEventListener("afterprint", (afterprintEvent) => {
             document.body.removeChild(iframe);
         });
-
-        printWindow.print();
+        
+        setTimeout(()=>{
+            printWindow.print();
+        },0);//fix chrome not display image
+        
     });
     document.body.appendChild(iframe);
 }
