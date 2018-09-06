@@ -17,7 +17,10 @@ export default {
             var settings = {
                 title: "窗口",
                 path: "",
-                params: null
+                params: null,
+                width:"50%",
+                top:"15vh",
+                fullscreen:false
             };
 
             if (typeof arguments[0] === "string") {
