@@ -10,6 +10,10 @@ function anchor(url, name) {
             filename = f;
         }
     }
+    else
+    {
+        filename = name;
+    }
 
     var anchor = document.createElement("a");
     anchor.href = url;

@@ -22,6 +22,9 @@ module.exports = {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        ],
+        script: [            
+            { src: "/javascript/polyfill/HTMLCanvasElement.prototype.toBlob.js" }            
         ]
     },
     /**
@@ -40,12 +43,12 @@ module.exports = {
     */
     loading: { color: '#3B8070' },
     plugins: [
-        
         '~/plugins/element-ui',
         '~/plugins/loaderwindow',
         "~/plugins/axios-global-error",
         "~/plugins/vue-filters",
-        "~/plugins/v-permission"
+        "~/plugins/v-permission",
+        "~/plugins/simple-print"
     ],
     /*
     ** Build configuration
