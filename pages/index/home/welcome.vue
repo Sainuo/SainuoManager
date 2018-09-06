@@ -2,7 +2,7 @@
     <div class="page-welcome">
         <div class="padding-l">
         <p class="color-red">欢迎{{information.user.userName}}使用{{systemName}},点击左侧菜单进行导航。</p>
-        <div class="print">
+        <div class="print">            
             <qrcode ref="qrcode" v-show="false" v-model="qrcode" :size="300" level="H"/>
             <img v-if="qrcode" ref="img" src="">
         </div>
@@ -43,10 +43,7 @@ export default {
                 me.organizationUnitId=x.data.result;
                 me.setQrcode();
                 me.$nextTick(()=>{
-                    me.$refs.qrcode.$el.querySelector("canvas").toBlob(b=>{
-                        let url=URL.createObjectURL(b);
-                        me.$refs.img.src=url;
-                    },'image/png',1);
+                    me.$refs.img.src = me.$refs.qrcode.$el.querySelector("canvas").toDataURL("image/jpeg", 1.0);
                 });
             }).catch(x=>{});
         },
