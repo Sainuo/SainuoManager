@@ -40,12 +40,12 @@ module.exports = {
     */
     loading: { color: '#3B8070' },
     plugins: [
-        
         '~/plugins/element-ui',
         '~/plugins/loaderwindow',
         "~/plugins/axios-global-error",
         "~/plugins/vue-filters",
-        "~/plugins/v-permission"
+        "~/plugins/v-permission",
+        "~/plugins/simple-print"
     ],
     /*
     ** Build configuration
