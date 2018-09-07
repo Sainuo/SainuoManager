@@ -153,7 +153,33 @@ let settings = {
     medItemIfPatientContinueResearch_put: "/api/services/app/medItemIfPatientContinueResearch/Update",
     medItemChestXRay_get:"/api/services/app/medItemChestXRay/GetOne",
     medItemChestXRay_put:"/api/services/app/medItemChestXRay/Update",
+    //获取当前组织ID
     my_org:"/api/services/app/organizationUnit/GetCurrentAdminUserOrgId",
+    //短信模板列表
+    smstp_list:"/api/services/app/sMSTemplateManagement/GetTemplates",
+    //获取单条短信模板
+    smstp_read:"/api/services/app/sMSTemplateManagement/GetTemplate",
+    //删除一条短信模板列表
+    smstp_delete:"/api/services/app/sMSTemplateManagement/DeleteTemplate",
+    //创建一条短信模板列表
+    smstp_create:"/api/services/app/sMSTemplateManagement/CreateTemplate",
+    //发送记录列表
+    smsrecord_list:"/api/services/app/sMSManagement/GetSmsRecordList",
+    //获取一条发送记录
+    smsrecord_read:"/api/services/app/sMSManagement/GetSmsRecordDetail",
+    //获取组织机构树
+    smsmaner_org_tree:"/api/services/app/sMSManagement/GetOrganizations",
+    //获取组角色列表
+    smsmaner_role_list:"/api/services/app/sMSManagement/GetRoles",
+    //获取模板列表
+    smsmaner_tmp_list:"/api/services/app/sMSTemplateManagement/GetTemplates",
+    //获取选择用户列表
+    smsmaner_user_list:"/api/services/app/sMSManagement/GetExceptUsers",
+    //待确认发送
+    smsmaner_wait:"/api/services/app/sMSManagement/ConfirmMutiSend",
+    //群发短信
+    smsmaner_send:"/api/services/app/sMSManagement/SendMutiSms",
+    //ping
     ping: "/api/services/app/account/Ping"
 }
 
