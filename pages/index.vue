@@ -279,7 +279,8 @@ export default {
             flex: auto;
         }
 
-        .nav-menu {
+        .nav-menu {            
+            overflow: hidden;
             .el-tabs__active-bar {
                 background-color:#ffd04b;
             }
