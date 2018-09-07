@@ -175,6 +175,10 @@ let settings = {
     smsmaner_tmp_list:"/api/services/app/sMSTemplateManagement/GetTemplates",
     //获取选择用户列表
     smsmaner_user_list:"/api/services/app/sMSManagement/GetExceptUsers",
+    //待确认发送
+    smsmaner_wait:"/api/services/app/sMSManagement/ConfirmMutiSend",
+    //群发短信
+    smsmaner_send:"/api/services/app/sMSManagement/SendMutiSms",
     //ping
     ping: "/api/services/app/account/Ping"
 }

@@ -67,11 +67,12 @@ export default{
             me.$loaderwindow({
                 path:"/smssender/edit",
                 title:"群发短信",
-                width:'90%'
+                width:'90%',
+                top:'50px'
             }).then( model => {
                 me.$message({ type: "success", message: "发送成功！" });
                 me.loadData();
-            });
+            }).catch(x=>{});
         },
         onShow(model) {
             var me = this;
