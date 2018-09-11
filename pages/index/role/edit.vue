@@ -21,6 +21,7 @@
                 v-loading="permissionsLoading"
                 :data="permissions"
                 show-checkbox
+                :check-strictly="true"
                 node-key="name"
                 :default-checked-keys="ruleForm.permissions"
                 @check-change="onCheckChange"
@@ -43,7 +44,7 @@ export default {
         permissions:[],
         permissionsLoading:false,
         props:{
-          children: 'children',
+          children: '_children',
           label: 'displayName'
         },
         ruleForm: {
