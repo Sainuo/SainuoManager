@@ -20,7 +20,7 @@
     "element-ui": "^2.3.4",
     "eventsource-polyfill": "^0.9.6",
     "js-cookie": "^2.2.0",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.13.1",
     "nuxt": "^1.0.0",
     "qrcode.vue": "^1.6.0",
     "sass-loader": "^7.1.0",
